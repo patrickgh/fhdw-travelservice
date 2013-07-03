@@ -10,7 +10,6 @@ target
 atlassian-ide-plugin.xml
 
 *.log
-*.iml
 # Package Files #
 *.jar
 *.war
