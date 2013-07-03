@@ -95,7 +95,6 @@
         <guava.version>14.0.1</guava.version>
         <catalina.home>/Applications/apache-tomcat/default</catalina.home>
         <selenium.server.port>4444</selenium.server.port>
-        <project.conf>${basedir}/conf/${env}</project.conf>
         <junit.version>4.8.1</junit.version>
         <javax.servlet.version>2.5</javax.servlet.version>
         <selenium.version>2.33.0</selenium.version>
