@@ -1,5 +1,10 @@
 *.class
-
+target
+.DS_Store
+.idea/*
+src/main/resources/webresources/generated/*
+*.log
+*.iml
 # Package Files #
 *.jar
 *.war
