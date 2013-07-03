@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>de.fhdw.travelservice</groupId>
+    <artifactId>fhdw-travelservice-webapp</artifactId>
+    <version>1.0</version>
+
+    <organization>
+        <name>Fachhochschule der Wirtschaft (FHDW)</name>
+        <url>http://www.fhdw.de</url>
+    </organization>
+
+    <parent>
+        <groupId>de.fhdw.travelservice</groupId>
+        <artifactId>fhdw-travelservice</artifactId>
+        <version>1.0</version>
+        <relativePath>..</relativePath>
+    </parent>
+
+    <developers>
+        <developer>
+            <name>Patrick Groß-Holtwick</name>
+            <email>p.gross-holtwick@laudert.de</email>
+        </developer>
+        <developer>
+            <name>Moritz Barnick</name>
+            <email>moritz.barnick@gmx.de</email>
+        </developer>
+        <developer>
+            <name>Hermann Mels</name>
+            <email>hermann-mels@gmx.de</email>
+        </developer>
+    </developers>
+</project>
