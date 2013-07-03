@@ -1,8 +1,14 @@
 *.class
 target
 .DS_Store
+
+# idea folders
 .idea/*
-src/main/resources/webresources/generated/*
+!.idea/runConfigurations
+*/.idea/*
+!*/.idea/runConfigurations
+atlassian-ide-plugin.xml
+
 *.log
 *.iml
 # Package Files #

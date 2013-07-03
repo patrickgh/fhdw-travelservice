@@ -18,19 +18,4 @@
         <version>1.0</version>
         <relativePath>..</relativePath>
     </parent>
-
-    <developers>
-        <developer>
-            <name>Patrick Groß-Holtwick</name>
-            <email>p.gross-holtwick@laudert.de</email>
-        </developer>
-        <developer>
-            <name>Moritz Barnick</name>
-            <email>moritz.barnick@gmx.de</email>
-        </developer>
-        <developer>
-            <name>Hermann Mels</name>
-            <email>hermann-mels@gmx.de</email>
-        </developer>
-    </developers>
 </project>
