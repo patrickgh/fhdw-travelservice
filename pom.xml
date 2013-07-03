@@ -2,6 +2,9 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.fhdw.travelservice</groupId>
     <artifactId>fhdw-travelservice</artifactId>
+    <packaging>pom</packaging>
+    <name>fhdw-travelservice</name>
+    <description>Parent POM</description>
     <version>1.0</version>
 
     <organization>
@@ -23,12 +26,6 @@
             <email>hermann-mels@gmx.de</email>
         </developer>
     </developers>
-
-
-    <packaging>pom</packaging>
-
-    <name>fhdw-travelservice</name>
-    <description>Parent POM</description>
 
     <modules>
         <module>fhdw-travelservice-webapp</module>
