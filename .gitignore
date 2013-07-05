@@ -14,3 +14,8 @@ atlassian-ide-plugin.xml
 *.jar
 *.war
 *.ear
+
+
+# axis files
+fhdw-travelservice-ws/aar/*
+fhdw-travelservice-ws/bin/*
