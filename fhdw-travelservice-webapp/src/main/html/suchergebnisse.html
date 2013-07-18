@@ -5,34 +5,44 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Suchergebnisse</title>
-    <link rel="stylesheet"
-          href="C:\Users\Moe\Desktop\jquery.mobile-1.3.1/demos/css/themes/default/jquery.mobile-1.3.1.min.css">
-    <link rel="stylesheet" href="C:\Users\Moe\Desktop\jquery.mobile-1.3.1/demos/_assets/css/jqm-demos.css">
-    <link rel="shortcut icon" href="C:\Users\Moe\Desktop\jquery.mobile-1.3.1/demos/favicon.ico">
-    <script src="C:\Users\Moe\Desktop\jquery.mobile-1.3.1/demos/js/jquery.js"></script>
-    <script src="C:\Users\Moe\Desktop\jquery.mobile-1.3.1/demos/_assets/js/index.js"></script>
-    <script src="C:\Users\Moe\Desktop\jquery.mobile-1.3.1/demos/js/jquery.mobile-1.3.1.min.js"></script>
+    <link rel="stylesheet" href="../scripts/demos/css/themes/default/jquery.mobile-1.3.1.min.css">
+    <link rel="stylesheet" href="../scripts/demos/_assets/css/jqm-demos.css">
+    <link rel="shortcut icon" href="../scripts/demos/favicon.ico">
+    <script src="../scripts/demos/js/jquery.js"></script>
+    <script src="../scripts/demos/_assets/js/index.js"></script>
+    <script src="../scripts/demos/js/jquery.mobile-1.3.1.min.js"></script>
     <link rel="stylesheet" href="jquery.ui.datepicker.mobile.css" />
     <script src="jQuery.ui.datepicker.js"></script>
     <script src="jquery.ui.datepicker.mobile.js"></script>
-    <link rel="stylesheet" href="C:\Users\Moe\Desktop\jquery.mobile-1.3.1\star-rating\jquery.rating.css" />
+    <link rel="stylesheet" href="../scripts/star-rating/jquery.rating.css" />
 </head>
 
-<body>         <!-- sdfsd -->
+<body>
 
 <div data-role="page">
 
+
     <div data-role="header">
 
-        <p align="left"><a href=".\anmelden.html">Anmelden</a>
+       <!-- <p align="left"><a href=".\anmelden.html">Anmelden</a>
             &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="suche.html">Suchen</a></p>
+            <a href="suche.html">Suchen</a></p>            -->
+
+        <div data-role="header" style="overflow:hidden;">
+            <a href="#" data-icon="gear" class="ui-btn-left">Menü</a>
+            <!-- <img src="..\scripts\urlaubr3.png" width="120" height="50"></img> -->
+            <h1><i>urlaubr.</i></h1>
+            <a href="#" data-icon="gear" class="ui-btn-right">Options</a>
+        </div>
+
 
     </div>
     <!-- /header -->
 
-    <img src="C:\Users\Moe\Dropbox\FHDW PSEII\Logo Vorschlag\urlaubr2.png"></img>
+    <img src="..\scripts\urlaubr3.png" width="314" height="110"></img>
 
+
+    <!--
     <p><b>Reiseziel</b></p>
     <ul data-role="listview" data-inset="true" data-filter="true" data-filter-reveal="true" data-filter-placeholder="Bitte wählen...">
         <li><a href="#">Deutschland</a></li>
@@ -45,30 +55,55 @@
     </ul>
 
     <br>
+    -->
 
-
-    <label for="select-choice-8" class="select"><b>Reiseziel</b></label>
-    <select name="select-choice-8" id="select-choice-8" multiple="multiple" data-native-menu="false" data-icon="grid" data-iconpos="left">
+    <label for="destination" class="select"><b>Reiseziel</b></label>
+    <select name="select-choice-8" id="destination" multiple="multiple" data-native-menu="false" data-icon="grid" data-iconpos="left">
         <option>Bitte wählen...</option>
         <optgroup label="Westeuropa">
-            <option value="rush">aaa</option>
-            <option value="express">bbb</option>
-            <option value="overnight">ccc</option>
+            <option value="rush">Deutschland</option>
+            <option value="express">England</option>
+            <option value="overnight">Niederlande</option>
         </optgroup>
         <optgroup label="Südeuropa">
-            <option value="rush">aaa</option>
-            <option value="express">bbb</option>
-            <option value="overnight">ccc</option>
+            <option value="rush">Spanien</option>
+            <option value="express">Italien</option>
+            <option value="overnight">Portugal</option>
         </optgroup>
         <optgroup label="Osteuropa">
-            <option value="rush">aaa</option>
-            <option value="express">bbb</option>
-            <option value="overnight">ccc</option>
+            <option value="rush">Türkei</option>
+            <option value="express">Bulgarien</option>
+            <option value="overnight">Kroatien</option>
         </optgroup>
         <optgroup label="Amerika">
-            <option value="rush">aaa</option>
-            <option value="express">bbb</option>
-            <option value="overnight">ccc</option>
+            <option value="rush">USA</option>
+            <option value="express">Kanada</option>
+            <option value="overnight">Mexiko</option>
+        </optgroup>
+    </select>
+
+
+    <label for="airport" class="select"><b>Abflughafen</b></label>
+    <select name="select-choice-8" id="airport" multiple="multiple" data-native-menu="false" data-icon="grid" data-iconpos="left">
+        <option>Bitte wählen...</option>
+        <optgroup label="West">
+            <option value="rush">Weeze</option>
+            <option value="express">Düsseldorf</option>
+            <option value="overnight">Dortmund</option>
+        </optgroup>
+        <optgroup label="Süd">
+            <option value="rush">München</option>
+            <option value="express">Stuttgart</option>
+            <option value="overnight">Augsburg</option>
+        </optgroup>
+        <optgroup label="Ost">
+            <option value="rush">Berlin</option>
+            <option value="express">Potsdam</option>
+            <option value="overnight">Dresden</option>
+        </optgroup>
+        <optgroup label="Nord">
+            <option value="rush">Bremen</option>
+            <option value="express">Hamburg</option>
         </optgroup>
     </select>
 
@@ -91,6 +126,7 @@
         <option value="overnight">Nur Übernachtung</option>
         <option value="halfboard">Halbpension</option>
         <option value="fullboard">Vollpension</option>
+        <option value="allinclusive">All Inclusive</option>
     </select>
 
 
@@ -108,9 +144,7 @@
         <option value="2weeks">2 Wochen</option>
     </select>
 
-    <br><br>
     <hr>
-    <br><br>
 
     <form>
         <input type="submit" value="Submit">
@@ -119,14 +153,22 @@
 
     <!-- /content -->
 
-    <div data-role="footer">
-        <h4>(C) urlaubr. Travelservice</h4>
+    <div data-role="footer" class="nav-glyphish-example">
+        <div data-role="navbar" class="nav-glyphish-example" data-grid="d">
+            <ul>
+                <li><a href="#" id="chat" data-icon="home">Home</a></li>
+                <li><a href="#" id="email" data-icon="search">Suche</a></li>
+                <li><a href="#" id="skull" data-icon="info">About</a></li>
+                <li><a href="#" id="beer" data-icon="star">Merkliste</a></li>
+                <li><a href="#" id="coffee" data-icon="refresh">Refresh</a></li>
+            </ul>
+        </div>
     </div>
     <!-- /footer -->
 
 </div>
 <!-- /page -->
-<script src="C:\Users\Moe\Desktop\jquery.mobile-1.3.1\star-rating\jquery.rating.js"></script>
-<script src="C:\Users\Moe\Desktop\jquery.mobile-1.3.1\star-rating\jquery.rating.pack.js"></script>
+<script src="..\scripts\star-rating\jquery.rating.js"></script>
+<script src="..\scripts\star-rating\jquery.rating.pack.js"></script>
 </body>
 </html>
