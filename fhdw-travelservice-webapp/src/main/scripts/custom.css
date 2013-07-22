@@ -1,0 +1,16 @@
+.custom-button {
+    height: 50px !important;
+}
+
+.custom-button .ui-btn-inner {
+    padding: 0 !important;    
+}
+
+.custom-button .ui-btn-inner .ui-btn-text {
+    display: block !important;
+    height: 50px !important;
+    width: 100% !important;
+    background-image: url('http://shop.ascd.org/images/red-error.gif') !important;
+    background-repeat: no-repeat  !important;
+    background-position: center  !important; 
+}
