@@ -2,7 +2,7 @@
 
 	<description>TravelService</description>
 	<parameter name="ServiceClass" locked="false">
-        de.fhdw.travelservice.ws.TravelService
+        de.urlaubr.ws.TravelService
     </parameter>
 
 	<operation name="login">

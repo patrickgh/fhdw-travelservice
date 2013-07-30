@@ -1,5 +1,6 @@
-package de.fhdw.travelservice.ws;
+package de.urlaubr.ws;
 
+import de.urlaubr.ws.TravelService;
 import junit.framework.Assert;
 import org.testng.annotations.Test;
 

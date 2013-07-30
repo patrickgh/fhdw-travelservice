@@ -1,8 +1,9 @@
-package de.fhdw.travelservice.ws;
+package de.urlaubr.ws;
 
-import de.fhdw.travelservice.ws.domain.UserSession;
-import de.fhdw.travelservice.ws.utils.UrlaubrWsUtils;
+import de.urlaubr.ws.domain.UserSession;
+import de.urlaubr.ws.utils.UrlaubrWsUtils;
 
+import javax.persistence.EntityManager;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +16,8 @@ public class TravelService {
     public static final int SESSION_TIMEOUT = 1800000; // 1800 sec => 30 min
     private final Map<Integer, UserSession> sessions = new HashMap<Integer, UserSession>();
 
+    private EntityManager em;
+
     public TravelService() {
         //use credentials from properties, if available, otherwise use defaults
         String url = System.getProperty("db.url") != null ? System.getProperty("db.url") : DEFAULT_URL;
@@ -23,6 +26,8 @@ public class TravelService {
 
         //Database migration
         UrlaubrWsUtils.migrateDatabase(url, user, password);
+
+        //create EntityManger
 
     }
 

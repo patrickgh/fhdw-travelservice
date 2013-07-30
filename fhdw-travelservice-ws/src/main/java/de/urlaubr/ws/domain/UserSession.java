@@ -1,4 +1,4 @@
-package de.fhdw.travelservice.ws.domain;
+package de.urlaubr.ws.domain;
 
 import java.util.Date;
 

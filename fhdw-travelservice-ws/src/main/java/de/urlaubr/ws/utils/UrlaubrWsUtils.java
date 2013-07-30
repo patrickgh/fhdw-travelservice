@@ -1,4 +1,4 @@
-package de.fhdw.travelservice.ws.utils;
+package de.urlaubr.ws.utils;
 
 import com.googlecode.flyway.core.Flyway;
 import com.googlecode.flyway.core.api.MigrationInfo;

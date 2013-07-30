@@ -1,4 +1,4 @@
-package de.fhdw.travelservice.ws.client;
+package de.urlaubr.ws.client;
 
 import org.apache.axiom.om.OMElement;
 import org.apache.axis2.AxisFault;
@@ -14,7 +14,7 @@ public class TravelClient {
 
    public static void main(String[] args1) throws AxisFault {
 
-      ServiceClient sender = new ServiceClient();
+/*      ServiceClient sender = new ServiceClient();
       Options options = sender.getOptions();
       EndpointReference targetEPR = new EndpointReference(
        "http://localhost:8080/axis2/services/SimpleHotelService");
@@ -40,7 +40,7 @@ public class TravelClient {
       OMElement response = sender.sendReceive(request);
 
       // Diese Typen sollte der Web Service zur�ckliefern...
-/*      Class[] returnTypes = new Class[] { Hotel.class };
+      Class[] returnTypes = new Class[] { Hotel.class };
 
       // ...und werden mit einer Hilfsroutine in ein 
       // Objekt-Array �berf�hrt
