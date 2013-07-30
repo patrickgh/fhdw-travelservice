@@ -1,15 +1,15 @@
 <service>
 
-	<description>SimpleHotelService</description>
+	<description>TravelService</description>
 	<parameter name="ServiceClass" locked="false">
         de.fhdw.travelservice.ws.TravelService
     </parameter>
 
-	<operation name="getHotels">
+	<operation name="login">
 		<messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
 	</operation>
 
-	<operation name="findHotel">
+	<operation name="logout">
 		<messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
 	</operation>
 

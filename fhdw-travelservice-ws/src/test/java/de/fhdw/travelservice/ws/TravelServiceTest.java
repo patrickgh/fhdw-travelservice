@@ -1,5 +1,6 @@
 package de.fhdw.travelservice.ws;
 
+import junit.framework.Assert;
 import org.testng.annotations.Test;
 
 /**
@@ -11,8 +12,16 @@ public class TravelServiceTest {
     @Test
     public void testLoginAndSession() {
         final TravelService service = new TravelService();
-        final String sessionKey = service.login("patrickgh","test");
+        final Integer sessionKey = service.login("patrickgh","test");
 
+        Assert.assertNotNull(sessionKey);
+        Assert.assertTrue(sessionKey != 0);
+
+        Assert.assertTrue(service.isAuthenticated(sessionKey));
+
+        service.logout(sessionKey);
+
+        Assert.assertFalse(service.isAuthenticated(sessionKey));
 
 
     }

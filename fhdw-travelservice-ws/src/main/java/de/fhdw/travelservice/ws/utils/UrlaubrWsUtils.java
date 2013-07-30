@@ -1,5 +1,8 @@
 package de.fhdw.travelservice.ws.utils;
 
+import com.googlecode.flyway.core.Flyway;
+import com.googlecode.flyway.core.api.MigrationInfo;
+
 import java.nio.charset.Charset;
 
 /**
@@ -38,6 +41,35 @@ public final class UrlaubrWsUtils {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+    /*
+     * This methods updates the Database schema if necessary. It uses the Flyway framework ( http://www.flywaydb.org ) and the SQL-Scripts located in the resource folder.
+     *
+     * @param url the database url
+     * @param user the database username
+     * @param password the database password
+     */
+    public static void migrateDatabase(String url, String user, String password) {
+        Flyway flyway = new Flyway();
+        flyway.setDataSource(url, user, password);
+        flyway.migrate();
+        MigrationInfo[] migrationInfos = flyway.info().all();
+        final StringBuilder builder = new StringBuilder("migration status:\n");
+        builder.append("--------------------------------------------------------------------------------------------- \n");
+        builder.append(String.format("| %12s | %8s | %20s | %-40s | \n", "version", "state", "installed", "description"));
+        builder.append("--------------------------------------------------------------------------------------------- \n");
+        for (MigrationInfo patch : migrationInfos) {
+            builder.append(
+                String.format("| %12s | %8s | %20s | %-40s | \n",
+                              patch.getVersion(),
+                              patch.getState().getDisplayName(),
+                              patch.getInstalledOn(),
+                              patch.getDescription()));
+        }
+        builder.append("--------------------------------------------------------------------------------------------- ");
+        System.out.println(builder.toString());
     }
 
     /**
