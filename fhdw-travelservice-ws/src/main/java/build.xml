@@ -1,17 +1,15 @@
 ﻿<?xml version="1.0"?>
 
-<project name="SimpleHotelService" basedir="../../../"
+<project name="UrlaubrService" basedir="../../../"
      default="ErzeugeAAR">
 
    <property name="src.dir" value="src"/>
    <property name="aar.dir" value="aar"/>
    <property name="bin.dir" value="bin"/>
-   <property name="deploy.file" value="SimpleHotelService.aar"/>
+   <property name="deploy.file" value="UrlaubrService.aar"/>
    <property name="deploy.path" value="/Users/Shared/development/projects_fhdw/axis2-1.6.2/repository/services"/>
 
-   
-
-   <target name="Structure" depends="" 
+   <target name="Structure" depends=""
         description="[AXIS2] Struktur für AAR-File erzeugen">
 
       <mkdir dir="${aar.dir}" />
