@@ -1,7 +1,5 @@
 package de.fhdw.travelservice.ws.client;
 
-import de.fhdw.travelservice.ws.Hotel;
-import de.fhdw.travelservice.ws.RoomType;
 import org.apache.axiom.om.OMElement;
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.addressing.EndpointReference;
@@ -12,7 +10,7 @@ import org.apache.axis2.engine.DefaultObjectSupplier;
 
 import javax.xml.namespace.QName;
 
-public class AxisHotelsClient {
+public class TravelClient {
 
    public static void main(String[] args1) throws AxisFault {
 
@@ -42,7 +40,7 @@ public class AxisHotelsClient {
       OMElement response = sender.sendReceive(request);
 
       // Diese Typen sollte der Web Service zur�ckliefern...
-      Class[] returnTypes = new Class[] { Hotel.class };
+/*      Class[] returnTypes = new Class[] { Hotel.class };
 
       // ...und werden mit einer Hilfsroutine in ein 
       // Objekt-Array �berf�hrt
@@ -55,7 +53,7 @@ public class AxisHotelsClient {
          System.out.println("No entry for code: " + hotelCode);
          return;
       }
-      
+
       System.out.println("Hotel Name: " + hotel.getHotelName());
       System.out.println("Hotel Code: " + hotel.getHotelCode());
       System.out.println("City: " + hotel.getCity());
@@ -65,10 +63,10 @@ public class AxisHotelsClient {
 
          System.out.println("\n RoomCode : " +
                             roomType.getRoomCode());
-         System.out.println(" Price EUR: " +  
+         System.out.println(" Price EUR: " +
                             roomType.getPriceInEuros());
          System.out.println(" with TV  : " +
                             roomType.isRoomWithTV());
-      }
+      }*/
    }
 }
