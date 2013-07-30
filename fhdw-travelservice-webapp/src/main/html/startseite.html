@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <title>Suchergebnisse</title>
     <link rel="stylesheet" href="../scripts/demos/css/themes/default/jquery.mobile-1.3.1.min.css">
     <link rel="stylesheet" href="../scripts/demos/_assets/css/jqm-demos.css">
@@ -23,7 +24,7 @@
 <div data-role="page">
 
 
-    <div data-role="header">
+    <div data-role="header" data-id="foo1" data-position="fixed">
         <div data-role="header" style="overflow:hidden;">
             <h1><i>urlaubr.</i></h1>
         </div>
@@ -34,7 +35,7 @@
     <a href=".\startseite.html">
         <img src="..\scripts\urlaubr3.png" width="314" height="110"></img>
     </a>
-
+    <hr>
 
     <h2>Topseller</h2>
 
@@ -63,12 +64,12 @@
         500€ p.P.
     </a>
 
-    <div data-role="footer">
+    <div data-role="footer" data-id="foo1" data-position="fixed">
         <div data-role="navbar">
             <ul>
                 <li><a href="startseite.html" id="home" data-icon="home">Home</a></li>
                 <li><a href="login.html" id="login" data-icon="check">Login</a></li>
-                <li><a href="suchergebnisse.html" id="search" data-icon="search">Suche</a></li>
+                <li><a href="suchformular.html" id="search" data-icon="search">Suche</a></li>
             </ul>
         </div>
     </div>
