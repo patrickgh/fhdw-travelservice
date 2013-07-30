@@ -3,7 +3,6 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>de.fhdw.travelservice</groupId>
     <artifactId>fhdw-travelservice-ws</artifactId>
     <version>1.0</version>
 
@@ -57,5 +56,40 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.axis2</groupId>
+                <artifactId>axis2-aar-maven-plugin</artifactId>
+                <version>1.3</version>
+                <configuration>
+
+                    <fileSets>
+                        <fileSet>
+                            <directory>${basedir}/src/main/java/de/fhdw/travelservice/ws</directory>
+                            <outputDirectory>META-INF</outputDirectory>
+                            <includes>
+                                <include>**/*.xml</include>
+                                <include>**/*.xsd</include>
+                                <include>**/*.wsdl</include>
+                            </includes>
+                        </fileSet>
+
+                    </fileSets>
+
+                    <servicesXmlFile>${basedir}/src/main/java/de/fhdw/travelservice/ws/services.xml</servicesXmlFile>
+                   <!-- <wsdlFile>${basedir}/src/main/java/de/fhdw/travelservice/ws/service.wsdl</wsdlFile>
+                    <wsdlFileName>service.wsdl</wsdlFileName>-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>aar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
