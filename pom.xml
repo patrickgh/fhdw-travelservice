@@ -28,8 +28,8 @@
     </developers>
 
     <modules>
-        <module>fhdw-travelservice-webapp</module>
         <module>fhdw-travelservice-ws</module>
+        <module>fhdw-travelservice-webapp</module>
     </modules>
 
     <properties>

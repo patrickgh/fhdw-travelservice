@@ -1,6 +1,5 @@
 package de.urlaubr.ws;
 
-import de.urlaubr.ws.TravelService;
 import junit.framework.Assert;
 import org.testng.annotations.Test;
 
@@ -12,7 +11,7 @@ public class TravelServiceTest {
 
     @Test
     public void testLoginAndSession() {
-        final TravelService service = new TravelService();
+        final TravelServiceImpl service = new TravelServiceImpl();
         final Integer sessionKey = service.login("patrickgh","test");
 
         Assert.assertNotNull(sessionKey);

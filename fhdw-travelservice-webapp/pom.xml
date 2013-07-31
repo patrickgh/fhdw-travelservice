@@ -20,6 +20,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>de.fhdw.travelservice</groupId>
+            <artifactId>fhdw-travelservice-ws</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.wicket</groupId>
             <artifactId>wicket-core</artifactId>
             <version>${wicket.version}</version>

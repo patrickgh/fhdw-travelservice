@@ -72,7 +72,7 @@
 
                     <fileSets>
                         <fileSet>
-                            <directory>${basedir}/src/main/java/de/fhdw/travelservice/ws</directory>
+                            <directory>${basedir}/src/main/java/de/urlaubr/ws</directory>
                             <outputDirectory>META-INF</outputDirectory>
                             <includes>
                                 <include>**/*.xml</include>

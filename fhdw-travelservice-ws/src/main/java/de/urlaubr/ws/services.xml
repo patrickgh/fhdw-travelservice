@@ -2,7 +2,7 @@
 
 	<description>TravelService</description>
 	<parameter name="ServiceClass" locked="false">
-        de.urlaubr.ws.TravelService
+        de.urlaubr.ws.TravelServiceImpl
     </parameter>
 
 	<operation name="login">
