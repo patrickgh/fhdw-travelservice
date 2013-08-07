@@ -2,6 +2,8 @@ package de.urlaubr.ws.utils;
 
 import com.googlecode.flyway.core.Flyway;
 import com.googlecode.flyway.core.api.MigrationInfo;
+import de.urlaubr.ws.domain.BookingState;
+import de.urlaubr.ws.domain.CateringType;
 
 import java.nio.charset.Charset;
 
@@ -86,6 +88,40 @@ public final class UrlaubrWsUtils {
         catch (NumberFormatException e) {
             return null;
         }
+    }
+
+    /**
+     * This Method returns the enum value from a given integer value.
+     * If there is no suitable enum value it returns null.
+     *
+     * @param value the integer value
+     * @return the enum value
+     */
+    public static CateringType getCateringTypeFromInteger(Integer value) {
+        if (value != null) {
+            CateringType[] states = CateringType.values();
+            if (value < states.length) {
+                return states[value];
+            }
+        }
+        return null;
+    }
+
+    /**
+     * This Method returns the enum value from a given integer value.
+     * If there is no suitable enum value it returns null.
+     *
+     * @param value the integer value
+     * @return the enum value
+     */
+    public static BookingState getBookingStateFromInteger(Integer value) {
+        if (value != null) {
+            BookingState[] states = BookingState.values();
+            if (value < states.length) {
+                return states[value];
+            }
+        }
+        return null;
     }
 }
 

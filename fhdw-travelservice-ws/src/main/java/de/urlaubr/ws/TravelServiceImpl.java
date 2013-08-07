@@ -1,5 +1,7 @@
 package de.urlaubr.ws;
 
+import de.urlaubr.ws.domain.Customer;
+import de.urlaubr.ws.domain.Rating;
 import de.urlaubr.ws.domain.UserSession;
 import de.urlaubr.ws.domain.Vacation;
 import de.urlaubr.ws.utils.UrlaubrWsUtils;
@@ -9,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -91,10 +94,119 @@ public class TravelServiceImpl implements TravelService {
         return false;
     }
 
-    public List<Vacation> getTopseller(Integer sessionKey) {
-        if(!isAuthenticated(sessionKey)) {
+    public List<Vacation> getTopseller() {
+        try {
+            List<Vacation> vacations = new ArrayList<Vacation>();
+            PreparedStatement stmt = dbConnection.prepareStatement("SELECT `fk_vacation` as id FROM ratings GROUP BY `fk_vacation` ORDER BY AVG(`rating`) DESC;");
+            ResultSet result = stmt.executeQuery();
+            while (result.next()) {
+                vacations.add(getVacationById(result.getInt("id")));
+            }
+            return vacations;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Collections.emptyList();
+    }
+
+    public List<Vacation> getMyVacations(Integer sessionKey) {
+        if (!isAuthenticated(sessionKey)) {
             return null;
         }
         return Collections.emptyList();
+    }
+
+    public Vacation getVacationById(Integer id) {
+        try {
+            PreparedStatement stmt = dbConnection.prepareStatement("SELECT * FROM vacations WHERE id = ?");
+            stmt.setInt(1, id);
+            ResultSet result = stmt.executeQuery();
+            if (result.next() && result.isLast()) {
+                return createVacationFromResultSet(result);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private Vacation createVacationFromResultSet(ResultSet result) {
+        try {
+            Vacation vac = new Vacation();
+            vac.setId(result.getInt("id"));
+            vac.setTitle(result.getString("title"));
+            vac.setDescription(result.getString("description"));
+            vac.setCreationdate(new Date(result.getTimestamp("creationdate").getTime()));
+            vac.setAirport(result.getString("airport"));
+            vac.setAvailablefrom(result.getDate("availablefrom"));
+            vac.setAvailableto(result.getDate("availableto"));
+            vac.setImage(result.getBytes("image"));
+            vac.setHotelstars(result.getInt("hotelstars"));
+            vac.setDuration(result.getInt("duration"));
+            vac.setPrice(result.getDouble("price"));
+            vac.setCountry(result.getString("country"));
+            vac.setCity(result.getString("city"));
+            vac.setCatering(UrlaubrWsUtils.getCateringTypeFromInteger(result.getInt("catering")));
+            vac.setRatings(getRatingsByVacationId(vac.getId()));
+            return vac;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private List<Rating> getRatingsByVacationId(Integer id) {
+        List<Rating> result = new ArrayList<Rating>();
+        try {
+            final PreparedStatement stmt = dbConnection.prepareStatement("SELECT * FROM ratings WHERE `fk_vacation` = ? ORDER BY creationdate DESC");
+            stmt.setInt(1, id);
+            final ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                result.add(createRatingFromResultSet(resultSet));
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    private Rating createRatingFromResultSet(ResultSet result) {
+        Rating rating = new Rating();
+        try {
+            rating.setCreationdate(new Date(result.getTimestamp("creationdate").getTime()));
+            rating.setAuthor(getCustomerById(result.getInt("fk_customer")));
+            rating.setComment(result.getString("comment"));
+            return rating;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private Customer getCustomerById(Integer id) {
+        final Customer customer = new Customer();
+        try {
+            final PreparedStatement stmt = dbConnection.prepareStatement("SELECT * FROM customer WHERE id = ?");
+            stmt.setInt(1, id);
+            final ResultSet result = stmt.executeQuery();
+            if (result.next() && result.isLast()) {
+                customer.setCreationdate(new Date(result.getTimestamp("creationdate").getTime()));
+                customer.setEmail(result.getString("email"));
+                customer.setFirstname(result.getString("firstname"));
+                customer.setLastname(result.getString("lastname"));
+                customer.setId(id.longValue());
+                customer.setPassword(result.getString("password"));
+                return customer;
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

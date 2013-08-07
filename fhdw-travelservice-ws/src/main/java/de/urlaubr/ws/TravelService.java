@@ -14,7 +14,9 @@ public interface TravelService {
 
     void logout(Integer sessionKey);
 
-    List<Vacation> getTopseller(Integer sessionKey);
+    List<Vacation> getTopseller();
 
+    List<Vacation> getMyVacations(Integer sessionKey);
 
+    Vacation getVacationById(Integer id);
 }

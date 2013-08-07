@@ -1,6 +1,7 @@
 package de.urlaubr.ws.domain;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Patrick Groß-Holtwick
@@ -22,6 +23,8 @@ public class Vacation {
     private String city;
     private String airport;
     private CateringType catering;
+    private List<Rating> ratings;
+
 
     public Integer getId() {
         return id;
@@ -133,5 +136,24 @@ public class Vacation {
 
     public void setCatering(CateringType catering) {
         this.catering = catering;
+    }
+
+    public List<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = ratings;
+    }
+
+    public Double getAvgRating() {
+        if (ratings != null && ratings.size() > 0) {
+            Integer sum = 0;
+            for (Rating rating : ratings) {
+                sum += rating.getRating();
+            }
+            return sum.doubleValue() / ratings.size();
+        }
+        return null;
     }
 }
