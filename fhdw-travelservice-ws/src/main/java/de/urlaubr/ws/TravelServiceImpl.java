@@ -97,7 +97,7 @@ public class TravelServiceImpl implements TravelService {
     public List<Vacation> getTopseller() {
         try {
             List<Vacation> vacations = new ArrayList<Vacation>();
-            PreparedStatement stmt = dbConnection.prepareStatement("SELECT `fk_vacation` as id FROM ratings GROUP BY `fk_vacation` ORDER BY AVG(`rating`) DESC;");
+            PreparedStatement stmt = dbConnection.prepareStatement("SELECT `fk_vacation` as id FROM rating GROUP BY `fk_vacation` ORDER BY AVG(`rating`) DESC;");
             ResultSet result = stmt.executeQuery();
             while (result.next()) {
                 vacations.add(getVacationById(result.getInt("id")));
@@ -119,7 +119,7 @@ public class TravelServiceImpl implements TravelService {
 
     public Vacation getVacationById(Integer id) {
         try {
-            PreparedStatement stmt = dbConnection.prepareStatement("SELECT * FROM vacations WHERE id = ?");
+            PreparedStatement stmt = dbConnection.prepareStatement("SELECT * FROM vacation WHERE id = ?");
             stmt.setInt(1, id);
             ResultSet result = stmt.executeQuery();
             if (result.next() && result.isLast()) {
@@ -161,7 +161,7 @@ public class TravelServiceImpl implements TravelService {
     private List<Rating> getRatingsByVacationId(Integer id) {
         List<Rating> result = new ArrayList<Rating>();
         try {
-            final PreparedStatement stmt = dbConnection.prepareStatement("SELECT * FROM ratings WHERE `fk_vacation` = ? ORDER BY creationdate DESC");
+            final PreparedStatement stmt = dbConnection.prepareStatement("SELECT * FROM rating WHERE `fk_vacation` = ? ORDER BY creationdate DESC");
             stmt.setInt(1, id);
             final ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()) {
@@ -180,6 +180,7 @@ public class TravelServiceImpl implements TravelService {
             rating.setCreationdate(new Date(result.getTimestamp("creationdate").getTime()));
             rating.setAuthor(getCustomerById(result.getInt("fk_customer")));
             rating.setComment(result.getString("comment"));
+            rating.setRating(result.getInt("rating"));
             return rating;
         }
         catch (SQLException e) {
@@ -199,6 +200,7 @@ public class TravelServiceImpl implements TravelService {
                 customer.setEmail(result.getString("email"));
                 customer.setFirstname(result.getString("firstname"));
                 customer.setLastname(result.getString("lastname"));
+                customer.setUsername(result.getString("username"));
                 customer.setId(id.longValue());
                 customer.setPassword(result.getString("password"));
                 return customer;

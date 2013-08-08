@@ -34,8 +34,8 @@ public class TravelServiceTest {
 
         Vacation vac = service.getVacationById(1);
         Assert.assertNotNull(vac);
-        Assert.assertEquals(vac.getTitle(), "mallorca");
-        Assert.assertEquals(vac.getPrice(), 299.0);
+        Assert.assertEquals(vac.getTitle(), "3-Tage Mallorca");
+        Assert.assertEquals(vac.getPrice(), 199.99);
     }
 
     @Test
@@ -44,7 +44,7 @@ public class TravelServiceTest {
 
         List<Vacation> result = service.getTopseller();
         Assert.assertNotNull(result);
-        Assert.assertEquals(result.size(), 1);
-        Assert.assertEquals(result.get(0).getTitle(), "mallorca");
+        Assert.assertEquals(result.size(), 2);
+        Assert.assertEquals(result.get(0).getTitle(), "3-Tage Mallorca");
     }
 }
