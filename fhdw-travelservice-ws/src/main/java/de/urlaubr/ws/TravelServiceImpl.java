@@ -1,5 +1,6 @@
 package de.urlaubr.ws;
 
+import de.urlaubr.ws.domain.Booking;
 import de.urlaubr.ws.domain.Customer;
 import de.urlaubr.ws.domain.Rating;
 import de.urlaubr.ws.domain.UserSession;
@@ -87,6 +88,8 @@ public class TravelServiceImpl implements TravelService {
         if (sessions.containsKey(sessionKey)) {
             UserSession session = sessions.get(sessionKey);
             if (session.getTimestamp().getTime() > System.currentTimeMillis() - SESSION_TIMEOUT) {
+                session.setTimestamp(new Date());
+                sessions.put(sessionKey, session);
                 return true;
             }
             sessions.remove(sessionKey);
@@ -110,9 +113,21 @@ public class TravelServiceImpl implements TravelService {
         return Collections.emptyList();
     }
 
-    public List<Vacation> getMyVacations(Integer sessionKey) {
-        if (!isAuthenticated(sessionKey)) {
-            return null;
+    public List<Booking> getMyVacations(Integer sessionKey) {
+        if (isAuthenticated(sessionKey)) {
+            try {
+                List<Booking> bookings = new ArrayList<Booking>();
+                PreparedStatement stmt = dbConnection.prepareStatement("SELECT * FROM booking WHERE fk_customer = ? ORDER BY creationdate DESC;");
+                stmt.setInt(1, sessions.get(sessionKey).getUserId());
+                ResultSet result = stmt.executeQuery();
+                while (result.next()) {
+                    bookings.add(createBookingFromResultSet(result));
+                }
+                return bookings;
+            }
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return Collections.emptyList();
     }
@@ -186,6 +201,24 @@ public class TravelServiceImpl implements TravelService {
         catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
+    }
+
+    private Booking createBookingFromResultSet(ResultSet result) {
+        Booking booking = new Booking();
+        try {
+            booking.setCreationdate(new Date(result.getTimestamp("creationdate").getTime()));
+            booking.setAirport(result.getString("airport"));
+            booking.setStartdate(new Date(result.getTimestamp("startdate").getTime()));
+            booking.setEnddate(new Date(result.getTimestamp("returndate").getTime()));
+            booking.setState(UrlaubrWsUtils.getBookingStateFromInteger(result.getInt("state")));
+            booking.setVacation(getVacationById(result.getInt("fk_vacation")));
+            booking.setCustomer(getCustomerById(result.getInt("fk_customer")));
+            return booking;
+        }   catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 

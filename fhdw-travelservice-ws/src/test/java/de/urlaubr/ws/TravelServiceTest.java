@@ -1,5 +1,6 @@
 package de.urlaubr.ws;
 
+import de.urlaubr.ws.domain.Booking;
 import de.urlaubr.ws.domain.Vacation;
 import junit.framework.Assert;
 import org.testng.annotations.Test;
@@ -46,5 +47,16 @@ public class TravelServiceTest {
         Assert.assertNotNull(result);
         Assert.assertEquals(result.size(), 2);
         Assert.assertEquals(result.get(0).getTitle(), "3-Tage Mallorca");
+    }
+
+    @Test
+    public void testGetMyVacations() {
+        final TravelServiceImpl service = new TravelServiceImpl();
+        final Integer sessionKey = service.login("patrickgh", "test");
+
+        List<Booking> bookings = service.getMyVacations(sessionKey);
+
+        Assert.assertNotNull(bookings);
+        Assert.assertEquals(bookings.size(), 2);
     }
 }

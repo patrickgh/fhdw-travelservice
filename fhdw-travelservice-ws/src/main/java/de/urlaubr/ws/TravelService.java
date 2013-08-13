@@ -1,5 +1,6 @@
 package de.urlaubr.ws;
 
+import de.urlaubr.ws.domain.Booking;
 import de.urlaubr.ws.domain.Vacation;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public interface TravelService {
 
     List<Vacation> getTopseller();
 
-    List<Vacation> getMyVacations(Integer sessionKey);
+    List<Booking> getMyVacations(Integer sessionKey);
 
     Vacation getVacationById(Integer id);
 }
