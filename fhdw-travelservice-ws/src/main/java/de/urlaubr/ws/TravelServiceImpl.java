@@ -1,5 +1,9 @@
 package de.urlaubr.ws;
 
+import com.truemesh.squiggle.SelectQuery;
+import com.truemesh.squiggle.Table;
+import com.truemesh.squiggle.criteria.InCriteria;
+import com.truemesh.squiggle.criteria.MatchCriteria;
 import de.urlaubr.ws.domain.Booking;
 import de.urlaubr.ws.domain.BookingState;
 import de.urlaubr.ws.domain.Customer;
@@ -308,6 +312,45 @@ public class TravelServiceImpl implements TravelService {
     }
 
     public List<Vacation> findVacations(SearchParams params) {
-        return Collections.emptyList();
+        SelectQuery select = new SelectQuery();
+        Table vacation = new Table("vacation");
+        select.addColumn(vacation, "*");
+        if (params.getTitle() != null) {
+            select.addCriteria(new MatchCriteria(vacation, "title", MatchCriteria.LIKE, "%" + params.getTitle() + "%"));
+        }
+
+        if (params.getCountry() != null && params.getCountry().size() > 0) {
+            select.addCriteria(new InCriteria(vacation, "country", params.getCountry().toArray(new String[params.getCountry().size()])));
+        }
+
+        if (params.getHomeairport() != null && params.getHomeairport().size() > 0) {
+            select.addCriteria(new InCriteria(vacation, "homeairport", params.getHomeairport().toArray(new String[params.getHomeairport().size()])));
+        }
+
+        if (params.getCatering() != null) {
+            select.addCriteria(new MatchCriteria(vacation, "catering", MatchCriteria.EQUALS, params.getCatering().ordinal()));
+        }
+
+        if (params.getDuration() != null) {
+            select.addCriteria(new MatchCriteria(vacation, "duration", MatchCriteria.EQUALS, params.getDuration()));
+        }
+
+        if (params.getHotelstars() != null) {
+            select.addCriteria(new MatchCriteria(vacation, "hotelstars", MatchCriteria.EQUALS, params.getHotelstars()));
+        }
+        try {
+            PreparedStatement stmt = dbConnection.prepareStatement(select.toString());
+            ResultSet resultSet = stmt.executeQuery();
+            List<Vacation> result = new ArrayList<Vacation>();
+            while (resultSet.next()) {
+                result.add(createVacationFromResultSet(resultSet));
+            }
+            return result;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }
