@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
     <title>Reisedetails</title>
     <link rel="stylesheet" href="../scripts/demos/css/themes/default/jquery.mobile-1.3.1.min.css">
     <link rel="stylesheet" href="../scripts/demos/_assets/css/jqm-demos.css">
@@ -12,13 +12,13 @@
     <script src="../scripts/demos/js/jquery.js"></script>
     <script src="../scripts/demos/_assets/js/index.js"></script>
     <script src="../scripts/demos/js/jquery.mobile-1.3.1.min.js"></script>
-    <link rel="stylesheet" href="jquery.ui.datepicker.mobile.css" />
+    <link rel="stylesheet" href="jquery.ui.datepicker.mobile.css"/>
     <script src="jQuery.ui.datepicker.js"></script>
     <script src="jquery.ui.datepicker.mobile.js"></script>
-    <link rel="stylesheet" href="../scripts/star-rating/jquery.rating.css" />
-    <link rel="stylesheet" href="../scripts/custom.css" />
+    <link rel="stylesheet" href="../scripts/star-rating/jquery.rating.css"/>
+    <link rel="stylesheet" href="../scripts/custom.css"/>
     <script src="../scripts/latest.js"></script>
-    <link rel="stylesheet" href="../scripts/latest.css" />
+    <link rel="stylesheet" href="../scripts/latest.css"/>
 
 </head>
 
@@ -29,7 +29,8 @@
 
     <div data-role="header" data-id="foo1" data-position="fixed">
         <div data-role="header" style="overflow:hidden;">
-            <a href="./suchergebnisse.html" data-role="button"  data-icon="arrow-l" data-iconpos="left" data-inline="true">Zurück</a>
+            <a href="./suchergebnisse.html" data-role="button" data-icon="arrow-l" data-iconpos="left" data-inline="true">Zurück</a>
+
             <h1><i>urlaubr.</i></h1>
             <a href="./buchung.html" data-role="button" data-inline="true">Buchen</a>
         </div>
@@ -42,7 +43,7 @@
     </a>
     <hr>
 
-    <div class="ui-grid-a">
+    <!--<div class="ui-grid-a">
         <div class="ui-block-a"><div class="ui-bar ui-bar-f" style="height:100px">
             <img src="../scripts/karibik.jpg" width="100" height="100">
         </div></div>
@@ -59,32 +60,80 @@
         </div></div>
     </div>
 
-    <br>
+    <br>-->
 
-    <div data-role="collapsible-set" data-type="horizontal" data-create="false">
-    <div data-role="collapsible">
-        <h4>Beschreibung</h4>
-        <p>Beschreibung</p>
-    </div>
-    <div data-role="collapsible">
-        <h4>Bewertung</h4>
-        <p>Bewertung</p>
-    </div>
 
-    </div>
+    <table>
+        <tr>
 
-    <br><br>
+            <td>
+                <img src="../scripts/karibik.jpg" width="100" height="100">
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        <p> 8 Tage Skiurlaub Sölden </p>
+                    </tr>
 
-    <div data-role="footer" data-id="foo1" data-position="fixed">
-        <div data-role="navbar">
-            <ul>
-                <li><a href="startseite.html" id="home" data-icon="home">Home</a></li>
-                <li><a href="login.html" id="login" data-icon="check">Login</a></li>
-                <li><a href="suchformular.html" id="search" data-icon="search">Suche</a></li>
-            </ul>
-        </div>
-    </div>
-    <!-- /footer -->
+                    <tr>
+                        Halbpension
+                    </tr>
+
+                    <table>
+                        <tr>
+                            <td width="80">
+                                <p> 989€ p.P. </p>
+                            </td>
+
+                            <td>
+
+                                <img src="../resources/webresources/images/Star.png" width="15" height="15">
+                                <img src="../resources/webresources/images/Star.png" width="15" height="15">
+                                <img src="../resources/webresources/images/Star.png" width="15" height="15">
+
+
+                            </td>
+
+
+                        </tr>
+                    </table>
+                    </td>
+
+                    </tr>
+                </table>
+
+
+
+
+
+                <br>
+
+                <div data-role="collapsible-set" data-type="horizontal" data-create="false">
+                    <div data-role="collapsible">
+                        <h4>Beschreibung</h4>
+
+                        <p>Beschreibung</p>
+                    </div>
+                    <div data-role="collapsible">
+                        <h4>Bewertung</h4>
+
+                        <p>Bewertung</p>
+                    </div>
+
+                </div>
+
+                <br><br>
+
+                <div data-role="footer" data-id="foo1" data-position="fixed">
+                    <div data-role="navbar">
+                        <ul>
+                            <li><a href="startseite.html" id="home" data-icon="home">Home</a></li>
+                            <li><a href="login.html" id="login" data-icon="check">Login</a></li>
+                            <li><a href="suchformular.html" id="search" data-icon="search">Suche</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /footer -->
 
 </div>
 <!-- /page -->
