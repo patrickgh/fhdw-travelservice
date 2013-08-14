@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Reisedetails</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
+    <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+    <link rel="stylesheet" href="../scripts/star-rating/jquery.rating.css" />
+    <link rel="stylesheet" href="../scripts/custom.css" />
+    <script>
+        var prevSelection = "tab1";
+        $("#navbar ul li").live("click",function(){
+            var newSelection = $(this).children("a").attr("data-tab-class");
+            $("."+prevSelection).addClass("ui-screen-hidden");
+            $("."+newSelection).removeClass("ui-screen-hidden");
+            prevSelection = newSelection;
+        });
+    </script>
+    <script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+    <style>
+        .tab-content{
+            width:100%;
+            height:250px;
+            background-color:white;
+            border-bottom-left-radius:0.5em;
+            border-bottom-right-radius:0.5em;
+        }
+        .tab-content>div{
+            padding:5px;
+        }
+
+    </style>
+</head>
+
+<body>
+<div data-role="page">
+
+
+
+    <div data-role="header" data-id="foo1" data-position="fixed">
+        <div data-role="header" style="overflow:hidden;">
+            <h1><i>urlaubr.</i></h1>
+        </div>
+
+
+    </div><!-- /header -->
+
+    <div data-role="content">
+
+        <a href=".\reisedetails.html">
+            <img src="..\scripts\urlaubr3.png" width="314" height="110"></img>
+        </a>
+        <hr>
+
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><div class="ui-bar ui-bar-f" style="height:100px">
+                <img src="../scripts/karibik.jpg" width="100" height="100">
+            </div></div>
+            <div class="ui-block-b"><div class="ui-bar ui-bar-f" style="height:100px">
+                4 Tage Karibik All Inclusive
+                <input name="star3" type="radio" class="star" disabled="disabled"/>
+                <input name="star3" type="radio" class="star" disabled="disabled"/>
+                <input name="star3" type="radio" class="star" disabled="disabled"/>
+                <input name="star3" type="radio" class="star" disabled="disabled" checked="checked"/>
+                <input name="star3" type="radio" class="star" disabled="disabled"/>
+                500€ p.P.
+            </div></div>
+        </div>
+
+
+        <div data-role="navbar" id="navbar">
+            <ul>
+                <li><a href="#" class="ui-btn-active" data-tab-class="tab1">Beschreibung</a></li>
+                <li><a href="#" data-tab-class="tab2">Bewertung</a></li>
+            </ul>
+        </div>
+        <div class="tab-content">
+            <div class="tab1">
+                Tab1
+            </div>
+            <div class="tab2 ui-screen-hidden">
+                Tab2
+            </div>
+        </div>
+    </div><!-- /content -->
+
+    <div data-role="footer" data-id="foo1" data-position="fixed">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="startseite.html" id="home" data-icon="home">Home</a></li>
+                <li><a href="login.html" id="login" data-icon="check">Login</a></li>
+                <li><a href="suchformular.html" id="search" data-icon="search">Suche</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- /footer -->
+
+</div><!-- /page -->
+<script src="..\scripts\star-rating\jquery.rating.js"></script>
+<script src="..\scripts\star-rating\jquery.rating.pack.js"></script>
+</body>
+</html>
