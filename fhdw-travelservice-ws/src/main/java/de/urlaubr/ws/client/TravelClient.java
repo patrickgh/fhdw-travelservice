@@ -1,5 +1,6 @@
 package de.urlaubr.ws.client;
 
+import de.urlaubr.ws.domain.Vacation;
 import org.apache.axiom.om.OMElement;
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.addressing.EndpointReference;
@@ -14,15 +15,15 @@ public class TravelClient {
 
    public static void main(String[] args1) throws AxisFault {
 
-/*      ServiceClient sender = new ServiceClient();
+      ServiceClient sender = new ServiceClient();
       Options options = sender.getOptions();
       EndpointReference targetEPR = new EndpointReference(
-       "http://localhost:8080/axis2/services/SimpleHotelService");
+       "http://localhost:8080/axis2/services/fhdw-travelservice-ws-1.0");
       options.setTo(targetEPR);
 
       // Die Operation "findHotel" soll aufgerufen werden
-      QName opFindHotel = new QName("http://axishotels.de/xsd",
-                                    "findHotel");
+      QName opFindHotel = new QName("http://ws.urlaubr.de/xsd",
+                                    "getTopseller");
 
       // Die Parameter f�r die Operation "findHotel"
       // werden definiert...
@@ -32,7 +33,7 @@ public class TravelClient {
       // ...und ein AXIOM-OMElement mit der 
       //    Request-Nachricht erzeugt
       OMElement request = BeanUtil.getOMElement(opFindHotel,
-                                    opArgs, null, false, null);
+                                    null, null, false, null);
 
       // Der Request wird an den Service abgeschickt. 
       // Der Aufruf erfolgt synchron mit dem 
@@ -40,33 +41,12 @@ public class TravelClient {
       OMElement response = sender.sendReceive(request);
 
       // Diese Typen sollte der Web Service zur�ckliefern...
-      Class[] returnTypes = new Class[] { Hotel.class };
+      Class[] returnTypes = new Class[] { Vacation.class };
 
       // ...und werden mit einer Hilfsroutine in ein 
       // Objekt-Array �berf�hrt
       Object[] result = BeanUtil.deserialize(response,
                     returnTypes,	new DefaultObjectSupplier());
-     
-      Hotel hotel = (Hotel) result[0];
-
-      if (hotel == null) {
-         System.out.println("No entry for code: " + hotelCode);
-         return;
-      }
-
-      System.out.println("Hotel Name: " + hotel.getHotelName());
-      System.out.println("Hotel Code: " + hotel.getHotelCode());
-      System.out.println("City: " + hotel.getCity());
-      System.out.println("Stars: " + hotel.getNumberOfStars());
-
-      for (RoomType roomType : hotel.getRoomTypes()) {
-
-         System.out.println("\n RoomCode : " +
-                            roomType.getRoomCode());
-         System.out.println(" Price EUR: " +
-                            roomType.getPriceInEuros());
-         System.out.println(" with TV  : " +
-                            roomType.isRoomWithTV());
-      }*/
+       System.out.println(result);
    }
 }

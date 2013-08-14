@@ -10,7 +10,6 @@ public class Booking {
     private Vacation vacation;
     private Customer customer;
     private Date creationdate;
-    private String airport;
     private Date startdate;
     private Date enddate;
     private BookingState state;
@@ -40,14 +39,6 @@ public class Booking {
 
     public void setCreationdate(Date creationdate) {
         this.creationdate = creationdate;
-    }
-
-    public String getAirport() {
-        return airport;
-    }
-
-    public void setAirport(String airport) {
-        this.airport = airport;
     }
 
     public Date getStartdate() {

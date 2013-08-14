@@ -22,9 +22,17 @@ public class Vacation {
     private String country;
     private String city;
     private String airport;
+    private String homeairport;
     private CateringType catering;
     private List<Rating> ratings;
 
+    public String getHomeairport() {
+        return homeairport;
+    }
+
+    public void setHomeairport(String homeairport) {
+        this.homeairport = homeairport;
+    }
 
     public Integer getId() {
         return id;
