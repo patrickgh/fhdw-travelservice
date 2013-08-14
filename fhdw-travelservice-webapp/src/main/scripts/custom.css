@@ -7,10 +7,10 @@
 }
 
 .custom-button .ui-btn-inner .ui-btn-text {
-    display: block !important;
-    height: 100px !important;
-    width: 25% !important;
-    background-image: url(../scripts/karibik.jpg) !important;
-    background-repeat: no-repeat  !important;
-    background-position: left  !important;
+    /*display: block !important;*/
+    /*height: 100px !important;*/
+    /*width: 25% !important;*/
+    /*background-image: url(../scripts/karibik.jpg) !important;*/
+    /*background-repeat: no-repeat  !important;*/
+    /*background-position: left  !important;*/
 }
