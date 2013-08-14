@@ -17,28 +17,9 @@
     <script src="jquery.ui.datepicker.mobile.js"></script>
     <link rel="stylesheet" href="../scripts/star-rating/jquery.rating.css" />
     <link rel="stylesheet" href="../scripts/custom.css" />
-    <script>
-        var prevSelection = "tab1";
-        $("#navbar ul li").live("click",function(){
-            var newSelection = $(this).children("a").attr("data-tab-class");
-            $("."+prevSelection).addClass("ui-screen-hidden");
-            $("."+newSelection).removeClass("ui-screen-hidden");
-            prevSelection = newSelection;
-        });
-    </script>
-    <style>
-        .tab-content{
-            width:100%;
-            height:250px;
-            background-color:white;
-            border-bottom-left-radius:0.5em;
-            border-bottom-right-radius:0.5em;
-        }
-        .tab-content>div{
-            padding:5px;
-        }
+    <script src="../scripts/latest.js"></script>
+    <link rel="stylesheet" href="../scripts/latest.css" />
 
-    </style>
 </head>
 
 <body>
@@ -48,7 +29,9 @@
 
     <div data-role="header" data-id="foo1" data-position="fixed">
         <div data-role="header" style="overflow:hidden;">
+            <a href="./suchergebnisse.html" data-role="button"  data-icon="arrow-l" data-iconpos="left" data-inline="true">Zurück</a>
             <h1><i>urlaubr.</i></h1>
+            <a href="./buchung.html" data-role="button" data-inline="true">Buchen</a>
         </div>
 
 
@@ -64,7 +47,9 @@
             <img src="../scripts/karibik.jpg" width="100" height="100">
         </div></div>
         <div class="ui-block-b"><div class="ui-bar ui-bar-f" style="height:100px">
-            4 Tage Karibik All Inclusive
+            4 Tage Karibik
+            <br>
+            All Inclusive
             <input name="star3" type="radio" class="star" disabled="disabled"/>
             <input name="star3" type="radio" class="star" disabled="disabled"/>
             <input name="star3" type="radio" class="star" disabled="disabled"/>
@@ -74,24 +59,21 @@
         </div></div>
     </div>
 
+    <br>
 
-    <div data-role="content">
-        <div data-role="navbar" id="navbar">
-            <ul>
-                <li><a href="#" class="ui-btn-active" data-tab-class="tab1">Beschreibung</a></li>
-                <li><a href="#" data-tab-class="tab2">Bewertung</a></li>
-            </ul>
-        </div>
-        <div class="tab-content">
-            <div class="tab1">
-                Tab1
-            </div>
-            <div class="tab2 ui-screen-hidden">
-                Tab2
-            </div>
-        </div>
+    <div data-role="collapsible-set" data-type="horizontal" data-create="false">
+    <div data-role="collapsible">
+        <h4>Beschreibung</h4>
+        <p>Beschreibung</p>
+    </div>
+    <div data-role="collapsible">
+        <h4>Bewertung</h4>
+        <p>Bewertung</p>
     </div>
 
+    </div>
+
+    <br><br>
 
     <div data-role="footer" data-id="foo1" data-position="fixed">
         <div data-role="navbar">
