@@ -1,8 +1,10 @@
 package de.urlaubr.ws;
 
 import de.urlaubr.ws.domain.Booking;
+import de.urlaubr.ws.domain.BookingState;
 import de.urlaubr.ws.domain.Customer;
 import de.urlaubr.ws.domain.Rating;
+import de.urlaubr.ws.domain.SearchParams;
 import de.urlaubr.ws.domain.UserSession;
 import de.urlaubr.ws.domain.Vacation;
 import de.urlaubr.ws.utils.UrlaubrWsUtils;
@@ -12,6 +14,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -25,7 +28,7 @@ public class TravelServiceImpl implements TravelService {
     public static final String DEFAULT_USER = "root";
     public static final String DEFAULT_PASSWORD = "";
     public static final int SESSION_TIMEOUT = 1800000; // 1800 sec => 30 min
-    private final Map<Integer, UserSession> sessions = new HashMap<Integer, UserSession>();
+    private static Map<Integer, UserSession> sessions = new HashMap<Integer, UserSession>();
     private Connection dbConnection;
 
     public TravelServiceImpl() {
@@ -163,6 +166,7 @@ public class TravelServiceImpl implements TravelService {
             vac.setPrice(result.getDouble("price"));
             vac.setCountry(result.getString("country"));
             vac.setCity(result.getString("city"));
+            vac.setHomeairport(result.getString("homeairport"));
             vac.setCatering(UrlaubrWsUtils.getCateringTypeFromInteger(result.getInt("catering")));
             vac.setRatings(getRatingsByVacationId(vac.getId()));
             return vac;
@@ -208,14 +212,14 @@ public class TravelServiceImpl implements TravelService {
         Booking booking = new Booking();
         try {
             booking.setCreationdate(new Date(result.getTimestamp("creationdate").getTime()));
-            booking.setAirport(result.getString("airport"));
             booking.setStartdate(new Date(result.getTimestamp("startdate").getTime()));
             booking.setEnddate(new Date(result.getTimestamp("returndate").getTime()));
             booking.setState(UrlaubrWsUtils.getBookingStateFromInteger(result.getInt("state")));
             booking.setVacation(getVacationById(result.getInt("fk_vacation")));
             booking.setCustomer(getCustomerById(result.getInt("fk_customer")));
             return booking;
-        }   catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -243,5 +247,67 @@ public class TravelServiceImpl implements TravelService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private Booking getBookingById(Integer bookingId) {
+        try {
+            PreparedStatement stmt = dbConnection.prepareStatement("SELECT * FROM booking WHERE id = ?");
+            stmt.setInt(1, bookingId);
+            ResultSet resultSet = stmt.getResultSet();
+            if (resultSet.next() && resultSet.isLast()) {
+                return createBookingFromResultSet(resultSet);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void rateVacation(Integer sessionKey, Integer bookingId, Integer rating, String comment) {
+        if (isAuthenticated(sessionKey)) {
+            Booking booking = getBookingById(bookingId);
+            if (booking != null && booking.getCustomer().getId().intValue() == sessions.get(sessionKey).getUserId()) {
+                changeBookingState(bookingId, BookingState.FINISHED);
+                try {
+                    PreparedStatement stmt = dbConnection.prepareStatement("INSERT INTO rating VALUES(null,?,?,?,?,?)");
+                    stmt.setInt(1, booking.getCustomer().getId().intValue());
+                    stmt.setInt(2, booking.getVacation().getId());
+                    stmt.setInt(3, rating);
+                    stmt.setString(4, comment);
+                    stmt.setTimestamp(5, new Timestamp(System.currentTimeMillis()));
+                    stmt.execute();
+                }
+                catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+    }
+
+    public void cancelBooking(Integer sessionKey, Integer bookingId) {
+        if (isAuthenticated(sessionKey)) {
+            Booking booking = getBookingById(bookingId);
+            if (booking != null && booking.getCustomer().getId().intValue() == sessions.get(sessionKey).getUserId()) {
+                changeBookingState(bookingId, BookingState.CANCELED);
+            }
+        }
+    }
+
+    private void changeBookingState(Integer bookingId, BookingState newState) {
+        try {
+            PreparedStatement stmt = dbConnection.prepareStatement("UPDATE `booking` SET `state` = ? WHERE `id` = ?;");
+            stmt.setInt(1, newState.ordinal());
+            stmt.setInt(2, bookingId);
+            stmt.execute();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<Vacation> findVacations(SearchParams params) {
+        return Collections.emptyList();
     }
 }
