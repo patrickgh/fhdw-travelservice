@@ -9,6 +9,7 @@ import de.urlaubr.ws.domain.BookingState;
 import de.urlaubr.ws.domain.Customer;
 import de.urlaubr.ws.domain.Rating;
 import de.urlaubr.ws.domain.SearchParams;
+import de.urlaubr.ws.domain.Traveler;
 import de.urlaubr.ws.domain.UserSession;
 import de.urlaubr.ws.domain.Vacation;
 import de.urlaubr.ws.utils.UrlaubrWsUtils;
@@ -117,7 +118,7 @@ public class TravelServiceImpl implements TravelService {
         catch (SQLException e) {
             e.printStackTrace();
         }
-        return Collections.emptyList();
+        return null;
     }
 
     public List<Booking> getMyVacations(Integer sessionKey) {
@@ -268,11 +269,26 @@ public class TravelServiceImpl implements TravelService {
         return null;
     }
 
+    private void changeBookingState(Integer bookingId, BookingState newState) {
+        try {
+            PreparedStatement stmt = dbConnection.prepareStatement("UPDATE `booking` SET `state` = ? WHERE `id` = ?;");
+            stmt.setInt(1, newState.ordinal());
+            stmt.setInt(2, bookingId);
+            stmt.execute();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void rateVacation(Integer sessionKey, Integer bookingId, Integer rating, String comment) {
         if (isAuthenticated(sessionKey)) {
             Booking booking = getBookingById(bookingId);
-            if (booking != null && booking.getCustomer().getId().intValue() == sessions.get(sessionKey).getUserId()) {
-                changeBookingState(bookingId, BookingState.FINISHED);
+            if (booking != null
+                && booking.getCustomer() != null
+                && booking.getVacation() != null
+                && booking.getCustomer().getId().intValue() == sessions.get(sessionKey).getUserId()
+                && booking.getState() != BookingState.FINISHED) {
                 try {
                     PreparedStatement stmt = dbConnection.prepareStatement("INSERT INTO rating VALUES(null,?,?,?,?,?)");
                     stmt.setInt(1, booking.getCustomer().getId().intValue());
@@ -285,7 +301,7 @@ public class TravelServiceImpl implements TravelService {
                 catch (SQLException e) {
                     e.printStackTrace();
                 }
-
+                changeBookingState(bookingId, BookingState.FINISHED);
             }
         }
     }
@@ -296,18 +312,6 @@ public class TravelServiceImpl implements TravelService {
             if (booking != null && booking.getCustomer().getId().intValue() == sessions.get(sessionKey).getUserId()) {
                 changeBookingState(bookingId, BookingState.CANCELED);
             }
-        }
-    }
-
-    private void changeBookingState(Integer bookingId, BookingState newState) {
-        try {
-            PreparedStatement stmt = dbConnection.prepareStatement("UPDATE `booking` SET `state` = ? WHERE `id` = ?;");
-            stmt.setInt(1, newState.ordinal());
-            stmt.setInt(2, bookingId);
-            stmt.execute();
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
@@ -352,5 +356,40 @@ public class TravelServiceImpl implements TravelService {
         }
 
         return null;
+    }
+
+    public void createBooking(Integer sessionKey, Integer vacationId, Date startdate, List<Traveler> travelers) {
+        if (isAuthenticated(sessionKey)) {
+            try {
+                Vacation vacation = getVacationById(vacationId);
+                if (vacation != null && startdate != null && travelers != null && travelers.size() > 0) {
+                    PreparedStatement stmt = dbConnection.prepareStatement("INSERT INTO booking VALUES (null,?,?,?,?,?,?,?)");
+                    stmt.setInt(1, vacationId);
+                    stmt.setInt(2, sessions.get(sessionKey).getUserId());
+                    stmt.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+                    stmt.setTimestamp(4, new Timestamp(startdate.getTime()));
+                    stmt.setTimestamp(5, null);
+                    stmt.setInt(6, travelers.size());
+                    stmt.setInt(7, BookingState.CREATED.ordinal());
+                    stmt.executeUpdate();
+                    ResultSet result = stmt.getGeneratedKeys();
+                    if (result.next() && result.isLast()) {
+                        int bookingId = result.getInt(1);
+                        for (Traveler traveler : travelers) {
+                            stmt = dbConnection.prepareStatement("INSERT INTO traveler VALUES (null,?,?,?,?,?)");
+                            stmt.setString(1, traveler.getFirstname());
+                            stmt.setString(2, traveler.getLastname());
+                            stmt.setDate(3, new java.sql.Date(traveler.getBirthday().getTime()));
+                            stmt.setInt(4, bookingId);
+                            stmt.setString(5, traveler.getPassport());
+                            stmt.executeUpdate();
+                        }
+                    }
+                }
+            }
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

@@ -1,8 +1,11 @@
 package de.urlaubr.ws;
 
 import de.urlaubr.ws.domain.Booking;
+import de.urlaubr.ws.domain.SearchParams;
+import de.urlaubr.ws.domain.Traveler;
 import de.urlaubr.ws.domain.Vacation;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,4 +23,12 @@ public interface TravelService {
     List<Booking> getMyVacations(Integer sessionKey);
 
     Vacation getVacationById(Integer id);
+
+    void rateVacation(Integer sessionKey, Integer bookingId, Integer rating, String comment);
+
+    void cancelBooking(Integer sessionKey, Integer bookingId);
+
+    List<Vacation> findVacations(SearchParams params);
+
+    void createBooking(Integer sessionKey, Integer vacationId, Date startdate, List<Traveler> travelers);
 }
