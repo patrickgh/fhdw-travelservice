@@ -16,10 +16,11 @@
     <script src="jQuery.ui.datepicker.js"></script>
     <script src="jquery.ui.datepicker.mobile.js"></script>
     <link rel="stylesheet" href="../scripts/star-rating/jquery.rating.css" />
+    <link rel="stylesheet" href="../scripts/rateit/src/rateit.css" />
+
 </head>
 
 <body>
-
 <div data-role="page">
 
 
@@ -124,6 +125,10 @@
     <input name="star1" type="radio" class="star"/>
     <input name="star1" type="radio" class="star"/>
 
+   <!-- <script type="text/javascript">
+        $(function () { $('#rateit6').rateit({ max: 5, step: 1, backingfld: '#backing6' }); });
+    </script>         -->
+
 
     <label for="select-choice-1" class="select">Verpflegung</label>
     <select name="select-choice-1" id="select-choice-1">
@@ -133,10 +138,6 @@
         <option value="fullboard">Vollpension</option>
         <option value="allinclusive">All Inclusive</option>
     </select>
-
-
-    <label for="date">Startdatum</label>
-    <input type="date" name="date" id="date" value=""/>
 
 
     <label for="select-choice-1" class="select">Reisedauer</label>
@@ -174,7 +175,8 @@
 
 </div>
 <!-- /page -->
-<script src="..\scripts\star-rating\jquery.rating.js"></script>
-<script src="..\scripts\star-rating\jquery.rating.pack.js"></script>
+<script src="../scripts/star-rating/jquery.rating.js"></script>
+<script src="../scripts/star-rating/jquery.rating.pack.js"></script>
+<script src="../scripts/rateit/src/jquery.rateit.js"></script>
 </body>
 </html>

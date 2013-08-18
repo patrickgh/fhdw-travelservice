@@ -17,8 +17,6 @@
     <script src="jquery.ui.datepicker.mobile.js"></script>
     <link rel="stylesheet" href="../scripts/star-rating/jquery.rating.css" />
     <link rel="stylesheet" href="../scripts/custom.css" />
-  <!--  <script src="../scripts/latest.js"></script>
-    <link rel="stylesheet" href="../scripts/latest.css" />  -->
 
 </head>
 
@@ -29,9 +27,9 @@
 
     <div data-role="header" data-id="foo1" data-position="fixed">
         <div data-role="header" style="overflow:hidden;">
-            <a href="./suchergebnisse.html" data-role="button"  data-icon="arrow-l" data-iconpos="left" data-inline="true">Zurück</a>
+            <a href="./buchung.html" data-role="button"  data-icon="arrow-l" data-iconpos="left" data-inline="true">Zurück</a>
             <h1><i>urlaubr.</i></h1>
-            <a href="./buchung.html" data-role="button" data-inline="true">Buchen</a>
+            <a href="#" data-role="button" data-inline="true">Buchen</a>
         </div>
 
 
@@ -42,36 +40,19 @@
     </a>
     <hr>
 
-    <div class="ui-grid-a">
-        <div class="ui-block-a"><div class="ui-bar ui-bar-f" style="height:100px">
-            <img src="../scripts/karibik.jpg" width="100" height="100">
-        </div></div>
-        <div class="ui-block-b"><div class="ui-bar ui-bar-f" style="height:100px">
-            4 Tage Karibik
-            <br>
-            All Inclusive
-            <input name="star3" type="radio" class="star" disabled="disabled"/>
-            <input name="star3" type="radio" class="star" disabled="disabled"/>
-            <input name="star3" type="radio" class="star" disabled="disabled"/>
-            <input name="star3" type="radio" class="star" disabled="disabled" checked="checked"/>
-            <input name="star3" type="radio" class="star" disabled="disabled"/>
-            500€ p.P.
-        </div></div>
-    </div>
+    <p>Mitreisende</p>
 
-    <br>
+    <label for="firstname">Vorname</label>
+    <input name="text-basic" id="firstname" value="" type="text">
 
-    <div data-role="collapsible-set" data-type="horizontal" data-create="false">
-    <div data-role="collapsible">
-        <h4>Beschreibung</h4>
-        <p>Beschreibung</p>
-    </div>
-    <div data-role="collapsible">
-        <h4>Bewertung</h4>
-        <p>Bewertung</p>
-    </div>
+    <label for="lastname">Nachname</label>
+    <input name="text-basic" id="lastname" value="" type="text">
 
-    </div>
+    <label for="date">Geburtsdatum</label>
+    <input type="date" name="date" id="date" value=""/>
+
+    <label for="passportnr">Ausweisnummer</label>
+    <input name="text-basic" id="passportnr" value="" type="text">
 
 
     <div data-role="footer" data-id="foo1" data-position="fixed">

@@ -1,5 +1,6 @@
 package de.urlaubr.ws.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,11 +19,10 @@ public class SearchParams {
     * */
 
     private String title;
-    private List<String> country;
-    private List<String> homeairport;
+    private List<String> country = new ArrayList<String>();
+    private List<String> homeairport = new ArrayList<String>();
     private Integer hotelstars;
     private CateringType catering;
-    private Date startdate;
     private Integer duration;
 
     public SearchParams() {
@@ -58,14 +58,6 @@ public class SearchParams {
 
     public void setCatering(CateringType catering) {
         this.catering = catering;
-    }
-
-    public Date getStartdate() {
-        return startdate;
-    }
-
-    public void setStartdate(Date startdate) {
-        this.startdate = startdate;
     }
 
     public Integer getDuration() {
