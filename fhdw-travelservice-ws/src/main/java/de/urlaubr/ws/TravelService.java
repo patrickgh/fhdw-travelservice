@@ -30,5 +30,5 @@ public interface TravelService {
 
     List<Vacation> findVacations(SearchParams params);
 
-    void createBooking(Integer sessionKey, Integer vacationId, Date startdate, List<Traveler> travelers);
+    Integer createBooking(Integer sessionKey, Integer vacationId, Date startdate, List<Traveler> travelers);
 }

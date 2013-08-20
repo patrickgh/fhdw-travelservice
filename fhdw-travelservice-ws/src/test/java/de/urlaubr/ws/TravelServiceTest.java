@@ -2,10 +2,13 @@ package de.urlaubr.ws;
 
 import de.urlaubr.ws.domain.Booking;
 import de.urlaubr.ws.domain.SearchParams;
+import de.urlaubr.ws.domain.Traveler;
 import de.urlaubr.ws.domain.Vacation;
 import junit.framework.Assert;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -58,7 +61,7 @@ public class TravelServiceTest {
         List<Booking> bookings = service.getMyVacations(sessionKey);
 
         Assert.assertNotNull(bookings);
-        Assert.assertEquals(bookings.size(), 2);
+        Assert.assertEquals(bookings.size() > 0, true);
     }
 
     @Test
@@ -81,5 +84,28 @@ public class TravelServiceTest {
         Assert.assertEquals(vacations.size(), 1);
         Assert.assertEquals(vacations.get(0).getTitle(), "3-Tage Mallorca");
 
+    }
+
+    @Test
+    public void testCreateBooking() {
+        final TravelServiceImpl service = new TravelServiceImpl();
+        final Integer sessionKey = service.login("patrickgh", "test");
+
+        List<Traveler> travelers = new ArrayList<Traveler>();
+        travelers.add(new Traveler());
+        travelers.get(0).setFirstname("test");
+        travelers.get(0).setLastname("2test");
+        travelers.get(0).setPassport("pp");
+        travelers.get(0).setBirthday(new Date());
+        Integer bookingid = service.createBooking(sessionKey, 1, new Date(), travelers);
+
+        List<Booking> bookings = service.getMyVacations(sessionKey);
+
+        Assert.assertNotNull(bookings);
+        Assert.assertNotNull(bookingid);
+        Assert.assertEquals(bookings.size() > 0, true);
+        Assert.assertEquals(bookings.get(0).getVacation().getId().intValue(), 1);
+        Assert.assertNotNull(bookings.get(0).getTraveler());
+        Assert.assertTrue(bookings.get(0).getTraveler().size() > 0);
     }
 }

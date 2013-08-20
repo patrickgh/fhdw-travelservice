@@ -19,6 +19,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -222,6 +223,7 @@ public class TravelServiceImpl implements TravelService {
             booking.setState(UrlaubrWsUtils.getBookingStateFromInteger(result.getInt("state")));
             booking.setVacation(getVacationById(result.getInt("fk_vacation")));
             booking.setCustomer(getCustomerById(result.getInt("fk_customer")));
+            booking.setTraveler(getTravelerList(result.getInt("id")));
             return booking;
         }
         catch (SQLException e) {
@@ -229,6 +231,27 @@ public class TravelServiceImpl implements TravelService {
         }
 
         return null;
+    }
+
+    private List<Traveler> getTravelerList(Integer bookingId) {
+        List<Traveler> result = new ArrayList<Traveler>();
+        try {
+            PreparedStatement stmt = dbConnection.prepareStatement("SELECT * FROM traveler WHERE fk_booking = ?");
+            stmt.setInt(1, bookingId);
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                Traveler temp = new Traveler();
+                temp.setBirthday(new Date(resultSet.getTimestamp("birthdate").getTime()));
+                temp.setPassport(resultSet.getString("passport"));
+                temp.setFirstname(resultSet.getString("firstname"));
+                temp.setLastname(resultSet.getString("lastname"));
+                result.add(temp);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     private Customer getCustomerById(Integer id) {
@@ -332,7 +355,7 @@ public class TravelServiceImpl implements TravelService {
         }
 
         if (params.getCatering() != null) {
-            select.addCriteria(new MatchCriteria(vacation, "catering", MatchCriteria.EQUALS, params.getCatering().ordinal()));
+            select.addCriteria(new MatchCriteria(vacation, "catering", MatchCriteria.GREATEREQUAL, params.getCatering().ordinal()));
         }
 
         if (params.getDuration() != null) {
@@ -340,8 +363,9 @@ public class TravelServiceImpl implements TravelService {
         }
 
         if (params.getHotelstars() != null) {
-            select.addCriteria(new MatchCriteria(vacation, "hotelstars", MatchCriteria.EQUALS, params.getHotelstars()));
+            select.addCriteria(new MatchCriteria(vacation, "hotelstars", MatchCriteria.GREATEREQUAL, params.getHotelstars()));
         }
+        select.addOrder(vacation, "price", true);
         try {
             PreparedStatement stmt = dbConnection.prepareStatement(select.toString());
             ResultSet resultSet = stmt.executeQuery();
@@ -358,17 +382,17 @@ public class TravelServiceImpl implements TravelService {
         return null;
     }
 
-    public void createBooking(Integer sessionKey, Integer vacationId, Date startdate, List<Traveler> travelers) {
+    public Integer createBooking(Integer sessionKey, Integer vacationId, Date startdate, List<Traveler> travelers) {
         if (isAuthenticated(sessionKey)) {
             try {
                 Vacation vacation = getVacationById(vacationId);
                 if (vacation != null && startdate != null && travelers != null && travelers.size() > 0) {
-                    PreparedStatement stmt = dbConnection.prepareStatement("INSERT INTO booking VALUES (null,?,?,?,?,?,?,?)");
+                    PreparedStatement stmt = dbConnection.prepareStatement("INSERT INTO booking VALUES (null,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
                     stmt.setInt(1, vacationId);
                     stmt.setInt(2, sessions.get(sessionKey).getUserId());
                     stmt.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
                     stmt.setTimestamp(4, new Timestamp(startdate.getTime()));
-                    stmt.setTimestamp(5, null);
+                    stmt.setTimestamp(5, new Timestamp(startdate.getTime() + vacation.getDuration() * 24 * 60 * 60 * 1000));
                     stmt.setInt(6, travelers.size());
                     stmt.setInt(7, BookingState.CREATED.ordinal());
                     stmt.executeUpdate();
@@ -384,6 +408,7 @@ public class TravelServiceImpl implements TravelService {
                             stmt.setString(5, traveler.getPassport());
                             stmt.executeUpdate();
                         }
+                        return bookingId;
                     }
                 }
             }
@@ -391,5 +416,6 @@ public class TravelServiceImpl implements TravelService {
                 e.printStackTrace();
             }
         }
+        return null;
     }
 }

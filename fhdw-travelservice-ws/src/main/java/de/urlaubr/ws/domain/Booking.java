@@ -1,6 +1,7 @@
 package de.urlaubr.ws.domain;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Patrick Groß-Holtwick
@@ -13,8 +14,18 @@ public class Booking {
     private Date startdate;
     private Date enddate;
     private BookingState state;
+    private List<Traveler> traveler;
+
 
     public Booking() {
+    }
+
+    public List<Traveler> getTraveler() {
+        return traveler;
+    }
+
+    public void setTraveler(List<Traveler> traveler) {
+        this.traveler = traveler;
     }
 
     public Vacation getVacation() {
