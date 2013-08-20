@@ -23,7 +23,7 @@ public class Vacation {
     private String city;
     private String airport;
     private String homeairport;
-    private CateringType catering;
+    private Integer catering;
     private List<Rating> ratings;
 
     public String getHomeairport() {
@@ -138,11 +138,11 @@ public class Vacation {
         this.airport = airport;
     }
 
-    public CateringType getCatering() {
+    public Integer getCatering() {
         return catering;
     }
 
-    public void setCatering(CateringType catering) {
+    public void setCatering(Integer catering) {
         this.catering = catering;
     }
 

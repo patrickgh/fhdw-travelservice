@@ -22,18 +22,18 @@ public class TravelClient {
       options.setTo(targetEPR);
 
       // Die Operation "findHotel" soll aufgerufen werden
-      QName opFindHotel = new QName("http://ws.urlaubr.de/xsd",
+      QName opFindHotel = new QName("http://ws.urlaubr.de",
                                     "getTopseller");
 
       // Die Parameter f�r die Operation "findHotel"
       // werden definiert...
       String hotelCode = "AX050";
-      Object[] opArgs = new Object[] { hotelCode };
+      Object[] opArgs = new Object[] {};
 
       // ...und ein AXIOM-OMElement mit der 
       //    Request-Nachricht erzeugt
       OMElement request = BeanUtil.getOMElement(opFindHotel,
-                                    null, null, false, null);
+                                    opArgs, null, false, null);
 
       // Der Request wird an den Service abgeschickt. 
       // Der Aufruf erfolgt synchron mit dem 

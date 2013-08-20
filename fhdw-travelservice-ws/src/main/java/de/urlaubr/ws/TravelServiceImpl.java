@@ -13,6 +13,7 @@ import de.urlaubr.ws.domain.Traveler;
 import de.urlaubr.ws.domain.UserSession;
 import de.urlaubr.ws.domain.Vacation;
 import de.urlaubr.ws.utils.UrlaubrWsUtils;
+import org.apache.axis2.AxisFault;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -43,9 +44,6 @@ public class TravelServiceImpl implements TravelService {
         String user = System.getProperty("db.user") != null ? System.getProperty("db.user") : DEFAULT_USER;
         String password = System.getProperty("db.password") != null ? System.getProperty("db.password") : DEFAULT_PASSWORD;
 
-        //Database migration
-        UrlaubrWsUtils.migrateDatabase(url, user, password);
-
         //create Connection
         try {
             // register JDBC driver
@@ -61,6 +59,9 @@ public class TravelServiceImpl implements TravelService {
             System.out.println("Connect nicht möglich");
             err.printStackTrace();
         }
+
+        //Database migration
+        //UrlaubrWsUtils.migrateDatabase(url, user, password);
     }
 
     public Integer login(String username, String password) {
@@ -122,7 +123,7 @@ public class TravelServiceImpl implements TravelService {
         return null;
     }
 
-    public List<Booking> getMyVacations(Integer sessionKey) {
+    public List<Booking> getMyVacations(Integer sessionKey) throws AxisFault {
         if (isAuthenticated(sessionKey)) {
             try {
                 List<Booking> bookings = new ArrayList<Booking>();
@@ -138,7 +139,8 @@ public class TravelServiceImpl implements TravelService {
                 e.printStackTrace();
             }
         }
-        return Collections.emptyList();
+        throw new AxisFault("not authenticated");
+        //return Collections.emptyList();
     }
 
     public Vacation getVacationById(Integer id) {
@@ -173,7 +175,8 @@ public class TravelServiceImpl implements TravelService {
             vac.setCountry(result.getString("country"));
             vac.setCity(result.getString("city"));
             vac.setHomeairport(result.getString("homeairport"));
-            vac.setCatering(UrlaubrWsUtils.getCateringTypeFromInteger(result.getInt("catering")));
+            //vac.setCatering(UrlaubrWsUtils.getCateringTypeFromInteger(result.getInt("catering")));
+            vac.setCatering(result.getInt("catering"));
             vac.setRatings(getRatingsByVacationId(vac.getId()));
             return vac;
         }

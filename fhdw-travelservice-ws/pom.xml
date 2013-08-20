@@ -19,29 +19,11 @@
     </parent>
 
     <dependencies>
-        <dependency>
-            <groupId>org.apache.axis2</groupId>
-            <artifactId>axis2</artifactId>
-            <version>1.6.2</version>
-        </dependency>
 
         <dependency>
             <groupId>com.squiggle</groupId>
             <artifactId>squiggle-sql</artifactId>
             <version>2.0.0</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>org.apache.ws.commons.axiom</groupId>
-            <artifactId>axiom-api</artifactId>
-            <version>1.2.6</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.ws.commons.axiom</groupId>
-            <artifactId>axiom-impl</artifactId>
-            <version>1.2.6</version>
         </dependency>
 
         <dependency>
@@ -62,42 +44,40 @@
             <version>${testng.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.axis2</groupId>
-            <artifactId>axis2-adb</artifactId>
-            <version>1.6.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.axis2</groupId>
-            <artifactId>axis2-kernel</artifactId>
-            <version>1.6.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.axis2</groupId>
-            <artifactId>axis2-transport-local</artifactId>
-            <version>1.6.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.axis2</groupId>
-            <artifactId>axis2-transport-http</artifactId>
-            <version>1.6.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.axis2</groupId>
-            <artifactId>axis2-xmlbeans</artifactId>
-            <version>1.6.2</version>
-        </dependency>
-
         <!-- QR-Code generation library-->
         <dependency>
             <groupId>net.glxn</groupId>
             <artifactId>qrgen</artifactId>
             <version>1.3</version>
         </dependency>
+
+        <!-- Axis2 dependencies -->
+        <dependency>
+            <groupId>org.apache.axis2</groupId>
+            <artifactId>axis2-kernel</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.axis2</groupId>
+            <artifactId>axis2-adb</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.axis2</groupId>
+            <artifactId>axis2-transport-http</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.axis2</groupId>
+            <artifactId>axis2-transport-local</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.axis2</groupId>
+            <artifactId>axis2-xmlbeans</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -122,8 +102,8 @@
                     </fileSets>
 
                     <servicesXmlFile>src/main/java/de/urlaubr/ws/services.xml</servicesXmlFile>
-                   <!-- <wsdlFile>${basedir}/src/main/java/de/fhdw/travelservice/ws/service.wsdl</wsdlFile>
-                    <wsdlFileName>service.wsdl</wsdlFileName>-->
+                    <!-- <wsdlFile>${basedir}/src/main/java/de/fhdw/travelservice/ws/service.wsdl</wsdlFile>
+                     <wsdlFileName>service.wsdl</wsdlFileName>-->
                 </configuration>
                 <executions>
                     <execution>

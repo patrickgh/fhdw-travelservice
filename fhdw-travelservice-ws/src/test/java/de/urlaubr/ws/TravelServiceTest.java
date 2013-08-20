@@ -5,6 +5,7 @@ import de.urlaubr.ws.domain.SearchParams;
 import de.urlaubr.ws.domain.Traveler;
 import de.urlaubr.ws.domain.Vacation;
 import junit.framework.Assert;
+import org.apache.axis2.AxisFault;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -57,11 +58,15 @@ public class TravelServiceTest {
     public void testGetMyVacations() {
         final TravelServiceImpl service = new TravelServiceImpl();
         final Integer sessionKey = service.login("patrickgh", "test");
+        try {
+            List<Booking> bookings = service.getMyVacations(sessionKey);
 
-        List<Booking> bookings = service.getMyVacations(sessionKey);
-
-        Assert.assertNotNull(bookings);
-        Assert.assertEquals(bookings.size() > 0, true);
+            Assert.assertNotNull(bookings);
+            Assert.assertEquals(bookings.size() > 0, true);
+        }
+        catch (AxisFault e) {
+            Assert.fail("authentication failed");
+        }
     }
 
     @Test
@@ -87,7 +92,7 @@ public class TravelServiceTest {
     }
 
     @Test
-    public void testCreateBooking() {
+    public void testCreateBooking() throws AxisFault {
         final TravelServiceImpl service = new TravelServiceImpl();
         final Integer sessionKey = service.login("patrickgh", "test");
 
