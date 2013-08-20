@@ -12,7 +12,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: com.squiggle:squiggle-sql:2.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.axis2:axis2:1.6.2" level="project" />
     <orderEntry type="library" name="Maven: com.squiggle:squiggle-sql:2.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.ws.commons.axiom:axiom-api:1.2.6" level="project" />

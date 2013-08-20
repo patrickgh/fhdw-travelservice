@@ -32,6 +32,13 @@
         <module>fhdw-travelservice-webapp</module>
     </modules>
 
+    <repositories>
+        <repository>
+            <id>repo</id>
+            <url>repo</url>
+        </repository>
+    </repositories>
+
     <properties>
 
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -46,7 +53,5 @@
         <testng.version>6.8.5</testng.version>
 
     </properties>
-
-
 
 </project>
