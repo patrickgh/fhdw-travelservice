@@ -1,9 +1,9 @@
 <!DOCTYPE suite SYSTEM "http://beust.com/testng/testng-1.0.dtd" >
 <suite name="urlaubr. webservice tests" >
     <test name="ShortTests" parallel="false" >
-        <packages>
-            <package name="de.urlaubr.ws.*"/>
-        </packages>
+        <classes>
+            <class name="de.urlaubr.ws.TravelServiceTest"></class>
+        </classes>
     </test>
 
 </suite>

@@ -1,8 +1,17 @@
 package de.urlaubr.ws;
 
+import de.urlaubr.ws.domain.Booking;
 import net.glxn.qrgen.QRCode;
 import net.glxn.qrgen.image.ImageType;
+import org.apache.axiom.om.OMElement;
+import org.apache.axis2.AxisFault;
+import org.apache.axis2.addressing.EndpointReference;
+import org.apache.axis2.client.Options;
+import org.apache.axis2.client.ServiceClient;
+import org.apache.axis2.databinding.utils.BeanUtil;
+import org.apache.axis2.engine.DefaultObjectSupplier;
 
+import javax.xml.namespace.QName;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,8 +25,13 @@ import java.util.Date;
  */
 public class TestPgh {
 
-    /*test qr code generation*/
     public static void main(String[] args) {
+        testQrCode(args);
+        //testWSCall(args);
+    }
+
+    /*test qr code generation*/
+    public static void testQrCode(String[] args) {
         ByteArrayOutputStream out = QRCode.from("passenger:Patrick Groß-Holtwick;origin:BER;destination:PMI;flightdate:"+new Date().toString())
                                           .to(ImageType.PNG).withSize(300,300).stream();
 
@@ -37,5 +51,52 @@ public class TestPgh {
         catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void testWSCall(String[] args1) throws AxisFault {
+
+        ServiceClient sender = new ServiceClient();
+        Options options = sender.getOptions();
+        EndpointReference targetEPR = new EndpointReference(
+            "http://localhost:8080/axis2/services/fhdw-travelservice-ws-1.0");
+        options.setTo(targetEPR);
+
+        // Die Operation "findHotel" soll aufgerufen werden
+        QName opFindHotel = new QName("http://ws.urlaubr.de",
+                                      "login");
+
+        // Die Parameter für die Operation
+        // werden definiert...
+
+        Object[] opArgs = new Object[]{"patrickgh", "test"};
+
+        // ...und ein AXIOM-OMElement mit der
+        //    Request-Nachricht erzeugt
+        OMElement request = BeanUtil.getOMElement(opFindHotel,
+                                                  opArgs, null, false, null);
+
+        // Der Request wird an den Service abgeschickt.
+        // Der Aufruf erfolgt synchron mit dem
+        // Kommunikationsmuster IN-OUT
+        OMElement response = sender.sendReceive(request);
+
+        // Diese Typen sollte der Web Service zur�ckliefern...
+        Class[] returnTypes = new Class[]{String.class};
+
+        // ...und werden mit einer Hilfsroutine in ein
+        // Objekt-Array �berf�hrt
+        Object[] result = BeanUtil.deserialize(response,
+                                               returnTypes, new DefaultObjectSupplier());
+        System.out.println(result);
+
+        QName opMyVacations = new QName("http://ws.urlaubr.de",
+                                        "getMyVacations");
+
+        request = BeanUtil.getOMElement(opMyVacations, new Object[]{result[0]}, null, false, null);
+        response = sender.sendReceive(request);
+
+        returnTypes = new Class[]{Booking.class};
+        result = BeanUtil.deserialize(response, returnTypes, new DefaultObjectSupplier());
+        System.out.println(result);
     }
 }

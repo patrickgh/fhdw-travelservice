@@ -1,6 +1,7 @@
 package de.urlaubr.ws;
 
 import de.urlaubr.ws.domain.Booking;
+import de.urlaubr.ws.domain.Customer;
 import de.urlaubr.ws.domain.SearchParams;
 import de.urlaubr.ws.domain.Traveler;
 import de.urlaubr.ws.domain.Vacation;
@@ -13,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * This class contains unit tests for the webservice class (without axis2). It checks the general database handling.
  * @author Patrick Groß-Holtwick
  *         Date: 30.07.13
  */
@@ -27,6 +29,12 @@ public class TravelServiceTest {
         Assert.assertTrue(sessionKey != 0);
 
         Assert.assertTrue(service.isAuthenticated(sessionKey));
+
+        Customer me = service.getUserInfo(sessionKey);
+
+        Assert.assertNotNull(me);
+        Assert.assertEquals(me.getFirstname(), "Patrick");
+        Assert.assertEquals(me.getEmail(), "patrickgh@web.de");
 
         service.logout(sessionKey);
 

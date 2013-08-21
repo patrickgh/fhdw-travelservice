@@ -15,7 +15,7 @@ public class WicketApplicationTest {
      * constructor which creates a Wicket-Tester instance with the Application loaded
      */
     public WicketApplicationTest() {
-        tester = new WicketTester(new Application());
+        tester = new WicketTester(new UrlaubrApplication());
     }
 
     /**

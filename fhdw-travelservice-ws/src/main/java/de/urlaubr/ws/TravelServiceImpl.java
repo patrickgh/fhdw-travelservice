@@ -23,7 +23,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -31,10 +30,12 @@ import java.util.Map;
 
 public class TravelServiceImpl implements TravelService {
 
+    //default configuration paramter
     public static final String DEFAULT_URL = "jdbc:mysql://localhost/urlaubr.";
     public static final String DEFAULT_USER = "root";
     public static final String DEFAULT_PASSWORD = "";
     public static final int SESSION_TIMEOUT = 1800000; // 1800 sec => 30 min
+    //private attributes
     private static Map<Integer, UserSession> sessions = new HashMap<Integer, UserSession>();
     private Connection dbConnection;
 
@@ -60,7 +61,7 @@ public class TravelServiceImpl implements TravelService {
             err.printStackTrace();
         }
 
-        //Database migration
+        //Database migration (only for use in IDE)
         //UrlaubrWsUtils.migrateDatabase(url, user, password);
     }
 
@@ -223,7 +224,7 @@ public class TravelServiceImpl implements TravelService {
             booking.setCreationdate(new Date(result.getTimestamp("creationdate").getTime()));
             booking.setStartdate(new Date(result.getTimestamp("startdate").getTime()));
             booking.setEnddate(new Date(result.getTimestamp("returndate").getTime()));
-            booking.setState(UrlaubrWsUtils.getBookingStateFromInteger(result.getInt("state")));
+            booking.setState(result.getInt("state"));
             booking.setVacation(getVacationById(result.getInt("fk_vacation")));
             booking.setCustomer(getCustomerById(result.getInt("fk_customer")));
             booking.setTraveler(getTravelerList(result.getInt("id")));
@@ -314,7 +315,7 @@ public class TravelServiceImpl implements TravelService {
                 && booking.getCustomer() != null
                 && booking.getVacation() != null
                 && booking.getCustomer().getId().intValue() == sessions.get(sessionKey).getUserId()
-                && booking.getState() != BookingState.FINISHED) {
+                && booking.getState() != BookingState.FINISHED.ordinal()) {
                 try {
                     PreparedStatement stmt = dbConnection.prepareStatement("INSERT INTO rating VALUES(null,?,?,?,?,?)");
                     stmt.setInt(1, booking.getCustomer().getId().intValue());
@@ -418,6 +419,14 @@ public class TravelServiceImpl implements TravelService {
             catch (SQLException e) {
                 e.printStackTrace();
             }
+        }
+        return null;
+    }
+
+    @Override
+    public Customer getUserInfo(Integer sessionKey) {
+        if (isAuthenticated(sessionKey)) {
+            return getCustomerById(sessions.get(sessionKey).getUserId());
         }
         return null;
     }
