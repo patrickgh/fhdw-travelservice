@@ -5,8 +5,10 @@ import de.urlaubr.ws.domain.Customer;
 import de.urlaubr.ws.domain.SearchParams;
 import de.urlaubr.ws.domain.Traveler;
 import de.urlaubr.ws.domain.Vacation;
+import de.urlaubr.ws.utils.UrlaubrWsUtils;
 import junit.framework.Assert;
 import org.apache.axis2.AxisFault;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -15,10 +17,18 @@ import java.util.List;
 
 /**
  * This class contains unit tests for the webservice class (without axis2). It checks the general database handling.
+ *
  * @author Patrick Groß-Holtwick
  *         Date: 30.07.13
  */
 public class TravelServiceTest {
+
+    @BeforeTest
+    public void setUp() {
+
+        //migrate or create database schema
+        UrlaubrWsUtils.migrateDatabase(TravelServiceImpl.DEFAULT_URL, TravelServiceImpl.DEFAULT_USER, TravelServiceImpl.DEFAULT_PASSWORD);
+    }
 
     @Test
     public void testLoginAndSession() {
