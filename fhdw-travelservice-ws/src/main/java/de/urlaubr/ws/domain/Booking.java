@@ -14,17 +14,17 @@ public class Booking {
     private Date startdate;
     private Date enddate;
     private Integer state;
-    private List<Traveler> traveler;
+    private Traveler[] traveler;
 
 
     public Booking() {
     }
 
-    public List<Traveler> getTraveler() {
+    public Traveler[] getTraveler() {
         return traveler;
     }
 
-    public void setTraveler(List<Traveler> traveler) {
+    public void setTraveler(Traveler[] traveler) {
         this.traveler = traveler;
     }
 

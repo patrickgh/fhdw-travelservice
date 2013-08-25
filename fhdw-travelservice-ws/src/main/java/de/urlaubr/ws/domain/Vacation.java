@@ -24,7 +24,7 @@ public class Vacation {
     private String airport;
     private String homeairport;
     private Integer catering;
-    private List<Rating> ratings;
+    private Rating[] ratings;
 
     public String getHomeairport() {
         return homeairport;
@@ -146,21 +146,21 @@ public class Vacation {
         this.catering = catering;
     }
 
-    public List<Rating> getRatings() {
+    public Rating[] getRatings() {
         return ratings;
     }
 
-    public void setRatings(List<Rating> ratings) {
+    public void setRatings(Rating[] ratings) {
         this.ratings = ratings;
     }
 
     public Double getAvgRating() {
-        if (ratings != null && ratings.size() > 0) {
+        if (ratings != null && ratings.length > 0) {
             Integer sum = 0;
             for (Rating rating : ratings) {
                 sum += rating.getRating();
             }
-            return sum.doubleValue() / ratings.size();
+            return sum.doubleValue() / ratings.length;
         }
         return null;
     }

@@ -187,7 +187,7 @@ public class TravelServiceImpl implements TravelService {
         return null;
     }
 
-    private List<Rating> getRatingsByVacationId(Integer id) {
+    private Rating[] getRatingsByVacationId(Integer id) {
         List<Rating> result = new ArrayList<Rating>();
         try {
             final PreparedStatement stmt = dbConnection.prepareStatement("SELECT * FROM rating WHERE `fk_vacation` = ? ORDER BY creationdate DESC");
@@ -200,7 +200,7 @@ public class TravelServiceImpl implements TravelService {
         catch (SQLException e) {
             e.printStackTrace();
         }
-        return result;
+        return result.toArray(new Rating[result.size()]);
     }
 
     private Rating createRatingFromResultSet(ResultSet result) {
@@ -237,7 +237,7 @@ public class TravelServiceImpl implements TravelService {
         return null;
     }
 
-    private List<Traveler> getTravelerList(Integer bookingId) {
+    private Traveler[] getTravelerList(Integer bookingId) {
         List<Traveler> result = new ArrayList<Traveler>();
         try {
             PreparedStatement stmt = dbConnection.prepareStatement("SELECT * FROM traveler WHERE fk_booking = ?");
@@ -255,7 +255,7 @@ public class TravelServiceImpl implements TravelService {
         catch (SQLException e) {
             e.printStackTrace();
         }
-        return result;
+        return result.toArray(new Traveler[result.size()]);
     }
 
     private Customer getCustomerById(Integer id) {
@@ -350,12 +350,12 @@ public class TravelServiceImpl implements TravelService {
             select.addCriteria(new MatchCriteria(vacation, "title", MatchCriteria.LIKE, "%" + params.getTitle() + "%"));
         }
 
-        if (params.getCountry() != null && params.getCountry().size() > 0) {
-            select.addCriteria(new InCriteria(vacation, "country", params.getCountry().toArray(new String[params.getCountry().size()])));
+        if (params.getCountry() != null && params.getCountry().length > 0) {
+            select.addCriteria(new InCriteria(vacation, "country", params.getCountry()));
         }
 
-        if (params.getHomeairport() != null && params.getHomeairport().size() > 0) {
-            select.addCriteria(new InCriteria(vacation, "homeairport", params.getHomeairport().toArray(new String[params.getHomeairport().size()])));
+        if (params.getHomeairport() != null && params.getHomeairport().length > 0) {
+            select.addCriteria(new InCriteria(vacation, "homeairport", params.getHomeairport()));
         }
 
         if (params.getCatering() != null) {

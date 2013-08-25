@@ -1,6 +1,7 @@
 package de.urlaubr.ws;
 
 import de.urlaubr.ws.domain.Booking;
+import de.urlaubr.ws.domain.Vacation;
 import net.glxn.qrgen.QRCode;
 import net.glxn.qrgen.image.ImageType;
 import org.apache.axiom.om.OMElement;
@@ -26,8 +27,13 @@ import java.util.Date;
 public class TestPgh {
 
     public static void main(String[] args) {
-        testQrCode(args);
-        //testWSCall(args);
+        //testQrCode(args);
+        try {
+            testWSCall(args);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     /*test qr code generation*/
@@ -63,12 +69,12 @@ public class TestPgh {
 
         // Die Operation "findHotel" soll aufgerufen werden
         QName opFindHotel = new QName("http://ws.urlaubr.de",
-                                      "login");
+                                      "getTopseller");
 
         // Die Parameter für die Operation
         // werden definiert...
 
-        Object[] opArgs = new Object[]{"patrickgh", "test"};
+        Object[] opArgs = new Object[]{};
 
         // ...und ein AXIOM-OMElement mit der
         //    Request-Nachricht erzeugt
@@ -81,22 +87,12 @@ public class TestPgh {
         OMElement response = sender.sendReceive(request);
 
         // Diese Typen sollte der Web Service zur�ckliefern...
-        Class[] returnTypes = new Class[]{String.class};
+        Class[] returnTypes = new Class[]{Vacation.class};
 
         // ...und werden mit einer Hilfsroutine in ein
         // Objekt-Array �berf�hrt
         Object[] result = BeanUtil.deserialize(response,
                                                returnTypes, new DefaultObjectSupplier());
-        System.out.println(result);
-
-        QName opMyVacations = new QName("http://ws.urlaubr.de",
-                                        "getMyVacations");
-
-        request = BeanUtil.getOMElement(opMyVacations, new Object[]{result[0]}, null, false, null);
-        response = sender.sendReceive(request);
-
-        returnTypes = new Class[]{Booking.class};
-        result = BeanUtil.deserialize(response, returnTypes, new DefaultObjectSupplier());
         System.out.println(result);
     }
 }

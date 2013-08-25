@@ -96,7 +96,7 @@ public class TravelServiceTest {
         Assert.assertEquals(vacations.size(), 4);
 
         SearchParams params = new SearchParams();
-        params.getCountry().add("ESP");
+        params.setCountry(new String[] {"ESP"});
         vacations = service.findVacations(params);
         Assert.assertNotNull(vacations);
         Assert.assertEquals(vacations.size(), 2);
@@ -129,6 +129,6 @@ public class TravelServiceTest {
         Assert.assertEquals(bookings.size() > 0, true);
         Assert.assertEquals(bookings.get(0).getVacation().getId().intValue(), 1);
         Assert.assertNotNull(bookings.get(0).getTraveler());
-        Assert.assertTrue(bookings.get(0).getTraveler().size() > 0);
+        Assert.assertTrue(bookings.get(0).getTraveler().length > 0);
     }
 }
