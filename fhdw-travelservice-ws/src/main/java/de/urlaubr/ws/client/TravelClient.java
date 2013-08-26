@@ -1,5 +1,10 @@
 package de.urlaubr.ws.client;
 
+import de.urlaubr.ws.TravelService;
+import de.urlaubr.ws.domain.Booking;
+import de.urlaubr.ws.domain.Customer;
+import de.urlaubr.ws.domain.SearchParams;
+import de.urlaubr.ws.domain.Traveler;
 import de.urlaubr.ws.domain.Vacation;
 import org.apache.axiom.om.OMElement;
 import org.apache.axis2.AxisFault;
@@ -10,43 +15,95 @@ import org.apache.axis2.databinding.utils.BeanUtil;
 import org.apache.axis2.engine.DefaultObjectSupplier;
 
 import javax.xml.namespace.QName;
+import java.util.Date;
+import java.util.List;
 
-public class TravelClient {
+public class TravelClient implements TravelService {
 
-   public static void main(String[] args1) throws AxisFault {
+    public static final String WS_ADDRESS = "http://localhost:8080/axis2/services/fhdw-travelservice-ws-1.0";
+    public static final String NAMESPACE_URI = "http://ws.urlaubr.de";
+    private ServiceClient sender;
 
-      ServiceClient sender = new ServiceClient();
-      Options options = sender.getOptions();
-      EndpointReference targetEPR = new EndpointReference(
-       "http://localhost:8080/axis2/services/fhdw-travelservice-ws-1.0");
-      options.setTo(targetEPR);
+    public TravelClient() {
+        try {
+            sender = new ServiceClient();
+            Options options = sender.getOptions();
+            EndpointReference targetEPR = new EndpointReference(WS_ADDRESS);
+            options.setTo(targetEPR);
+        }
+        catch (AxisFault e) {
+            e.printStackTrace();
+        }
+    }
 
-      // Die Operation "findHotel" soll aufgerufen werden
-      QName opFindHotel = new QName("http://ws.urlaubr.de/xsd",
-                                    "getTopseller");
+    @Override
+    public Integer login(String username, String password) {
+        QName opFindHotel = new QName(NAMESPACE_URI, "login");
+        Object[] opArgs = new Object[]{username, password};
+        OMElement request = BeanUtil.getOMElement(opFindHotel, opArgs, null, false, null);
+        try {
+            OMElement response = sender.sendReceive(request);
+            Object[] result = BeanUtil.deserialize(response, new Class[]{Integer.class}, new DefaultObjectSupplier());
+            if (result.length == 1) {
+                return (Integer) result[0];
+            }
+        }
+        catch (AxisFault e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
-      // Die Parameter f�r die Operation "findHotel"
-      // werden definiert...
-      String hotelCode = "AX050";
-      Object[] opArgs = new Object[] { hotelCode };
+    @Override
+    public void logout(Integer sessionKey) {
+        QName opFindHotel = new QName(NAMESPACE_URI, "logout");
+        Object[] opArgs = new Object[]{sessionKey};
+        OMElement request = BeanUtil.getOMElement(opFindHotel, opArgs, null, false, null);
+        try {
+            sender.sendReceive(request);
+        }
+        catch (AxisFault e) {
+            e.printStackTrace();
+        }
+    }
 
-      // ...und ein AXIOM-OMElement mit der 
-      //    Request-Nachricht erzeugt
-      OMElement request = BeanUtil.getOMElement(opFindHotel,
-                                    null, null, false, null);
+    @Override
+    public List<Vacation> getTopseller() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
 
-      // Der Request wird an den Service abgeschickt. 
-      // Der Aufruf erfolgt synchron mit dem 
-      // Kommunikationsmuster IN-OUT
-      OMElement response = sender.sendReceive(request);
+    @Override
+    public List<Booking> getMyVacations(Integer sessionKey) throws AxisFault {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
 
-      // Diese Typen sollte der Web Service zur�ckliefern...
-      Class[] returnTypes = new Class[] { Vacation.class };
+    @Override
+    public Vacation getVacationById(Integer id) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
 
-      // ...und werden mit einer Hilfsroutine in ein 
-      // Objekt-Array �berf�hrt
-      Object[] result = BeanUtil.deserialize(response,
-                    returnTypes,	new DefaultObjectSupplier());
-       System.out.println(result);
-   }
+    @Override
+    public void rateVacation(Integer sessionKey, Integer bookingId, Integer rating, String comment) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void cancelBooking(Integer sessionKey, Integer bookingId) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public List<Vacation> findVacations(SearchParams params) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public Integer createBooking(Integer sessionKey, Integer vacationId, Date startdate, List<Traveler> travelers) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public Customer getUserInfo(Integer sessionKey) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
 }

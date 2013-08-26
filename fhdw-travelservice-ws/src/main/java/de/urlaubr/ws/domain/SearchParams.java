@@ -19,8 +19,8 @@ public class SearchParams {
     * */
 
     private String title;
-    private List<String> country = new ArrayList<String>();
-    private List<String> homeairport = new ArrayList<String>();
+    private String[] country = new String[0];
+    private String[] homeairport = new String[0];
     private Integer hotelstars;
     private CateringType catering;
     private Integer duration;
@@ -34,14 +34,6 @@ public class SearchParams {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public List<String> getCountry() {
-        return country;
-    }
-
-    public void setCountry(List<String> country) {
-        this.country = country;
     }
 
     public Integer getHotelstars() {
@@ -62,17 +54,25 @@ public class SearchParams {
 
     public Integer getDuration() {
         return duration;
-    }
+}
 
     public void setDuration(Integer duration) {
         this.duration = duration;
     }
 
-    public List<String> getHomeairport() {
+    public String[] getCountry() {
+        return country;
+    }
+
+    public void setCountry(String[] country) {
+        this.country = country;
+    }
+
+    public String[] getHomeairport() {
         return homeairport;
     }
 
-    public void setHomeairport(List<String> homeairport) {
+    public void setHomeairport(String[] homeairport) {
         this.homeairport = homeairport;
     }
 }

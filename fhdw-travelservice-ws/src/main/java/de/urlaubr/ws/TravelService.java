@@ -1,9 +1,11 @@
 package de.urlaubr.ws;
 
 import de.urlaubr.ws.domain.Booking;
+import de.urlaubr.ws.domain.Customer;
 import de.urlaubr.ws.domain.SearchParams;
 import de.urlaubr.ws.domain.Traveler;
 import de.urlaubr.ws.domain.Vacation;
+import org.apache.axis2.AxisFault;
 
 import java.util.Date;
 import java.util.List;
@@ -18,9 +20,11 @@ public interface TravelService {
 
     void logout(Integer sessionKey);
 
+    Customer getUserInfo(Integer sessionKey);
+
     List<Vacation> getTopseller();
 
-    List<Booking> getMyVacations(Integer sessionKey);
+    List<Booking> getMyVacations(Integer sessionKey) throws AxisFault;
 
     Vacation getVacationById(Integer id);
 

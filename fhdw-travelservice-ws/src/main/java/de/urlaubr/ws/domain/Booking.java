@@ -13,18 +13,18 @@ public class Booking {
     private Date creationdate;
     private Date startdate;
     private Date enddate;
-    private BookingState state;
-    private List<Traveler> traveler;
+    private Integer state;
+    private Traveler[] traveler;
 
 
     public Booking() {
     }
 
-    public List<Traveler> getTraveler() {
+    public Traveler[] getTraveler() {
         return traveler;
     }
 
-    public void setTraveler(List<Traveler> traveler) {
+    public void setTraveler(Traveler[] traveler) {
         this.traveler = traveler;
     }
 
@@ -68,11 +68,11 @@ public class Booking {
         this.enddate = enddate;
     }
 
-    public BookingState getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(BookingState state) {
+    public void setState(Integer state) {
         this.state = state;
     }
 }

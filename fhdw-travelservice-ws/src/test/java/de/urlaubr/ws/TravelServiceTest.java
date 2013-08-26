@@ -1,10 +1,14 @@
 package de.urlaubr.ws;
 
 import de.urlaubr.ws.domain.Booking;
+import de.urlaubr.ws.domain.Customer;
 import de.urlaubr.ws.domain.SearchParams;
 import de.urlaubr.ws.domain.Traveler;
 import de.urlaubr.ws.domain.Vacation;
+import de.urlaubr.ws.utils.UrlaubrWsUtils;
 import junit.framework.Assert;
+import org.apache.axis2.AxisFault;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -12,10 +16,19 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * This class contains unit tests for the webservice class (without axis2). It checks the general database handling.
+ *
  * @author Patrick Groß-Holtwick
  *         Date: 30.07.13
  */
 public class TravelServiceTest {
+
+    @BeforeTest
+    public void setUp() {
+
+        //migrate or create database schema
+        UrlaubrWsUtils.migrateDatabase(TravelServiceImpl.DEFAULT_URL, TravelServiceImpl.DEFAULT_USER, TravelServiceImpl.DEFAULT_PASSWORD);
+    }
 
     @Test
     public void testLoginAndSession() {
@@ -26,6 +39,12 @@ public class TravelServiceTest {
         Assert.assertTrue(sessionKey != 0);
 
         Assert.assertTrue(service.isAuthenticated(sessionKey));
+
+        Customer me = service.getUserInfo(sessionKey);
+
+        Assert.assertNotNull(me);
+        Assert.assertEquals(me.getFirstname(), "Patrick");
+        Assert.assertEquals(me.getEmail(), "patrickgh@web.de");
 
         service.logout(sessionKey);
 
@@ -57,11 +76,15 @@ public class TravelServiceTest {
     public void testGetMyVacations() {
         final TravelServiceImpl service = new TravelServiceImpl();
         final Integer sessionKey = service.login("patrickgh", "test");
+        try {
+            List<Booking> bookings = service.getMyVacations(sessionKey);
 
-        List<Booking> bookings = service.getMyVacations(sessionKey);
-
-        Assert.assertNotNull(bookings);
-        Assert.assertEquals(bookings.size() > 0, true);
+            Assert.assertNotNull(bookings);
+            Assert.assertEquals(bookings.size() > 0, true);
+        }
+        catch (AxisFault e) {
+            Assert.fail("authentication failed");
+        }
     }
 
     @Test
@@ -73,7 +96,7 @@ public class TravelServiceTest {
         Assert.assertEquals(vacations.size(), 4);
 
         SearchParams params = new SearchParams();
-        params.getCountry().add("ESP");
+        params.setCountry(new String[] {"ESP"});
         vacations = service.findVacations(params);
         Assert.assertNotNull(vacations);
         Assert.assertEquals(vacations.size(), 2);
@@ -87,7 +110,7 @@ public class TravelServiceTest {
     }
 
     @Test
-    public void testCreateBooking() {
+    public void testCreateBooking() throws AxisFault {
         final TravelServiceImpl service = new TravelServiceImpl();
         final Integer sessionKey = service.login("patrickgh", "test");
 
@@ -106,6 +129,6 @@ public class TravelServiceTest {
         Assert.assertEquals(bookings.size() > 0, true);
         Assert.assertEquals(bookings.get(0).getVacation().getId().intValue(), 1);
         Assert.assertNotNull(bookings.get(0).getTraveler());
-        Assert.assertTrue(bookings.get(0).getTraveler().size() > 0);
+        Assert.assertTrue(bookings.get(0).getTraveler().length > 0);
     }
 }

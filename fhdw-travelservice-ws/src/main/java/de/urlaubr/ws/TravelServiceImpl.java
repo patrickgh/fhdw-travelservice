@@ -13,6 +13,7 @@ import de.urlaubr.ws.domain.Traveler;
 import de.urlaubr.ws.domain.UserSession;
 import de.urlaubr.ws.domain.Vacation;
 import de.urlaubr.ws.utils.UrlaubrWsUtils;
+import org.apache.axis2.AxisFault;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,7 +23,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -30,10 +30,12 @@ import java.util.Map;
 
 public class TravelServiceImpl implements TravelService {
 
+    //default configuration paramter
     public static final String DEFAULT_URL = "jdbc:mysql://localhost/urlaubr.";
     public static final String DEFAULT_USER = "root";
     public static final String DEFAULT_PASSWORD = "";
     public static final int SESSION_TIMEOUT = 1800000; // 1800 sec => 30 min
+    //private attributes
     private static Map<Integer, UserSession> sessions = new HashMap<Integer, UserSession>();
     private Connection dbConnection;
 
@@ -42,9 +44,6 @@ public class TravelServiceImpl implements TravelService {
         String url = System.getProperty("db.url") != null ? System.getProperty("db.url") : DEFAULT_URL;
         String user = System.getProperty("db.user") != null ? System.getProperty("db.user") : DEFAULT_USER;
         String password = System.getProperty("db.password") != null ? System.getProperty("db.password") : DEFAULT_PASSWORD;
-
-        //Database migration
-        UrlaubrWsUtils.migrateDatabase(url, user, password);
 
         //create Connection
         try {
@@ -61,6 +60,9 @@ public class TravelServiceImpl implements TravelService {
             System.out.println("Connect nicht möglich");
             err.printStackTrace();
         }
+
+        //Database migration (only for use in IDE)
+        //UrlaubrWsUtils.migrateDatabase(url, user, password);
     }
 
     public Integer login(String username, String password) {
@@ -122,7 +124,7 @@ public class TravelServiceImpl implements TravelService {
         return null;
     }
 
-    public List<Booking> getMyVacations(Integer sessionKey) {
+    public List<Booking> getMyVacations(Integer sessionKey) throws AxisFault {
         if (isAuthenticated(sessionKey)) {
             try {
                 List<Booking> bookings = new ArrayList<Booking>();
@@ -138,7 +140,8 @@ public class TravelServiceImpl implements TravelService {
                 e.printStackTrace();
             }
         }
-        return Collections.emptyList();
+        throw new AxisFault("not authenticated");
+        //return Collections.emptyList();
     }
 
     public Vacation getVacationById(Integer id) {
@@ -173,7 +176,8 @@ public class TravelServiceImpl implements TravelService {
             vac.setCountry(result.getString("country"));
             vac.setCity(result.getString("city"));
             vac.setHomeairport(result.getString("homeairport"));
-            vac.setCatering(UrlaubrWsUtils.getCateringTypeFromInteger(result.getInt("catering")));
+            //vac.setCatering(UrlaubrWsUtils.getCateringTypeFromInteger(result.getInt("catering")));
+            vac.setCatering(result.getInt("catering"));
             vac.setRatings(getRatingsByVacationId(vac.getId()));
             return vac;
         }
@@ -183,7 +187,7 @@ public class TravelServiceImpl implements TravelService {
         return null;
     }
 
-    private List<Rating> getRatingsByVacationId(Integer id) {
+    private Rating[] getRatingsByVacationId(Integer id) {
         List<Rating> result = new ArrayList<Rating>();
         try {
             final PreparedStatement stmt = dbConnection.prepareStatement("SELECT * FROM rating WHERE `fk_vacation` = ? ORDER BY creationdate DESC");
@@ -196,7 +200,7 @@ public class TravelServiceImpl implements TravelService {
         catch (SQLException e) {
             e.printStackTrace();
         }
-        return result;
+        return result.toArray(new Rating[result.size()]);
     }
 
     private Rating createRatingFromResultSet(ResultSet result) {
@@ -220,7 +224,7 @@ public class TravelServiceImpl implements TravelService {
             booking.setCreationdate(new Date(result.getTimestamp("creationdate").getTime()));
             booking.setStartdate(new Date(result.getTimestamp("startdate").getTime()));
             booking.setEnddate(new Date(result.getTimestamp("returndate").getTime()));
-            booking.setState(UrlaubrWsUtils.getBookingStateFromInteger(result.getInt("state")));
+            booking.setState(result.getInt("state"));
             booking.setVacation(getVacationById(result.getInt("fk_vacation")));
             booking.setCustomer(getCustomerById(result.getInt("fk_customer")));
             booking.setTraveler(getTravelerList(result.getInt("id")));
@@ -233,7 +237,7 @@ public class TravelServiceImpl implements TravelService {
         return null;
     }
 
-    private List<Traveler> getTravelerList(Integer bookingId) {
+    private Traveler[] getTravelerList(Integer bookingId) {
         List<Traveler> result = new ArrayList<Traveler>();
         try {
             PreparedStatement stmt = dbConnection.prepareStatement("SELECT * FROM traveler WHERE fk_booking = ?");
@@ -251,7 +255,7 @@ public class TravelServiceImpl implements TravelService {
         catch (SQLException e) {
             e.printStackTrace();
         }
-        return result;
+        return result.toArray(new Traveler[result.size()]);
     }
 
     private Customer getCustomerById(Integer id) {
@@ -311,7 +315,7 @@ public class TravelServiceImpl implements TravelService {
                 && booking.getCustomer() != null
                 && booking.getVacation() != null
                 && booking.getCustomer().getId().intValue() == sessions.get(sessionKey).getUserId()
-                && booking.getState() != BookingState.FINISHED) {
+                && booking.getState() != BookingState.FINISHED.ordinal()) {
                 try {
                     PreparedStatement stmt = dbConnection.prepareStatement("INSERT INTO rating VALUES(null,?,?,?,?,?)");
                     stmt.setInt(1, booking.getCustomer().getId().intValue());
@@ -346,12 +350,12 @@ public class TravelServiceImpl implements TravelService {
             select.addCriteria(new MatchCriteria(vacation, "title", MatchCriteria.LIKE, "%" + params.getTitle() + "%"));
         }
 
-        if (params.getCountry() != null && params.getCountry().size() > 0) {
-            select.addCriteria(new InCriteria(vacation, "country", params.getCountry().toArray(new String[params.getCountry().size()])));
+        if (params.getCountry() != null && params.getCountry().length > 0) {
+            select.addCriteria(new InCriteria(vacation, "country", params.getCountry()));
         }
 
-        if (params.getHomeairport() != null && params.getHomeairport().size() > 0) {
-            select.addCriteria(new InCriteria(vacation, "homeairport", params.getHomeairport().toArray(new String[params.getHomeairport().size()])));
+        if (params.getHomeairport() != null && params.getHomeairport().length > 0) {
+            select.addCriteria(new InCriteria(vacation, "homeairport", params.getHomeairport()));
         }
 
         if (params.getCatering() != null) {
@@ -415,6 +419,14 @@ public class TravelServiceImpl implements TravelService {
             catch (SQLException e) {
                 e.printStackTrace();
             }
+        }
+        return null;
+    }
+
+    @Override
+    public Customer getUserInfo(Integer sessionKey) {
+        if (isAuthenticated(sessionKey)) {
+            return getCustomerById(sessions.get(sessionKey).getUserId());
         }
         return null;
     }
