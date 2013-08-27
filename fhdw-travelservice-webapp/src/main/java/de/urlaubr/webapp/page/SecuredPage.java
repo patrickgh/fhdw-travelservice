@@ -6,9 +6,9 @@ package de.urlaubr.webapp.page;
  * @author Patrick Groß-Holtwick
  *         Date: 21.08.13
  */
-public abstract class RequiresLoginPage extends BasePage {
+public abstract class SecuredPage extends BasePage {
 
-    public RequiresLoginPage() {
+    public SecuredPage() {
         super();
         if (getSession().getAttribute("sessionKey") == null) {
             setResponsePage(getApplication().getHomePage());

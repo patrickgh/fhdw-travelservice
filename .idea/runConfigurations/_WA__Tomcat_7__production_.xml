@@ -1,5 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="[WA] Tomcat 7 (production)" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 7">
+    <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8081/" />
     <option name="COMMON_VM_ARGUMENTS" value="-Dapplication.resource.src=$PROJECT_DIR$/fhdw-travelservice-webapp/src/main/java -Dapplication.webresource.src=$PROJECT_DIR$/fhdw-travelservice-webapp/src/main/resources -Dwicket.configuration=deployment" />
     <option name="UPDATING_POLICY" value="restart-server" />
     <deployment>
@@ -11,6 +12,7 @@
     </deployment>
     <server-settings>
       <option name="BASE_DIRECTORY_NAME" value="Tomcat_7_(development)_(1)_fhdw-travelservice" />
+      <option name="HTTP_PORT" value="8081" />
     </server-settings>
     <predefined_log_file id="Tomcat" enabled="true" />
     <predefined_log_file id="Tomcat Catalina" enabled="true" />

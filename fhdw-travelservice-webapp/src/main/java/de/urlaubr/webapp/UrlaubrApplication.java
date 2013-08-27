@@ -5,10 +5,13 @@ import org.apache.wicket.Page;
 import org.apache.wicket.RuntimeConfigurationType;
 import org.apache.wicket.core.util.file.WebApplicationPath;
 import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.caching.FilenameWithVersionResourceCachingStrategy;
 import org.apache.wicket.request.resource.caching.version.LastModifiedResourceVersion;
 import org.apache.wicket.resource.NoOpTextCompressor;
+import org.apache.wicket.settings.def.JavaScriptLibrarySettings;
 import org.apache.wicket.util.string.Strings;
+import webresources.ImportResourceLocator;
 
 /**
  * Application class for the webapp. It manages some configuration for the wicket framework. It also defines the home page of the application.
@@ -21,6 +24,7 @@ public class UrlaubrApplication extends WebApplication {
     @Override
     protected void init() {
         super.init();
+        getJavaScriptLibrarySettings().setJQueryReference(new PackageResourceReference(ImportResourceLocator.class,"js/demos/js/jquery.js"));
         if (RuntimeConfigurationType.DEVELOPMENT.equals(getConfigurationType())) {
             getDebugSettings().setDevelopmentUtilitiesEnabled(true);
             getDebugSettings().setAjaxDebugModeEnabled(true);
@@ -41,6 +45,9 @@ public class UrlaubrApplication extends WebApplication {
             getMarkupSettings().setCompressWhitespace(true);
         }
         getMarkupSettings().setDefaultMarkupEncoding("utf-8");
+
+        mountResource("apple-touch-icon.png", new PackageResourceReference(ImportResourceLocator.class,"images/apple-touch-icon.png"));
+        mountResource("favicon.ico", new PackageResourceReference(ImportResourceLocator.class,"images/favicon.ico"));
     }
 
     @Override

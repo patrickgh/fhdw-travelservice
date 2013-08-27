@@ -49,11 +49,6 @@
             <version>${testng.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>${javax.servlet.version}</version>
-        </dependency>
     </dependencies>
 
     <build>
