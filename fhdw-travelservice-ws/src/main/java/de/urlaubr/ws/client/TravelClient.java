@@ -119,6 +119,7 @@ public class TravelClient implements TravelService {
             if (result.length == 1) {
                 return (Vacation) result[0];
             }
+
         }
         catch (AxisFault e) {
             e.printStackTrace();
@@ -128,32 +129,59 @@ public class TravelClient implements TravelService {
 
     @Override
     public void rateVacation(Integer sessionKey, Integer bookingId, Integer rating, String comment) {
-        QName opFindHotel = new QName(NAMESPACE_URI, "rateVacation");
-        Object[] opArgs = new Object[]{sessionKey};
-        OMElement request = BeanUtil.getOMElement(opFindHotel, opArgs, null, false, null);
-        try {
-            sender.sendReceive(request);
-        }
-        catch (AxisFault e) {
-            e.printStackTrace();
-        }
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public void cancelBooking(Integer sessionKey, Integer bookingId) {
 
-        //To change body of implemented methods use File | Settings | File Templates.
+        QName opFindHotel = new QName(NAMESPACE_URI, "cancelBooking");
+                Object[] opArgs = new Object[]{sessionKey, bookingId};
+                OMElement request = BeanUtil.getOMElement(opFindHotel, opArgs, null, false, null);
+                try {
+                    sender.sendReceive(request);
+                }
+                catch (AxisFault e) {
+                    e.printStackTrace();
+                }
     }
 
     @Override
     public List<Vacation> findVacations(SearchParams params) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        QName opFindHotel = new QName(NAMESPACE_URI, "findVacations");
+               Object[] opArgs = new Object[]{params};
+               OMElement request = BeanUtil.getOMElement(opFindHotel, opArgs, null, false, null);
+               try {
+                   OMElement response = sender.sendReceive(request);
+                   Object[] result = BeanUtil.deserialize(response, new Class[]{Vacation.class}, new DefaultObjectSupplier());
+                   List<Vacation> vacations = new ArrayList<Vacation>();
+                   for (Object element : result) {
+                       vacations.add((Vacation) element);
+                   }
+                   return vacations;
+               }
+               catch (AxisFault e) {
+                   e.printStackTrace();
+               }
+               return null;
     }
 
     @Override
     public Integer createBooking(Integer sessionKey, Integer vacationId, Date startdate, List<Traveler> travelers) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        QName opFindHotel = new QName(NAMESPACE_URI, "createBooking");
+                        Object[] opArgs = new Object[]{sessionKey, vacationId, startdate, travelers};
+                        OMElement request = BeanUtil.getOMElement(opFindHotel, opArgs, null, false, null);
+                        try {
+                            OMElement response = sender.sendReceive(request);
+                            Object[] result = BeanUtil.deserialize(response, new Class[]{Integer.class}, new DefaultObjectSupplier());
+                            if (result.length == 1) {
+                                return (Integer) result[0];
+                            }
+                        }
+                        catch (AxisFault e) {
+                            e.printStackTrace();
+                        }
+                        return null;
     }
 
     @Override
