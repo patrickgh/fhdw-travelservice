@@ -35,7 +35,11 @@
     <repositories>
         <repository>
             <id>repo</id>
-            <url>repo</url>
+            <releases>
+                <enabled>true</enabled>
+                <checksumPolicy>ignore</checksumPolicy>
+            </releases>
+            <url>file://${project.parent.relativePath}/repo</url>
         </repository>
     </repositories>
 
