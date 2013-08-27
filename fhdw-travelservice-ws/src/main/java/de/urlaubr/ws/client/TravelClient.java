@@ -90,11 +90,40 @@ public class TravelClient implements TravelService {
 
     @Override
     public List<Booking> getMyVacations(Integer sessionKey) throws AxisFault {
+        QName opFindHotel = new QName(NAMESPACE_URI, "getMyVacations");
+        Object[] opArgs = new Object[]{};
+        OMElement request = BeanUtil.getOMElement(opFindHotel, opArgs, null, false, null);
+        try {
+            OMElement response = sender.sendReceive(request);
+            Object[] result = BeanUtil.deserialize(response, new Class[]{Booking.class}, new DefaultObjectSupplier());
+            List<Booking> bookings = new ArrayList<Booking>();
+            for (Object element : result) {
+                bookings.add((Booking) element);
+            }
+            return bookings;
+        }
+        catch (AxisFault e) {
+            e.printStackTrace();
+        }
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public Vacation getVacationById(Integer id) {
+        QName opFindHotel = new QName(NAMESPACE_URI, "getVacationById");
+        Object[] opArgs = new Object[]{};
+        OMElement request = BeanUtil.getOMElement(opFindHotel, opArgs, null, false, null);
+        try {
+            OMElement response = sender.sendReceive(request);
+            Object[] result = BeanUtil.deserialize(response, new Class[]{Vacation.class}, new DefaultObjectSupplier());
+            if (result.length == 1) {
+                return (Vacation) result[0];
+            }
+
+        }
+        catch (AxisFault e) {
+            e.printStackTrace();
+        }
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
