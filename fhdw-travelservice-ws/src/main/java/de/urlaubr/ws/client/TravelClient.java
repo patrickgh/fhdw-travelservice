@@ -15,6 +15,7 @@ import org.apache.axis2.databinding.utils.BeanUtil;
 import org.apache.axis2.engine.DefaultObjectSupplier;
 
 import javax.xml.namespace.QName;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -69,7 +70,22 @@ public class TravelClient implements TravelService {
 
     @Override
     public List<Vacation> getTopseller() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        QName opFindHotel = new QName(NAMESPACE_URI, "getTopseller");
+        Object[] opArgs = new Object[]{};
+        OMElement request = BeanUtil.getOMElement(opFindHotel, opArgs, null, false, null);
+        try {
+            OMElement response = sender.sendReceive(request);
+            Object[] result = BeanUtil.deserialize(response, new Class[]{Vacation.class}, new DefaultObjectSupplier());
+            List<Vacation> vacations = new ArrayList<Vacation>();
+            for (Object element : result) {
+                vacations.add((Vacation) element);
+            }
+            return vacations;
+        }
+        catch (AxisFault e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
