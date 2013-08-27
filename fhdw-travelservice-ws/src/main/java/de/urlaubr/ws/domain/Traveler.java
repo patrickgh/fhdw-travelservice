@@ -7,6 +7,7 @@ import java.util.Date;
  *         Date: 07.08.13
  */
 public class Traveler {
+
     private String firstname;
     private String lastname;
     private Date birthday;

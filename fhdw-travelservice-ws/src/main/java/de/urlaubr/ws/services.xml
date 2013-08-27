@@ -1,43 +1,47 @@
 <service>
 
-	<description>TravelService</description>
-	<parameter name="ServiceClass" locked="false">
+    <description>TravelService</description>
+    <parameter name="ServiceClass" locked="false">
         de.urlaubr.ws.TravelServiceImpl
     </parameter>
 
-	<operation name="login">
-		<messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
-	</operation>
+    <operation name="login">
+        <messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
+    </operation>
 
-	<operation name="logout">
-		<messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
-	</operation>
+    <operation name="logout">
+        <messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
+    </operation>
 
     <operation name="getMyVacations">
-        <messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+        <messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
     </operation>
 
     <operation name="getTopseller">
-        <messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+        <messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
     </operation>
 
     <operation name="getVacationById">
-        <messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+        <messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
     </operation>
 
     <operation name="cancelBooking">
-        <messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+        <messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
     </operation>
 
     <operation name="createBooking">
-        <messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+        <messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
     </operation>
 
     <operation name="rateVacation">
-        <messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+        <messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
     </operation>
 
     <operation name="findVacations">
-        <messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+        <messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
+    </operation>
+
+    <operation name="getUserInfo">
+        <messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
     </operation>
 </service>

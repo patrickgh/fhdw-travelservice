@@ -1,13 +1,13 @@
 package de.urlaubr.ws.domain;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author Patrick Groß-Holtwick
  *         Date: 07.08.13
  */
 public class Booking {
+
     private Vacation vacation;
     private Customer customer;
     private Date creationdate;
@@ -15,7 +15,6 @@ public class Booking {
     private Date enddate;
     private Integer state;
     private Traveler[] traveler;
-
 
     public Booking() {
     }

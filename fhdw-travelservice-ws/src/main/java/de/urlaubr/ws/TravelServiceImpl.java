@@ -108,7 +108,7 @@ public class TravelServiceImpl implements TravelService {
         return false;
     }
 
-    public List<Vacation> getTopseller() {
+    public Vacation[] getTopseller() {
         try {
             List<Vacation> vacations = new ArrayList<Vacation>();
             PreparedStatement stmt = dbConnection.prepareStatement("SELECT `fk_vacation` as id FROM rating GROUP BY `fk_vacation` ORDER BY AVG(`rating`) DESC;");
@@ -116,7 +116,7 @@ public class TravelServiceImpl implements TravelService {
             while (result.next()) {
                 vacations.add(getVacationById(result.getInt("id")));
             }
-            return vacations;
+            return vacations.toArray(new Vacation[vacations.size()]);
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -124,7 +124,7 @@ public class TravelServiceImpl implements TravelService {
         return null;
     }
 
-    public List<Booking> getMyVacations(Integer sessionKey) throws AxisFault {
+    public Booking[] getMyVacations(Integer sessionKey) throws AxisFault {
         if (isAuthenticated(sessionKey)) {
             try {
                 List<Booking> bookings = new ArrayList<Booking>();
@@ -134,7 +134,7 @@ public class TravelServiceImpl implements TravelService {
                 while (result.next()) {
                     bookings.add(createBookingFromResultSet(result));
                 }
-                return bookings;
+                return bookings.toArray(new Booking[bookings.size()]);
             }
             catch (SQLException e) {
                 e.printStackTrace();
@@ -342,7 +342,7 @@ public class TravelServiceImpl implements TravelService {
         }
     }
 
-    public List<Vacation> findVacations(SearchParams params) {
+    public Vacation[] findVacations(SearchParams params) {
         SelectQuery select = new SelectQuery();
         Table vacation = new Table("vacation");
         select.addColumn(vacation, "*");
@@ -377,7 +377,7 @@ public class TravelServiceImpl implements TravelService {
             while (resultSet.next()) {
                 result.add(createVacationFromResultSet(resultSet));
             }
-            return result;
+            return result.toArray(new Vacation[result.size()]);
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -386,18 +386,18 @@ public class TravelServiceImpl implements TravelService {
         return null;
     }
 
-    public Integer createBooking(Integer sessionKey, Integer vacationId, Date startdate, List<Traveler> travelers) {
+    public Integer createBooking(Integer sessionKey, Integer vacationId, Date startdate, Traveler[] travelers) {
         if (isAuthenticated(sessionKey)) {
             try {
                 Vacation vacation = getVacationById(vacationId);
-                if (vacation != null && startdate != null && travelers != null && travelers.size() > 0) {
+                if (vacation != null && startdate != null && travelers != null && travelers.length > 0) {
                     PreparedStatement stmt = dbConnection.prepareStatement("INSERT INTO booking VALUES (null,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
                     stmt.setInt(1, vacationId);
                     stmt.setInt(2, sessions.get(sessionKey).getUserId());
                     stmt.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
                     stmt.setTimestamp(4, new Timestamp(startdate.getTime()));
                     stmt.setTimestamp(5, new Timestamp(startdate.getTime() + vacation.getDuration() * 24 * 60 * 60 * 1000));
-                    stmt.setInt(6, travelers.size());
+                    stmt.setInt(6, travelers.length);
                     stmt.setInt(7, BookingState.CREATED.ordinal());
                     stmt.executeUpdate();
                     ResultSet result = stmt.getGeneratedKeys();

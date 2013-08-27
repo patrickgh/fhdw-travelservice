@@ -45,7 +45,6 @@ public final class UrlaubrWsUtils {
         return null;
     }
 
-
     /*
      * This methods updates the Database schema if necessary. It uses the Flyway framework ( http://www.flywaydb.org ) and the SQL-Scripts located in the resource folder.
      *

@@ -1,27 +1,22 @@
 package de.urlaubr.ws;
 
 import de.urlaubr.ws.client.TravelClient;
-import junit.framework.Assert;
-import org.testng.annotations.Test;
+import org.testng.annotations.BeforeTest;
 
 /**
  * This class contains unit tests for the webservice client.
+ * It uses the same tests as the other class but calls the methods via webservice.
  * It requires a deployed axis2 webservice (and is therefore not included in the maven build process).
  *
  * @author Patrick Groß-Holtwick
  *         Date: 21.08.13
  */
 
-public class TravelServiceClientTest {
+public class TravelServiceClientTest extends TravelServiceTest {
 
-    private TravelClient client = new TravelClient();
-
-    @Test
-    public void testLogin() throws Exception {
-        Integer sessionKey = client.login("patrickgh", "test");
-
-        Assert.assertNotNull(sessionKey);
-
-        client.logout(sessionKey);
+    @BeforeTest
+    @Override
+    public void setUp() {
+        service = new TravelClient();
     }
 }

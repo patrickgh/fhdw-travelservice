@@ -8,7 +8,6 @@ import de.urlaubr.ws.domain.Vacation;
 import org.apache.axis2.AxisFault;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author Patrick Groß-Holtwick
@@ -22,9 +21,9 @@ public interface TravelService {
 
     Customer getUserInfo(Integer sessionKey);
 
-    List<Vacation> getTopseller();
+    Vacation[] getTopseller();
 
-    List<Booking> getMyVacations(Integer sessionKey) throws AxisFault;
+    Booking[] getMyVacations(Integer sessionKey) throws AxisFault;
 
     Vacation getVacationById(Integer id);
 
@@ -32,7 +31,7 @@ public interface TravelService {
 
     void cancelBooking(Integer sessionKey, Integer bookingId);
 
-    List<Vacation> findVacations(SearchParams params);
+    Vacation[] findVacations(SearchParams params);
 
-    Integer createBooking(Integer sessionKey, Integer vacationId, Date startdate, List<Traveler> travelers);
+    Integer createBooking(Integer sessionKey, Integer vacationId, Date startdate, Traveler[] travelers);
 }

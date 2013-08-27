@@ -1,9 +1,5 @@
 package de.urlaubr.ws.domain;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 /**
  * @author Patrick Groß-Holtwick
  *         Date: 14.08.13
@@ -54,7 +50,7 @@ public class SearchParams {
 
     public Integer getDuration() {
         return duration;
-}
+    }
 
     public void setDuration(Integer duration) {
         this.duration = duration;

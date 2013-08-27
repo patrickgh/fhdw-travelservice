@@ -7,6 +7,7 @@ import java.util.Date;
  *         Date: 07.08.13
  */
 public class Rating {
+
     private Integer rating;
     private String comment;
     private Date creationdate;

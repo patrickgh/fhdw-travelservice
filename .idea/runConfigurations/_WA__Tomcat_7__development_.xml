@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Tomcat 7 (production)" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 7">
-    <option name="COMMON_VM_ARGUMENTS" value="-Dapplication.resource.src=$PROJECT_DIR$/fhdw-travelservice-webapp/src/main/java -Dapplication.webresource.src=$PROJECT_DIR$/fhdw-travelservice-webapp/src/main/resources -Dwicket.configuration=deployment" />
+  <configuration default="false" name="[WA] Tomcat 7 (development)" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 7">
+    <option name="COMMON_VM_ARGUMENTS" value="-Dapplication.resource.src=$PROJECT_DIR$/fhdw-travelservice-webapp/src/main/java -Dapplication.webresource.src=$PROJECT_DIR$/fhdw-travelservice-webapp/src/main/resources" />
     <option name="UPDATING_POLICY" value="restart-server" />
     <deployment>
       <artifact name="fhdw-travelservice-webapp:war exploded">
@@ -10,7 +10,7 @@
       </artifact>
     </deployment>
     <server-settings>
-      <option name="BASE_DIRECTORY_NAME" value="Tomcat_7_(development)_(1)_fhdw-travelservice" />
+      <option name="BASE_DIRECTORY_NAME" value="Unnamed_fhdw-travelservice" />
     </server-settings>
     <predefined_log_file id="Tomcat" enabled="true" />
     <predefined_log_file id="Tomcat Catalina" enabled="true" />

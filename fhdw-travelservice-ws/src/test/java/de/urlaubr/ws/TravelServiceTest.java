@@ -16,29 +16,31 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * This class contains unit tests for the webservice class (without axis2). It checks the general database handling.
+ * This class contains unit tests for the webservice class.
+ * It calls the methods directly, therefore no axis2 server is required.
+ * It checks the general database handling.
  *
  * @author Patrick Groß-Holtwick
  *         Date: 30.07.13
  */
 public class TravelServiceTest {
 
+    protected TravelService service;
+
     @BeforeTest
     public void setUp() {
-
         //migrate or create database schema
         UrlaubrWsUtils.migrateDatabase(TravelServiceImpl.DEFAULT_URL, TravelServiceImpl.DEFAULT_USER, TravelServiceImpl.DEFAULT_PASSWORD);
+
+        service = new TravelServiceImpl();
     }
 
     @Test
     public void testLoginAndSession() {
-        final TravelServiceImpl service = new TravelServiceImpl();
         final Integer sessionKey = service.login("patrickgh", "test");
 
         Assert.assertNotNull(sessionKey);
         Assert.assertTrue(sessionKey != 0);
-
-        Assert.assertTrue(service.isAuthenticated(sessionKey));
 
         Customer me = service.getUserInfo(sessionKey);
 
@@ -48,14 +50,11 @@ public class TravelServiceTest {
 
         service.logout(sessionKey);
 
-        Assert.assertFalse(service.isAuthenticated(sessionKey));
-
+        Assert.assertNull(service.getUserInfo(sessionKey));
     }
 
     @Test
     public void testGetVacationById() {
-        final TravelServiceImpl service = new TravelServiceImpl();
-
         Vacation vac = service.getVacationById(1);
         Assert.assertNotNull(vac);
         Assert.assertEquals(vac.getTitle(), "3-Tage Mallorca");
@@ -64,23 +63,20 @@ public class TravelServiceTest {
 
     @Test
     public void testGetTopseller() {
-        final TravelServiceImpl service = new TravelServiceImpl();
-
-        List<Vacation> result = service.getTopseller();
+        Vacation[] result = service.getTopseller();
         Assert.assertNotNull(result);
-        Assert.assertEquals(result.size(), 2);
-        Assert.assertEquals(result.get(0).getTitle(), "3-Tage Mallorca");
+        Assert.assertEquals(result.length, 2);
+        Assert.assertEquals(result[0].getTitle(), "3-Tage Mallorca");
     }
 
     @Test
     public void testGetMyVacations() {
-        final TravelServiceImpl service = new TravelServiceImpl();
         final Integer sessionKey = service.login("patrickgh", "test");
         try {
-            List<Booking> bookings = service.getMyVacations(sessionKey);
+            Booking[] bookings = service.getMyVacations(sessionKey);
 
             Assert.assertNotNull(bookings);
-            Assert.assertEquals(bookings.size() > 0, true);
+            Assert.assertEquals(bookings.length > 0, true);
         }
         catch (AxisFault e) {
             Assert.fail("authentication failed");
@@ -89,29 +85,26 @@ public class TravelServiceTest {
 
     @Test
     public void testFindVacations() {
-        final TravelServiceImpl service = new TravelServiceImpl();
-
-        List<Vacation> vacations = service.findVacations(new SearchParams());
+        Vacation[] vacations = service.findVacations(new SearchParams());
         Assert.assertNotNull(vacations);
-        Assert.assertEquals(vacations.size(), 4);
+        Assert.assertEquals(vacations.length, 4);
 
         SearchParams params = new SearchParams();
-        params.setCountry(new String[] {"ESP"});
+        params.setCountry(new String[]{"ESP"});
         vacations = service.findVacations(params);
         Assert.assertNotNull(vacations);
-        Assert.assertEquals(vacations.size(), 2);
+        Assert.assertEquals(vacations.length, 2);
 
         params.setTitle("Mallorca");
         vacations = service.findVacations(params);
         Assert.assertNotNull(vacations);
-        Assert.assertEquals(vacations.size(), 1);
-        Assert.assertEquals(vacations.get(0).getTitle(), "3-Tage Mallorca");
+        Assert.assertEquals(vacations.length, 1);
+        Assert.assertEquals(vacations[0].getTitle(), "3-Tage Mallorca");
 
     }
 
     @Test
     public void testCreateBooking() throws AxisFault {
-        final TravelServiceImpl service = new TravelServiceImpl();
         final Integer sessionKey = service.login("patrickgh", "test");
 
         List<Traveler> travelers = new ArrayList<Traveler>();
@@ -120,15 +113,15 @@ public class TravelServiceTest {
         travelers.get(0).setLastname("2test");
         travelers.get(0).setPassport("pp");
         travelers.get(0).setBirthday(new Date());
-        Integer bookingid = service.createBooking(sessionKey, 1, new Date(), travelers);
+        Integer bookingid = service.createBooking(sessionKey, 1, new Date(), travelers.toArray(new Traveler[travelers.size()]));
 
-        List<Booking> bookings = service.getMyVacations(sessionKey);
+        Booking[] bookings = service.getMyVacations(sessionKey);
 
         Assert.assertNotNull(bookings);
         Assert.assertNotNull(bookingid);
-        Assert.assertEquals(bookings.size() > 0, true);
-        Assert.assertEquals(bookings.get(0).getVacation().getId().intValue(), 1);
-        Assert.assertNotNull(bookings.get(0).getTraveler());
-        Assert.assertTrue(bookings.get(0).getTraveler().length > 0);
+        Assert.assertEquals(bookings.length > 0, true);
+        Assert.assertEquals(bookings[0].getVacation().getId().intValue(), 1);
+        Assert.assertNotNull(bookings[0].getTraveler());
+        Assert.assertTrue(bookings[0].getTraveler().length > 0);
     }
 }

@@ -1,6 +1,5 @@
 package de.urlaubr.ws;
 
-import de.urlaubr.ws.domain.Booking;
 import de.urlaubr.ws.domain.Vacation;
 import net.glxn.qrgen.QRCode;
 import net.glxn.qrgen.image.ImageType;
@@ -30,7 +29,8 @@ public class TestPgh {
         //testQrCode(args);
         try {
             testWSCall(args);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -38,8 +38,8 @@ public class TestPgh {
 
     /*test qr code generation*/
     public static void testQrCode(String[] args) {
-        ByteArrayOutputStream out = QRCode.from("passenger:Patrick Groß-Holtwick;origin:BER;destination:PMI;flightdate:"+new Date().toString())
-                                          .to(ImageType.PNG).withSize(300,300).stream();
+        ByteArrayOutputStream out = QRCode.from("passenger:Patrick Groß-Holtwick;origin:BER;destination:PMI;flightdate:" + new Date().toString())
+                                          .to(ImageType.PNG).withSize(300, 300).stream();
 
         try {
             FileOutputStream fout = new FileOutputStream(new File(

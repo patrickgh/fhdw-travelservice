@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Erzeuge AAR" type="MavenRunConfiguration" factoryName="Maven">
+  <configuration default="false" name="[WS] create AAR file" type="MavenRunConfiguration" factoryName="Maven">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings" />

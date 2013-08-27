@@ -32,17 +32,6 @@
         <module>fhdw-travelservice-webapp</module>
     </modules>
 
-    <repositories>
-        <repository>
-            <id>repo</id>
-            <releases>
-                <enabled>true</enabled>
-                <checksumPolicy>ignore</checksumPolicy>
-            </releases>
-            <url>file://${project.parent.relativePath}/repo</url>
-        </repository>
-    </repositories>
-
     <properties>
 
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>

@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="webapp tests" type="TestNG" factoryName="TestNG">
+  <configuration default="false" name="[WA] unit tests" type="TestNG" factoryName="TestNG">
     <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
     <module name="fhdw-travelservice-webapp" />
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
