@@ -105,7 +105,7 @@ public class TravelClient implements TravelService {
         catch (AxisFault e) {
             e.printStackTrace();
         }
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null;
     }
 
     @Override
@@ -124,81 +124,88 @@ public class TravelClient implements TravelService {
         catch (AxisFault e) {
             e.printStackTrace();
         }
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null;
     }
 
     @Override
     public void rateVacation(Integer sessionKey, Integer bookingId, Integer rating, String comment) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        QName opFindHotel = new QName(NAMESPACE_URI, "rateVacation");
+        Object[] opArgs = new Object[]{sessionKey, bookingId, rating, comment};
+        OMElement request = BeanUtil.getOMElement(opFindHotel, opArgs, null, false, null);
+        try {
+            sender.sendReceive(request);
+        }
+        catch (AxisFault e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void cancelBooking(Integer sessionKey, Integer bookingId) {
-
         QName opFindHotel = new QName(NAMESPACE_URI, "cancelBooking");
-                Object[] opArgs = new Object[]{sessionKey, bookingId};
-                OMElement request = BeanUtil.getOMElement(opFindHotel, opArgs, null, false, null);
-                try {
-                    sender.sendReceive(request);
-                }
-                catch (AxisFault e) {
-                    e.printStackTrace();
-                }
+        Object[] opArgs = new Object[]{sessionKey, bookingId};
+        OMElement request = BeanUtil.getOMElement(opFindHotel, opArgs, null, false, null);
+        try {
+            sender.sendReceive(request);
+        }
+        catch (AxisFault e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public List<Vacation> findVacations(SearchParams params) {
         QName opFindHotel = new QName(NAMESPACE_URI, "findVacations");
-               Object[] opArgs = new Object[]{params};
-               OMElement request = BeanUtil.getOMElement(opFindHotel, opArgs, null, false, null);
-               try {
-                   OMElement response = sender.sendReceive(request);
-                   Object[] result = BeanUtil.deserialize(response, new Class[]{Vacation.class}, new DefaultObjectSupplier());
-                   List<Vacation> vacations = new ArrayList<Vacation>();
-                   for (Object element : result) {
-                       vacations.add((Vacation) element);
-                   }
-                   return vacations;
-               }
-               catch (AxisFault e) {
-                   e.printStackTrace();
-               }
-               return null;
+        Object[] opArgs = new Object[]{params};
+        OMElement request = BeanUtil.getOMElement(opFindHotel, opArgs, null, false, null);
+        try {
+            OMElement response = sender.sendReceive(request);
+            Object[] result = BeanUtil.deserialize(response, new Class[]{Vacation.class}, new DefaultObjectSupplier());
+            List<Vacation> vacations = new ArrayList<Vacation>();
+            for (Object element : result) {
+                vacations.add((Vacation) element);
+            }
+            return vacations;
+        }
+        catch (AxisFault e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
     public Integer createBooking(Integer sessionKey, Integer vacationId, Date startdate, List<Traveler> travelers) {
         QName opFindHotel = new QName(NAMESPACE_URI, "createBooking");
-                        Object[] opArgs = new Object[]{sessionKey, vacationId, startdate, travelers};
-                        OMElement request = BeanUtil.getOMElement(opFindHotel, opArgs, null, false, null);
-                        try {
-                            OMElement response = sender.sendReceive(request);
-                            Object[] result = BeanUtil.deserialize(response, new Class[]{Integer.class}, new DefaultObjectSupplier());
-                            if (result.length == 1) {
-                                return (Integer) result[0];
-                            }
-                        }
-                        catch (AxisFault e) {
-                            e.printStackTrace();
-                        }
-                        return null;
+        Object[] opArgs = new Object[]{sessionKey, vacationId, startdate, travelers};
+        OMElement request = BeanUtil.getOMElement(opFindHotel, opArgs, null, false, null);
+        try {
+            OMElement response = sender.sendReceive(request);
+            Object[] result = BeanUtil.deserialize(response, new Class[]{Integer.class}, new DefaultObjectSupplier());
+            if (result.length == 1) {
+                return (Integer) result[0];
+            }
+        }
+        catch (AxisFault e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
     public Customer getUserInfo(Integer sessionKey) {
         QName opFindHotel = new QName(NAMESPACE_URI, "getUserInfo");
-                Object[] opArgs = new Object[]{sessionKey};
-                OMElement request = BeanUtil.getOMElement(opFindHotel, opArgs, null, false, null);
-                try {
-                    OMElement response = sender.sendReceive(request);
-                    Object[] result = BeanUtil.deserialize(response, new Class[]{Customer.class}, new DefaultObjectSupplier());
-                    if (result.length == 1) {
-                        return (Customer) result[0];
-                    }
-                }
-                catch (AxisFault e) {
-                    e.printStackTrace();
-                }
-                return null;
+        Object[] opArgs = new Object[]{sessionKey};
+        OMElement request = BeanUtil.getOMElement(opFindHotel, opArgs, null, false, null);
+        try {
+            OMElement response = sender.sendReceive(request);
+            Object[] result = BeanUtil.deserialize(response, new Class[]{Customer.class}, new DefaultObjectSupplier());
+            if (result.length == 1) {
+                return (Customer) result[0];
+            }
+        }
+        catch (AxisFault e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
