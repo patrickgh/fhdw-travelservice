@@ -119,7 +119,6 @@ public class TravelClient implements TravelService {
             if (result.length == 1) {
                 return (Vacation) result[0];
             }
-
         }
         catch (AxisFault e) {
             e.printStackTrace();
@@ -129,11 +128,21 @@ public class TravelClient implements TravelService {
 
     @Override
     public void rateVacation(Integer sessionKey, Integer bookingId, Integer rating, String comment) {
+        QName opFindHotel = new QName(NAMESPACE_URI, "rateVacation");
+        Object[] opArgs = new Object[]{sessionKey};
+        OMElement request = BeanUtil.getOMElement(opFindHotel, opArgs, null, false, null);
+        try {
+            sender.sendReceive(request);
+        }
+        catch (AxisFault e) {
+            e.printStackTrace();
+        }
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public void cancelBooking(Integer sessionKey, Integer bookingId) {
+
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
