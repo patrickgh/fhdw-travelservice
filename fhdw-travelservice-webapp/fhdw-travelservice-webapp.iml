@@ -34,7 +34,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="fhdw-travelservice-ws" />
-    <orderEntry type="library" name="Maven: com.squiggle:squiggle-sql:2.0.0" level="project" />
+    <orderEntry type="library" name="Maven: com.truemesh.squiggle:squiggle-sql:2.0" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.20" level="project" />
     <orderEntry type="library" name="Maven: com.googlecode.flyway:flyway-core:2.1.1" level="project" />
     <orderEntry type="library" name="Maven: org.testng:testng:6.8.5" level="project" />
