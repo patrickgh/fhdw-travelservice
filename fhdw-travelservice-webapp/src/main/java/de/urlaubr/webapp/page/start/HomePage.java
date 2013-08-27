@@ -1,6 +1,7 @@
-package de.urlaubr.webapp.page;
+package de.urlaubr.webapp.page.start;
 
 import de.urlaubr.webapp.components.ByteArrayImage;
+import de.urlaubr.webapp.page.BasePage;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 

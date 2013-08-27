@@ -1,3 +1,8 @@
+.page-content {
+    padding-left:10px;
+    padding-right: 10px;
+}
+
 .custom-button {
     height: 100px !important;
 }

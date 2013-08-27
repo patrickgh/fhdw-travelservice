@@ -1,6 +1,6 @@
 package de.urlaubr.webapp;
 
-import de.urlaubr.webapp.page.HomePage;
+import de.urlaubr.webapp.page.start.HomePage;
 import org.apache.wicket.Page;
 import org.apache.wicket.RuntimeConfigurationType;
 import org.apache.wicket.core.util.file.WebApplicationPath;

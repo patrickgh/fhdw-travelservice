@@ -1,6 +1,6 @@
 package de.urlaubr.webapp;
 
-import de.urlaubr.webapp.page.HomePage;
+import de.urlaubr.webapp.page.start.HomePage;
 import org.apache.wicket.util.tester.WicketTester;
 import org.testng.annotations.Test;
 
