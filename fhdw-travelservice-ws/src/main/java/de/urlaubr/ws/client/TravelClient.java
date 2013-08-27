@@ -149,6 +149,19 @@ public class TravelClient implements TravelService {
 
     @Override
     public Customer getUserInfo(Integer sessionKey) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        QName opFindHotel = new QName(NAMESPACE_URI, "getUserInfo");
+                Object[] opArgs = new Object[]{sessionKey};
+                OMElement request = BeanUtil.getOMElement(opFindHotel, opArgs, null, false, null);
+                try {
+                    OMElement response = sender.sendReceive(request);
+                    Object[] result = BeanUtil.deserialize(response, new Class[]{Customer.class}, new DefaultObjectSupplier());
+                    if (result.length == 1) {
+                        return (Customer) result[0];
+                    }
+                }
+                catch (AxisFault e) {
+                    e.printStackTrace();
+                }
+                return null;
     }
 }
