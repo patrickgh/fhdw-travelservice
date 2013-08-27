@@ -111,7 +111,7 @@ public class TravelClient implements TravelService {
     @Override
     public Vacation getVacationById(Integer id) {
         QName opFindHotel = new QName(NAMESPACE_URI, "getVacationById");
-        Object[] opArgs = new Object[]{};
+        Object[] opArgs = new Object[]{id};
         OMElement request = BeanUtil.getOMElement(opFindHotel, opArgs, null, false, null);
         try {
             OMElement response = sender.sendReceive(request);
