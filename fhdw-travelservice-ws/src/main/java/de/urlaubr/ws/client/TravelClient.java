@@ -91,7 +91,7 @@ public class TravelClient implements TravelService {
     @Override
     public List<Booking> getMyVacations(Integer sessionKey) throws AxisFault {
         QName opFindHotel = new QName(NAMESPACE_URI, "getMyVacations");
-        Object[] opArgs = new Object[]{};
+        Object[] opArgs = new Object[]{sessionKey};
         OMElement request = BeanUtil.getOMElement(opFindHotel, opArgs, null, false, null);
         try {
             OMElement response = sender.sendReceive(request);
