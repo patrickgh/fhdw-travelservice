@@ -20,4 +20,12 @@ public class Client {
     public static List<Vacation> getTopseller() {
         return Arrays.<Vacation>asList(service.getTopseller());
     }
+
+    public static Integer login(String username, String password) {
+        return service.login(username, password);
+    }
+
+    public static void logout(Integer sessionKey) {
+        service.logout(sessionKey);
+    }
 }
