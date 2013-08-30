@@ -31,7 +31,7 @@ public class HomePage extends BasePage {
         IModel<List<Vacation>> model = new AbstractReadOnlyModel<List<Vacation>>() {
             @Override
             public List<Vacation> getObject() {
-                return Arrays.asList(new TravelClient().getTopseller());
+                return Client.getTopseller();
             }
         };
         add(new ListView<Vacation>("topsellerList", model) {
