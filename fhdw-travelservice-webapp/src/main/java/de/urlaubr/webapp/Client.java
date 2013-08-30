@@ -16,8 +16,8 @@ import java.util.List;
 
 /**
  * Wrapper class for client methods.
- * Useful for converting arrays to required types.
- * It also enables to change the service class from webservice to direct database access, so that no axis2 is required (for development)
+ * Useful for converting arrays to lists which are required for wicket listviews.
+ * It also enables to change the service class between webservice and direct database access, so that no axis2 is required (for development)
  *
  * @author Patrick Groß-Holtwick
  *         Date: 27.08.13
