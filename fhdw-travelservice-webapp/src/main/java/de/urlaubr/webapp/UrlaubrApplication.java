@@ -1,6 +1,7 @@
 package de.urlaubr.webapp;
 
 import de.urlaubr.webapp.page.myvacation.MyVacationPage;
+import de.urlaubr.webapp.page.search.SearchPage;
 import de.urlaubr.webapp.page.start.HomePage;
 import org.apache.wicket.Page;
 import org.apache.wicket.RuntimeConfigurationType;
@@ -49,6 +50,7 @@ public class UrlaubrApplication extends WebApplication {
 
         mountPage("meinereisen.html", MyVacationPage.class);
         mountPage("startseite.html", HomePage.class);
+        mountPage("suche.html", SearchPage.class);
 
         mountResource("apple-touch-icon.png", new PackageResourceReference(ImportResourceLocator.class,"images/apple-touch-icon.png"));
         mountResource("favicon.ico", new PackageResourceReference(ImportResourceLocator.class,"images/favicon.ico"));

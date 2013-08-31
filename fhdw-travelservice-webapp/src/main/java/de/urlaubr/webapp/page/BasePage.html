@@ -24,15 +24,20 @@
 
 <div data-role="page">
     <div class="page-content">
-        <div data-role="header" data-id="foo1" data-position="fixed">
-            <div data-role="header" style="overflow:hidden;">
-                <h1><i>urlaubr.</i></h1>
-            </div>
-        </div>
         <!-- /header -->        
         <wicket:child>
 
         </wicket:child>
+        <div data-role="footer" data-id="foo1" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="startseite.html" id="home" data-icon="home">Home</a></li>
+                    <li><a href="meinereisen.html" id="login" data-icon="check">Mein Bereich</a></li>
+                    <li><a href="suche.html" id="search" data-icon="search">Suche</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- /footer -->
     </div>
 </div>
 <!-- /page -->

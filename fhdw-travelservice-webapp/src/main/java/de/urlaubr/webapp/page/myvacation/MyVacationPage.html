@@ -36,23 +36,23 @@
     <!-- /header -->
     <wicket:extend>
     <a href=".\startseite.html">
-        <img src="..\scripts\urlaubr3.png" width="314" height="110" />
+        <img wicket:id="logo" src="..\scripts\urlaubr3.png" width="314" height="110" />
     </a>
     <hr>
 
     <h3>Meine Reisen</h3>
 
 
-    <a data-role="button" data-icon="arrow-r" data-iconpos="right" class="custom-button" href="reisedetails.html">
+    <a wicket:id="list" data-role="button" data-icon="arrow-r" data-iconpos="right" class="custom-button" href="reisedetails.html">
         <table>
             <tr>
                 <td width="20">
                 </td>
                 <td>
-                    <img src="../resources/webresources/images/karibik.jpg" width="90" height="90">
+                    <img wicket:id="image" src="../resources/webresources/images/karibik.jpg" width="90" height="90">
                 </td>
                 <td>
-                    <p align="left" style="font-size:12px;"> 4 Tage Karibik All Inclusive </p>
+                    <p align="left" style="font-size:12px;" wicket:id="title"> 4 Tage Karibik All Inclusive </p>
                     <table>
                         <td width="100">
                             <img src="../resources/webresources/images/Star.png" width="15" height="15">
@@ -62,7 +62,7 @@
                             <img src="../resources/webresources/images/Star.png" width="15" height="15">
                         </td>
                         <td>
-                            <p align="left" style="font-size:14px;"> Gebucht </p>
+                            <p align="left" style="font-size:14px;" wicket:id="state"> Gebucht </p>
                         </td>
                     </table>
                 </td>
@@ -71,36 +71,7 @@
             </tr>
         </table>
     </a>
-
-
-    <a data-role="button" data-icon="arrow-r" data-iconpos="right" class="custom-button" href="reisedetails.html">
-        <table>
-            <tr>
-                <td width="20">
-                </td>
-                <td>
-                    <img src="../resources/webresources/images/karibik.jpg" width="90" height="90">
-                </td>
-                <td>
-                    <p align="left" style="font-size:12px;"> 8 Tage Skiurlaub Sölden </p>
-                    <table>
-                        <td width="100">
-                            <img src="../resources/webresources/images/Star.png" width="15" height="15">
-                            <img src="../resources/webresources/images/Star.png" width="15" height="15">
-                            <img src="../resources/webresources/images/Star.png" width="15" height="15">
-
-                        </td>
-                        <td>
-                            <p align="left" style="font-size:14px;"> Storniert </p>
-                        </td>
-                    </table>
-                </td>
-                <td>
-                </td>
-            </tr>
-        </table>
-
-    </a>
+    </wicket:extend>
 
     <div data-role="footer" data-id="foo1" data-position="fixed">
         <div data-role="navbar">
@@ -112,7 +83,7 @@
         </div>
     </div>
     <!-- /footer -->
-    </wicket:extend>
+
 </div>
 <!-- /page -->
 <script src="..\scripts\star-rating\jquery.rating.js"></script>

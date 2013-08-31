@@ -1,6 +1,7 @@
 package de.urlaubr.webapp;
 
 import de.urlaubr.ws.TravelService;
+import de.urlaubr.ws.TravelServiceImpl;
 import de.urlaubr.ws.client.TravelClient;
 import de.urlaubr.ws.domain.Booking;
 import de.urlaubr.ws.domain.Customer;
@@ -24,8 +25,8 @@ import java.util.List;
  */
 public class Client {
 
-    private static TravelService service = new TravelClient(); //use webservice
-    // private static TravelService service = new TravelServiceImpl(); //use direct database calls
+    //private static TravelService service = new TravelClient(); //use webservice
+    private static TravelService service = new TravelServiceImpl(); //use direct database calls
 
     private Client() {}
 

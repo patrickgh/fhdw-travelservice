@@ -33,7 +33,7 @@ public class TravelServiceImpl implements TravelService {
     //default configuration paramter
     public static final String DEFAULT_URL = "jdbc:mysql://localhost/urlaubr.";
     public static final String DEFAULT_USER = "root";
-    public static final String DEFAULT_PASSWORD = "root";
+    public static final String DEFAULT_PASSWORD = "";
     public static final int SESSION_TIMEOUT = 1800000; // 1800 sec => 30 min
     //private attributes
     private static Map<Integer, UserSession> sessions = new HashMap<Integer, UserSession>();
