@@ -24,53 +24,48 @@
 
 <div data-role="page">
 
-
-    <div data-role="header" data-id="foo1" data-position="fixed">
-        <div data-role="header" style="overflow:hidden;">
-            <a href="./startseite.html" data-role="button"  data-icon="arrow-l" data-iconpos="left" data-inline="true">Zurück</a>
-            <h1><i>urlaubr.</i></h1>
-        </div>
-
-
-    </div>
-    <!-- /header -->
     <wicket:extend>
-    <a href=".\startseite.html">
-        <img wicket:id="logo" src="..\scripts\urlaubr3.png" width="314" height="110" />
-    </a>
-    <hr>
+        <div data-role="header" data-id="foo1" data-position="fixed">
+            <div data-role="header" style="overflow:hidden;">
+                <a href="javascript:history.back()" data-ajax="false" data-role="button" data-icon="arrow-l" data-iconpos="left" data-inline="true">Zurück</a>
 
-    <h3>Meine Reisen</h3>
+                <h1><i>urlaubr.</i></h1>
+
+                <a wicket:id="logout" data-ajax="false" data-position-to="window" data-role="button" data-inline="true" data-transition="pop" data-icon="delete" data-theme="b">Logout</a>
+            </div>
 
 
-    <a wicket:id="list" data-role="button" data-icon="arrow-r" data-iconpos="right" class="custom-button" href="reisedetails.html">
-        <table>
-            <tr>
-                <td width="20">
-                </td>
-                <td>
-                    <img wicket:id="image" src="../resources/webresources/images/karibik.jpg" width="90" height="90">
-                </td>
-                <td>
-                    <p align="left" style="font-size:12px;" wicket:id="title"> 4 Tage Karibik All Inclusive </p>
-                    <table>
-                        <td width="100">
-                            <img src="../resources/webresources/images/Star.png" width="15" height="15">
-                            <img src="../resources/webresources/images/Star.png" width="15" height="15">
-                            <img src="../resources/webresources/images/Star.png" width="15" height="15">
-                            <img src="../resources/webresources/images/Star.png" width="15" height="15">
-                            <img src="../resources/webresources/images/Star.png" width="15" height="15">
-                        </td>
-                        <td>
-                            <p align="left" style="font-size:14px;" wicket:id="state"> Gebucht </p>
-                        </td>
-                    </table>
-                </td>
-                <td>
-                </td>
-            </tr>
-        </table>
-    </a>
+        </div>
+        <!-- /header -->
+
+        <a href=".\startseite.html" data-ajax="false">
+            <img class="logo" wicket:id="logo" width="314" height="110"/>
+        </a>
+        <hr>
+
+        <h3>Meine Reisen</h3>
+
+
+        <a wicket:id="topsellerList" data-role="button" data-icon="arrow-r" data-iconpos="right" class="custom-button" href="reisedetails.html">
+            <table>
+                <tr>
+                    <td width="20">
+                    </td>
+                    <td>
+                        <img wicket:id="image" src="../resources/webresources/images/karibik.jpg" width="90" height="90">
+                    </td>
+                    <td>
+                        <p align="left" style="font-size:16px;" wicket:id="title"> 4 Tage Karibik All Inclusive </p>
+
+                        <p align="left" style="font-size:14px;"><i wicket:id="persons"></i><i> Personen</i></p>
+
+                        <p align="left" style="font-size:14px;" wicket:id="state"> Gebucht </p>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            </table>
+        </a>
     </wicket:extend>
 
     <div data-role="footer" data-id="foo1" data-position="fixed">

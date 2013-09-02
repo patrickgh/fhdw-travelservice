@@ -111,7 +111,7 @@ public class TravelServiceImpl implements TravelService {
     public Vacation[] getTopseller() {
         try {
             List<Vacation> vacations = new ArrayList<Vacation>();
-            PreparedStatement stmt = dbConnection.prepareStatement("SELECT `fk_vacation` as id FROM rating GROUP BY `fk_vacation` ORDER BY AVG(`rating`) DESC;");
+            PreparedStatement stmt = dbConnection.prepareStatement("SELECT `fk_vacation` as id FROM rating GROUP BY `fk_vacation` ORDER BY AVG(`rating`) DESC LIMIT 5;");
             ResultSet result = stmt.executeQuery();
             while (result.next()) {
                 vacations.add(getVacationById(result.getInt("id")));
@@ -128,7 +128,7 @@ public class TravelServiceImpl implements TravelService {
         if (isAuthenticated(sessionKey)) {
             try {
                 List<Booking> bookings = new ArrayList<Booking>();
-                PreparedStatement stmt = dbConnection.prepareStatement("SELECT * FROM booking WHERE fk_customer = ? ORDER BY creationdate DESC;");
+                PreparedStatement stmt = dbConnection.prepareStatement("SELECT * FROM booking WHERE fk_customer = ? ORDER BY creationdate DESC LIMIT 5;");
                 stmt.setInt(1, sessions.get(sessionKey).getUserId());
                 ResultSet result = stmt.executeQuery();
                 while (result.next()) {

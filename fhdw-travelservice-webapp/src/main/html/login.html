@@ -31,11 +31,11 @@
     <div data-role="header" data-id="foo1" data-position="fixed">
 
         <div data-role="header" style="overflow:hidden;">
-            <a href="startseite.html" data-icon="arrow-l" class="ui-btn-left">Zurück</a>
+            <a data-ajax="false" href="startseite.html" data-icon="arrow-l" class="ui-btn-left">Zurück</a>
 
             <h1><i>urlaubr.</i></h1>
 
-            <a href="#popupDialog" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-transition="pop" data-icon="check" data-theme="b">Login</a>
+            <a data-ajax="false" href="#popupDialog" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-transition="pop" data-icon="check" data-theme="b">Login</a>
                 <div data-role="popup" id="popupDialog" data-overlay-theme="a" data-theme="c" data-dismissible="false" style="max-width:400px;" class="ui-corner-all">
                     <div data-role="header" data-theme="a" class="ui-corner-top">
                         <h1>Login Erfolgreich</h1>
@@ -43,7 +43,7 @@
                     <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
                         <p class="ui-title">Der Login war erfolgreich!</p>
 
-                        <a href="meinereisen.html" data-role="button" data-inline="true"  data-transition="flow" data-theme="b">Weiter</a>
+                        <a data-ajax="false" href="meinereisen.html" data-role="button" data-inline="true"  data-transition="flow" data-theme="b">Weiter</a>
                     </div>
                 </div>
 
@@ -80,9 +80,9 @@
     <div data-role="footer" data-id="foo1" data-position="fixed">
         <div data-role="navbar">
             <ul>
-                <li><a href="startseite.html" id="home" data-icon="home">Home</a></li>
-                <li><a href="login.html" id="login" data-icon="check">Mein Bereich</a></li>
-                <li><a href="suchformular.html" id="search" data-icon="search">Suche</a></li>
+                <li><a data-ajax="false" href="startseite.html" id="home" data-icon="home">Home</a></li>
+                <li><a data-ajax="false" href="login.html" id="login" data-icon="check">Mein Bereich</a></li>
+                <li><a data-ajax="false" href="suchformular.html" id="search" data-icon="search">Suche</a></li>
             </ul>
         </div>
     </div>
