@@ -194,4 +194,22 @@ public class TravelClient implements TravelService {
         }
         return null;
     }
+
+    @Override
+    public byte[] createTicket(Integer sessionKey, Integer bookingId, Integer travelerId) {
+        QName operation = new QName(NAMESPACE_URI, "createTicket");
+        Object[] opArgs = new Object[]{sessionKey, bookingId, travelerId};
+        OMElement request = BeanUtil.getOMElement(operation, opArgs, null, false, null);
+        try {
+            OMElement response = sender.sendReceive(request);
+            Object[] result = BeanUtil.deserialize(response, new Class[]{byte[].class}, new DefaultObjectSupplier());
+            if (result.length == 1) {
+                return (byte[]) result[0];
+            }
+        }
+        catch (AxisFault e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

@@ -1,10 +1,12 @@
 package de.urlaubr.ws.domain;
 
+import java.io.Serializable;
+
 /**
  * @author Patrick Groß-Holtwick
  *         Date: 14.08.13
  */
-public class SearchParams {
+public class SearchParams implements Serializable {
     /*
     * titel (enthält)
     * land

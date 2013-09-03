@@ -13,6 +13,8 @@ import de.urlaubr.ws.domain.Traveler;
 import de.urlaubr.ws.domain.UserSession;
 import de.urlaubr.ws.domain.Vacation;
 import de.urlaubr.ws.utils.UrlaubrWsUtils;
+import net.glxn.qrgen.QRCode;
+import net.glxn.qrgen.image.ImageType;
 import org.apache.axis2.AxisFault;
 
 import java.sql.Connection;
@@ -427,6 +429,16 @@ public class TravelServiceImpl implements TravelService {
     public Customer getUserInfo(Integer sessionKey) {
         if (isAuthenticated(sessionKey)) {
             return getCustomerById(sessions.get(sessionKey).getUserId());
+        }
+        return null;
+    }
+
+    @Override
+    public byte[] createTicket(Integer sessionKey, Integer bookingId, Integer travelerId) {
+        if (isAuthenticated(sessionKey)) {
+            Booking booking = getBookingById(bookingId);
+            return QRCode.from("passengerId:" + travelerId + ";bookingId:" + bookingId + "origin:" + booking.getVacation().getHomeairport() + ";destination:" + booking.getVacation().getAirport() + ";flightdate:" + booking.getStartdate())
+                         .to(ImageType.PNG).withSize(300, 300).stream().toByteArray();
         }
         return null;
     }
