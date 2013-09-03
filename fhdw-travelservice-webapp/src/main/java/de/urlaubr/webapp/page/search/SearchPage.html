@@ -1,9 +1,156 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title></title>
-</head>
-<body>
 
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="description" content="urlaubr.">
+    <meta name="author" content="Patrick Groß-Holtwick">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+
+    <title>urlaubr.</title>
+
+
+    <link rel="apple-touch-icon" href="../resources/webresources/images/apple-touch-icon.png"/>
+    <link rel="shortcut icon" href="../resources/webresources/js/demos/favicon.ico">
+    <script src="../resources/webresources/js/demos/js/jquery.js"></script>
+    <script src="../resources/webresources/js/jquery.mobile-1.3.1.min.js"></script>
+    <link rel="stylesheet" href="../resources/webresources/js/jquery.mobile-1.3.1.min.css">
+    <script src="jQuery.ui.datepicker.js"></script>
+    <script src="jquery.ui.datepicker.mobile.js"></script>
+    <link rel="stylesheet" href="../resources/webresources/js/star-rating/jquery.rating.css"/>
+    <link rel="stylesheet" href="../resources/webresources/css/urlaubr.css"/>
+
+</head>
+
+<body>
+<div data-role="page">
+
+    <wicket:extend>
+        <form wicket:id="form">
+            <div data-role="header" data-id="foo1" data-position="fixed">
+
+                <div data-role="header" style="overflow:hidden;">
+                    <a data-ajax="false" href="./startseite.html" data-role="button" data-icon="arrow-l" data-iconpos="left" data-inline="true">Zurück</a>
+
+                    <h1><i>urlaubr.</i></h1>
+                    <a wicket:id="submit" data-ajax="false" href="./suchergebnisse.html" data-inline="true">Suche</a>
+
+                </div>
+
+
+            </div>
+
+            <a href=".\startseite.html" data-ajax="false">
+                <img class="logo" wicket:id="logo" width="314" height="110"/>
+            </a>
+
+            <h3>Reisesuche</h3>
+            <hr>
+
+            <label for="title" class="select">Titel enthält</label>
+            <input type="text" wicket:id="title" id="title" data-mini="true">
+
+            <label for="destination" class="select">Reiseziel</label>
+            <select wicket:id="country" name="select-choice-8" id="destination" multiple="multiple" data-native-menu="false" data-icon="grid" data-iconpos="right">
+                <option wicket:id="countryNone">Alle Länder</option>
+                <optgroup label="Westeuropa">
+                    <option wicket:id="GER">Deutschland</option>
+                    <option wicket:id="ENG">England</option>
+                    <option wicket:id="NED">Niederlande</option>
+                    <option wicket:id="FRANCE">Frankreich</option>
+                </optgroup>
+                <optgroup label="Südeuropa">
+                    <option wicket:id="ESP">Spanien</option>
+                    <option wicket:id="ITA">Italien</option>
+                    <option wicket:id="POR">Portugal</option>
+                </optgroup>
+                <optgroup label="Afrika">
+                    <option wicket:id="EGY">Ägypten</option>
+                </optgroup>
+                <optgroup label="Amerika">
+                    <option wicket:id="USA">USA</option>
+                    <option wicket:id="MEX">Mexiko</option>
+                </optgroup>
+            </select>
+
+
+            <label for="airport" class="select">Abflughafen</label>
+            <select wicket:id="airport" name="select-choice-8" id="airport" multiple="multiple" data-native-menu="false" data-icon="grid" data-iconpos="right">
+                <option wicket:id="airportNone">Alle Flüghäfen</option>
+                <optgroup label="West">
+                    <option wicket:id="PAD">Paderborn</option>
+                    <option wicket:id="DUS">Düsseldorf</option>
+                    <option wicket:id="DTM">Dortmund</option>
+                    <option wicket:id="CGN">Köln/Bonn</option>
+                </optgroup>
+                <optgroup label="Süd">
+                    <option wicket:id="MUC">München</option>
+                    <option wicket:id="STR">Stuttgart</option>
+                    <option wicket:id="FRA">Frankfurt am Main</option>
+                </optgroup>
+                <optgroup label="Ost">
+                    <option wicket:id="TXL">Berlin (Tegel)</option>
+                    <option wicket:id="SXF">Berlin (Schönefeld)</option>
+                </optgroup>
+                <optgroup label="Nord">
+                    <option wicket:id="BRE">Bremen</option>
+                    <option wicket:id="HAM">Hamburg</option>
+                </optgroup>
+            </select>
+
+            <label for="stars" class="select">Hotelklasse</label>
+            <select wicket:id="stars" name="stars" id="stars">
+                <option wicket:id="starsNone">Beliebige Hotels</option>
+                <option wicket:id="one" value="1">1 Stern</option>
+                <option wicket:id="two">2 Sterne</option>
+                <option wicket:id="three">3 Sterne</option>
+                <option wicket:id="four">4 Sterne</option>
+                <option wicket:id="five">5 Sterne</option>
+            </select>
+
+            <label for="select-choice-1" class="select">Verpflegung</label>
+            <select wicket:id="catering" name="select-choice-1" id="select-choice-1">
+                <option wicket:id="cateringNone">Beliebige Verpflegungsoptionen</option>
+                <option wicket:id="overnight">Nur Übernachtung</option>
+                <option wicket:id="breakfast">Übernachtung inkl. Frühstück</option>
+                <option wicket:id="halfboard">Halbpension</option>
+                <option wicket:id="fullboard">Vollpension</option>
+                <option wicket:id="allinclusive">All Inclusive</option>
+            </select>
+
+
+            <label for="select-choice-1" class="select">Reisedauer</label>
+            <select wicket:id="duration" name="select-choice-1" id="select-choice-2">
+                <option wicket:id="durationNone">Beliebige Dauer</option>
+                <option wicket:id="2days">2 Tage</option>
+                <option wicket:id="3days">3 Tage</option>
+                <option wicket:id="5days">5 Tage</option>
+                <option wicket:id="1week">1 Woche</option>
+                <option wicket:id="2week">2 Wochen</option>
+            </select>
+
+        </form>
+    </wicket:extend>
+    <div data-role="footer" data-id="foo1" data-position="fixed">
+        <div data-role="navbar">
+            <ul>
+                <li><a data-ajax="false" href="startseite.html" id="home" data-icon="home">Home</a></li>
+                <li><a data-ajax="false" href="login.html" id="login" data-icon="check">Mein Bereich</a></li>
+                <li><a data-ajax="false" href="suchformular.html" id="search" data-icon="search">Suche</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- /footer -->
+
+</div>
+<!-- /page -->
+<script src="../resources/webresources/js/star-rating/jquery.rating.js"></script>
+<script src="../resources/webresources/js/star-rating/jquery.rating.pack.js"></script>
+<script src="../resources/webresources/js/rateit/src/jquery.rateit.js"></script>
 </body>
 </html>

@@ -16,6 +16,7 @@
           <option name="profilesMap">
             <map />
           </option>
+          <option name="resolveToWorkspace" value="false" />
           <option name="workingDirPath" value="$PROJECT_DIR$/fhdw-travelservice-ws" />
         </MavenRunnerParameters>
       </option>
