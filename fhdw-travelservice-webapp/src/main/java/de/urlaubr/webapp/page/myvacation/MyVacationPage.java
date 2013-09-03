@@ -32,6 +32,7 @@ public class MyVacationPage extends SecuredPage {
             @Override
             public void onClick(AjaxRequestTarget target) {
                 Client.logout(getSessionKey());
+                getSession().removeAttribute("sessionKey");
                 setResponsePage(getApplication().getHomePage());
             }
         });
