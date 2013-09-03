@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="fhdw-travelservice-webapp:war">
+    <output-path>$PROJECT_DIR$/classes/artifacts/fhdw_travelservice_webapp_war</output-path>
+    <root id="archive" name="fhdw-travelservice-webapp_war.war">
+      <element id="artifact" artifact-name="fhdw-travelservice-webapp:war exploded" />
+    </root>
+  </artifact>
+</component>
