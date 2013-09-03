@@ -1,23 +1,32 @@
 package de.urlaubr.webapp.page.search;
 
+import de.urlaubr.webapp.Client;
+import de.urlaubr.webapp.components.ByteArrayImage;
 import de.urlaubr.webapp.page.BasePage;
 import de.urlaubr.ws.domain.CateringType;
 import de.urlaubr.ws.domain.SearchParams;
+import de.urlaubr.ws.domain.Vacation;
 import de.urlaubr.ws.utils.UrlaubrWsUtils;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.extensions.markup.html.form.select.Select;
 import org.apache.wicket.extensions.markup.html.form.select.SelectOption;
+import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.SubmitLink;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.image.Image;
+import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.util.ListModel;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import webresources.ImportResourceLocator;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -26,15 +35,38 @@ import java.util.List;
  */
 public class SearchPage extends BasePage {
 
+    private WebMarkupContainer resultContainer;
+    private WebMarkupContainer formContainer;
+
     @Override
     protected void onInitialize() {
         super.onInitialize();
 
+        final IModel<List<Vacation>> model = new ListModel<Vacation>(new ArrayList<Vacation>());
+
+        resultContainer = new WebMarkupContainer("result");
+
+        final ListView<Vacation> resultList = new ListView<Vacation>("topsellerList", model) {
+            @Override
+            protected void populateItem(ListItem<Vacation> item) {
+                final CompoundPropertyModel<Vacation> model = new CompoundPropertyModel<Vacation>(item.getModel());
+                item.add(new Label("title", model.<String>bind("title")));
+                item.add(new Label("price", model.<String>bind("price")));
+                item.add(new ByteArrayImage("image", model.<byte[]>bind("image")));
+            }
+        };
+        resultContainer.setVisible(false);
+        resultContainer.add(resultList);
+        add(resultContainer);
+
         Form form = new Form<SearchParams>("form");
         form.add(new Image("logo", new PackageResourceReference(ImportResourceLocator.class, "images/urlaubr3.png")));
 
+        formContainer = new WebMarkupContainer("formContainer");
+        formContainer.setOutputMarkupId(true);
+
         final TextField<String> titleField = new TextField<String>("title", new Model<String>(""));
-        form.add(titleField);
+        formContainer.add(titleField);
 
         List<String> selected = new ArrayList<String>();
         selected.add("none");
@@ -50,7 +82,7 @@ public class SearchPage extends BasePage {
         countrySelect.add(new SelectOption<String>("EGY", new Model<String>("EGY")));
         countrySelect.add(new SelectOption<String>("USA", new Model<String>("USA")));
         countrySelect.add(new SelectOption<String>("MEX", new Model<String>("MEX")));
-        form.add(countrySelect);
+        formContainer.add(countrySelect);
 
         final Select<List<String>> airportSelect = new Select<List<String>>("airport", new ListModel<String>(new ArrayList<String>(selected)));
         airportSelect.add(new SelectOption<String>("airportNone", new Model<String>("none")));
@@ -65,7 +97,7 @@ public class SearchPage extends BasePage {
         airportSelect.add(new SelectOption<String>("SXF", new Model<String>("SXF")));
         airportSelect.add(new SelectOption<String>("BRE", new Model<String>("BRE")));
         airportSelect.add(new SelectOption<String>("HAM", new Model<String>("HAM")));
-        form.add(airportSelect);
+        formContainer.add(airportSelect);
 
         final Select<Integer> starSelect = new Select<Integer>("stars", new Model<Integer>(-1));
         starSelect.add(new SelectOption<Integer>("starsNone", new Model<Integer>(-1)));
@@ -74,7 +106,7 @@ public class SearchPage extends BasePage {
         starSelect.add(new SelectOption<Integer>("three", new Model<Integer>(3)));
         starSelect.add(new SelectOption<Integer>("four", new Model<Integer>(4)));
         starSelect.add(new SelectOption<Integer>("five", new Model<Integer>(5)));
-        form.add(starSelect);
+        formContainer.add(starSelect);
 
         final Select<Integer> cateringSelect = new Select<Integer>("catering", new Model<Integer>(-1));
         cateringSelect.add(new SelectOption<Integer>("cateringNone", new Model<Integer>(-1)));
@@ -83,7 +115,7 @@ public class SearchPage extends BasePage {
         cateringSelect.add(new SelectOption<Integer>("halfboard", new Model<Integer>(CateringType.HALF_BOARD.ordinal())));
         cateringSelect.add(new SelectOption<Integer>("fullboard", new Model<Integer>(CateringType.FULL_BOARD.ordinal())));
         cateringSelect.add(new SelectOption<Integer>("allinclusive", new Model<Integer>(CateringType.ALL_INCLUSIVE.ordinal())));
-        form.add(cateringSelect);
+        formContainer.add(cateringSelect);
 
         final Select<Integer> durationSelect = new Select<Integer>("duration", new Model<Integer>(-1));
         durationSelect.add(new SelectOption<Integer>("durationNone", new Model<Integer>(-1)));
@@ -92,38 +124,43 @@ public class SearchPage extends BasePage {
         durationSelect.add(new SelectOption<Integer>("5days", new Model<Integer>(5)));
         durationSelect.add(new SelectOption<Integer>("1week", new Model<Integer>(7)));
         durationSelect.add(new SelectOption<Integer>("2week", new Model<Integer>(14)));
-        form.add(durationSelect);
-
-        form.add(new AjaxSubmitLink("submit") {
+        formContainer.add(durationSelect);
+        form.add(formContainer);
+        form.add(new SubmitLink("submit") {
             @Override
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                super.onSubmit(target, form);
-                SearchParams params = new SearchParams();
-                if (countrySelect.getModelObject() != null && countrySelect.getModelObject().size() != 0 && !countrySelect.getModelObject().contains("none")) {
-                    params.setCountry(countrySelect.getModelObject().toArray(new String[countrySelect.getModelObject().size()]));
-                }
+            public void onSubmit() {
+                super.onSubmit();
+                if (formContainer.isVisible()) {
+                    final SearchParams params = new SearchParams();
+                    if (countrySelect.getModelObject() != null && countrySelect.getModelObject().size() != 0 && !countrySelect.getModelObject().contains("none")) {
+                        params.setCountry(countrySelect.getModelObject().toArray(new String[countrySelect.getModelObject().size()]));
+                    }
 
-                if (airportSelect.getModelObject() != null && airportSelect.getModelObject().size() != 0 && !airportSelect.getModelObject().contains("none")) {
-                    params.setHomeairport(airportSelect.getModelObject().toArray(new String[airportSelect.getModelObject().size()]));
-                }
+                    if (airportSelect.getModelObject() != null && airportSelect.getModelObject().size() != 0 && !airportSelect.getModelObject().contains("none")) {
+                        params.setHomeairport(airportSelect.getModelObject().toArray(new String[airportSelect.getModelObject().size()]));
+                    }
 
-                if (starSelect.getModelObject() != null && starSelect.getModelObject() != -1) {
-                    params.setHotelstars(starSelect.getModelObject());
-                }
+                    if (starSelect.getModelObject() != null && starSelect.getModelObject() != -1) {
+                        params.setHotelstars(starSelect.getModelObject());
+                    }
 
-                if (cateringSelect.getModelObject() != null && cateringSelect.getModelObject() != -1) {
-                    params.setCatering(UrlaubrWsUtils.getCateringTypeFromInteger(cateringSelect.getModelObject()));
-                }
+                    if (cateringSelect.getModelObject() != null && cateringSelect.getModelObject() != -1) {
+                        params.setCatering(UrlaubrWsUtils.getCateringTypeFromInteger(cateringSelect.getModelObject()));
+                    }
 
-                if (durationSelect.getModelObject() != null && durationSelect.getModelObject() != -1) {
-                    params.setDuration(durationSelect.getModelObject());
-                }
+                    if (durationSelect.getModelObject() != null && durationSelect.getModelObject() != -1) {
+                        params.setDuration(durationSelect.getModelObject());
+                    }
 
-                if(titleField.getModelObject() != null && titleField.getModelObject().length() > 0) {
-                    params.setTitle(titleField.getModelObject());
-                }
+                    if (titleField.getModelObject() != null && titleField.getModelObject().length() > 0) {
+                        params.setTitle(titleField.getModelObject());
+                    }
 
-                params.getHotelstars();
+                    model.setObject(Client.findVacations(params));
+                    resultList.setModel(model);
+                }
+                formContainer.setVisible(!formContainer.isVisible());
+                resultContainer.setVisible(!resultContainer.isVisible());
             }
         });
         add(form);

@@ -51,7 +51,7 @@
 
             <h3>Reisesuche</h3>
             <hr>
-
+            <div wicket:id="formContainer">
             <label for="title" class="select">Titel enthält</label>
             <input type="text" wicket:id="title" id="title" data-mini="true">
 
@@ -133,8 +133,39 @@
                 <option wicket:id="1week">1 Woche</option>
                 <option wicket:id="2week">2 Wochen</option>
             </select>
-
+           </div>
         </form>
+
+        <div wicket:id="result">
+            <a wicket:id="topsellerList" data-role="button" data-icon="arrow-r" data-iconpos="right" class="custom-button" href="reisedetails.html">
+                <table>
+                    <tr>
+                        <td width="20">
+                        </td>
+                        <td>
+                            <img wicket:id="image" width="90" height="90">
+                        </td>
+                        <td>
+                            <p align="left" style="font-size:12px;" wicket:id="title"> 4 Tage Karibik All Inclusive </p>
+                            <table>
+                                <td width="100">
+                                    <img src="../../../../../../resources/webresources/images/Star.png" width="15" height="15">
+                                    <img src="../../../../../../resources/webresources/images/Star.png" width="15" height="15">
+                                    <img src="../../../../../../resources/webresources/images/Star.png" width="15" height="15">
+                                    <img src="../../../../../../resources/webresources/images/Star.png" width="15" height="15">
+                                    <img src="../../../../../../resources/webresources/images/Star.png" width="15" height="15">
+                                </td>
+                                <td>
+                                    <p align="left" style="font-size:14px;"> <span wicket:id="price">500</span>€ p.P. </p>
+                                </td>
+                            </table>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
+            </a>
+        </div>
     </wicket:extend>
     <div data-role="footer" data-id="foo1" data-position="fixed">
         <div data-role="navbar">
