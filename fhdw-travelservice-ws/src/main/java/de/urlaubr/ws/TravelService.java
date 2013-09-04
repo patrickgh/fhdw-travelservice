@@ -36,4 +36,6 @@ public interface TravelService {
     Integer createBooking(Integer sessionKey, Integer vacationId, Date startdate, Traveler[] travelers);
 
     byte[] createTicket(Integer sessionKey, Integer bookingId, Integer travelerId);
+
+    Booking getBookingById(Integer sessionKey, Integer bookingId);
 }

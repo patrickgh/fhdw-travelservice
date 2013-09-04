@@ -4,7 +4,7 @@ import de.urlaubr.webapp.Client;
 import de.urlaubr.webapp.components.ByteArrayImage;
 import de.urlaubr.webapp.page.SecuredPage;
 import de.urlaubr.ws.domain.Booking;
-import de.urlaubr.ws.domain.Vacation;
+import de.urlaubr.ws.utils.UrlaubrWsUtils;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.basic.Label;
@@ -14,6 +14,7 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import webresources.ImportResourceLocator;
 
@@ -36,17 +37,19 @@ public class MyVacationPage extends SecuredPage {
                 setResponsePage(getApplication().getHomePage());
             }
         });
-        IModel<List<Booking>> model = new AbstractReadOnlyModel<List<Booking>>() {
-            @Override
-            public List<Booking> getObject() {
-                return Client.getMyVacation(getSessionKey());
-            }
-        };
+        IModel<List<Booking>> model = new
+            AbstractReadOnlyModel<List<Booking>>() {
+                @Override
+                public List<Booking> getObject() {
+                    return Client.getMyVacation(getSessionKey());
+                }
+            };
         add(new ListView<Booking>("topsellerList", model) {
 
             @Override
             protected void populateItem(ListItem<Booking> item) {
                 final CompoundPropertyModel<Booking> model = new CompoundPropertyModel<Booking>(item.getModel());
+                final String resourceKey = "booking.state." + UrlaubrWsUtils.getBookingStateFromInteger(model.getObject().getState()).name().toLowerCase();
                 item.add(new Label("title", model.<String>bind("vacation.title")));
                 item.add(new Label("persons", new AbstractReadOnlyModel<Integer>() {
                     @Override
@@ -57,7 +60,7 @@ public class MyVacationPage extends SecuredPage {
                         return 0;
                     }
                 }));
-                item.add(new Label("state", model.<String>bind("state")));
+                item.add(new Label("state", new ResourceModel(resourceKey, resourceKey)));
                 item.add(new ByteArrayImage("image", model.<byte[]>bind("vacation.image")));
             }
         });

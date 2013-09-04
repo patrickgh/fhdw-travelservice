@@ -6,11 +6,13 @@ import de.urlaubr.webapp.components.StarRatingPanel;
 import de.urlaubr.webapp.page.BasePage;
 import de.urlaubr.ws.domain.Rating;
 import de.urlaubr.ws.domain.Vacation;
+import de.urlaubr.ws.utils.UrlaubrWsUtils;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.ResourceModel;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -31,12 +33,13 @@ public class DetailPage extends BasePage {
         if (getPageParameters().get("id") != null && getPageParameters().get("id").toInt(-1) != -1) {
             final Integer id = getPageParameters().get("id").toInt();
             final CompoundPropertyModel<Vacation> model = new CompoundPropertyModel<Vacation>(Client.getVactationById(id));
+            final String resourceKey = "catering."+ UrlaubrWsUtils.getCateringTypeFromInteger(model.getObject().getCatering()).name().toLowerCase();
             add(new ByteArrayImage("image", model.<byte[]>bind("image")));
             add(new Label("title", model.<String>bind("title")));
             add(new Label("city", model.<String>bind("city")));
             add(new Label("country", model.<String>bind("country")));
             add(new Label("hotelstars", model.<String>bind("hotelstars")));
-            add(new Label("catering", model.<Integer>bind("catering")));
+            add(new Label("catering", new ResourceModel(resourceKey,resourceKey)));
             add(new StarRatingPanel("starrating",new AbstractReadOnlyModel<Integer>() {
                 @Override
                 public Integer getObject() {

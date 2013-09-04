@@ -212,4 +212,22 @@ public class TravelClient implements TravelService {
         }
         return null;
     }
+
+    @Override
+    public Booking getBookingById(Integer sessionKey, Integer bookingId) {
+        QName operation = new QName(NAMESPACE_URI, "getBookingById");
+        Object[] opArgs = new Object[]{sessionKey, bookingId};
+        OMElement request = BeanUtil.getOMElement(operation, opArgs, null, false, null);
+        try {
+            OMElement response = sender.sendReceive(request);
+            Object[] result = BeanUtil.deserialize(response, new Class[]{Booking.class}, new DefaultObjectSupplier());
+            if (result.length == 1) {
+                return (Booking) result[0];
+            }
+        }
+        catch (AxisFault e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

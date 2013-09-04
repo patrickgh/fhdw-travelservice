@@ -3,12 +3,13 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
     <meta name="description" content="urlaubr.">
     <meta name="author" content="Patrick Groß-Holtwick">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">
     <meta http-equiv="expires" content="0">
@@ -16,19 +17,27 @@
     <title>urlaubr.</title>
 
 
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" href="/apple-touch-icon57.png"/>
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon144.png"/>
+
+    <link rel="apple-touch-startup-image" href="/apple-startup.png"/>
+    <!-- 640x920 iphone4-->
+    <link rel="apple-touch-startup-image" href="/apple-startup-iphone5.png" media="screen and (device-height: 568px)"/>
+    <!-- 640x1096 -->
+
     <link rel="shortcut icon" href="/favicon.ico">
+
 </head>
 
 <body>
 
 <div data-role="page">
     <div class="page-content">
-        <!-- /header -->        
+        <!-- /header -->
         <wicket:child>
 
         </wicket:child>
-        <div data-role="footer" data-id="foo1" data-position="fixed">
+        <div data-role="footer" data-id="foo1" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
             <div data-role="navbar">
                 <ul>
                     <li><a href="startseite.html" data-ajax="false" id="home" data-icon="home">Home</a></li>

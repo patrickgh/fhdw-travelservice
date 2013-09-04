@@ -29,85 +29,64 @@
 <div data-role="page">
 
     <wicket:extend>
-        <div data-role="header" data-id="foo1" data-position="fixed" data-tap-toggle="false" data-update-page-padding ="false">
+        <div data-role="header" data-id="foo1" data-position="fixed">
             <div data-role="header" style="overflow:hidden;">
-                <a href="javascript:history.back()" data-ajax="false" data-role="button" data-icon="arrow-l" data-iconpos="left" data-inline="true">Zurück</a>
+                <a data-ajax="false" href="./meinereisen.html" data-role="button" data-icon="arrow-l" data-iconpos="left" data-inline="true">Zurück</a>
 
                 <h1><i>urlaubr.</i></h1>
-                <a data-ajax="false" href="./buchung.html" data-role="button" data-inline="true">Buchen</a>
+                <a data-ajax="false" href="#" data-role="button" data-inline="true">Stornieren</a>
+                <!-- <a data-ajax="false" href="#" data-role="button" data-inline="true">Online Check-In</a>
+                     <a data-ajax="false" href="#" data-role="button" data-inline="true">Ticket anzeigen</a>
+                     <a data-ajax="false" href="#" data-role="button" data-inline="true">Bewerten</a>     -->
             </div>
 
 
         </div>
         <!-- /header -->
+        <a data-ajax="false" href=".\reisedetails.html">
+            <img src="..\resources\webresources\images\urlaubr3.png" width="314" height="110"/>
+
+        </a>
+        <hr>
 
         <div class="ui-grid-a">
             <div class="ui-block-a">
                 <div class="ui-bar ui-bar-f" style="height:100px">
-                    <img wicket:id="image" src="../resources/webresources/images/karibik.jpg" width="100" height="100">
+                    <img src="../resources/webresources/images/karibik.jpg" width="100" height="100">
                 </div>
             </div>
             <div class="ui-block-b">
                 <div class="ui-bar ui-bar-f" style="height:100px">
-                    <span wicket:id="title">4 Tage Karibik</span>
+                    4 Tage Karibik
                     <br>
-                    <i style="font-size: 12px;"><wicket:label wicket:id="city">Stadt</wicket:label> (<wicket:label wicket:id="country">GER</wicket:label>)</i>
-                    <br>
-                    <i style="font-size: 12px;" wicket:id="catering">All Inclusive</i>
-                    <br>
-                    <i style="font-size: 12px;"><wicket:label wicket:id="hotelstars">Stadt</wicket:label>-Sterne Hotel</i>
-                    <br>
-                    <div wicket:id="starrating"></div>
-                    <br>
-
-                    <p><span wicket:id="price">500</span>€ p.P. </p>
+                    All Inclusive
+                    <input name="star3" type="radio" class="star" disabled="disabled"/>
+                    <input name="star3" type="radio" class="star" disabled="disabled"/>
+                    <input name="star3" type="radio" class="star" disabled="disabled"/>
+                    <input name="star3" type="radio" class="star" disabled="disabled" checked="checked"/>
+                    <input name="star3" type="radio" class="star" disabled="disabled"/>
+                    500€ p.P.
                 </div>
             </div>
         </div>
 
         <br>
 
-
         <div data-role="collapsible-set" data-type="horizontal" data-create="false">
-            <div data-role="collapsible" data-collapsed="false">
+            <div data-role="collapsible">
                 <h4>Beschreibung</h4>
 
-                <div wicket:id="description">
-                    <p>Diese Reise führt sie in kurzer Zeit an die sehenswertesten Orte der Karibik!
-                        <br/> Bei ihrer Reise erleben Sie das Schönste der Insel x.
-                        <br/> Sie erhalten am Morgen ein reichhaltiges Buffet, Mittags eine Auswahl an Snacks und jeden Abend à la carte.</p>
-                </div>
+                <p>Beschreibung</p>
             </div>
             <div data-role="collapsible">
                 <h4>Bewertung</h4>
 
-                <div wicket:id="rating">
-                    <table>
-                        <tr>
-                            <td>
-                                <b wicket:id="user">Ganz tolle Bewertung</b>
-                            </td>
-                            <td wicket:id="rating">
-                            </td>
-                        </tr>
-                    </table>
-
-
-                    <div width="100%"><p wicket:id="text">klajsdfö kjasöldkfjöao sdjföoaisjd föoiasjdfö oiajsdföoij asöodifj öasjdfölk asjdflk asjdf</p></div>
-                    <table>
-                        <tr>
-                            <td>
-                                <i wicket:id="date" style="font-size: 10px;">20.08.2013</i>
-                            </td>
-                        </tr>
-                    </table>
-                    <hr>
-                </div>
+                <p>Bewertung</p>
             </div>
 
         </div>
-
     </wicket:extend>
+
     <div data-role="footer" data-id="foo1" data-position="fixed">
         <div data-role="navbar">
             <ul>

@@ -161,6 +161,6 @@ public class Vacation {
             }
             return sum.doubleValue() / ratings.length;
         }
-        return null;
+        return 0.0;
     }
 }

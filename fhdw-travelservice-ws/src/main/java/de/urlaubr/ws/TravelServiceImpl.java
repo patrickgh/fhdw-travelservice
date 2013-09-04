@@ -442,4 +442,15 @@ public class TravelServiceImpl implements TravelService {
         }
         return null;
     }
+
+    @Override
+    public Booking getBookingById(Integer sessionKey, Integer bookingId) {
+        if(isAuthenticated(sessionKey)) {
+            Booking booking = getBookingById(bookingId);
+            if(booking.getCustomer().getId().intValue() == sessions.get(sessionKey).getUserId()) {
+                return booking;
+            }
+        }
+        return null;
+    }
 }
