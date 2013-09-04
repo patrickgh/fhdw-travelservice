@@ -2,6 +2,7 @@ package de.urlaubr.webapp.page.start;
 
 import de.urlaubr.webapp.Client;
 import de.urlaubr.webapp.components.ByteArrayImage;
+import de.urlaubr.webapp.components.StarRatingPanel;
 import de.urlaubr.webapp.page.BasePage;
 import de.urlaubr.webapp.page.detail.DetailPage;
 import de.urlaubr.ws.TravelServiceImpl;
@@ -47,6 +48,12 @@ public class HomePage extends BasePage {
                 final BookmarkablePageLink link = new BookmarkablePageLink("topsellerLink", DetailPage.class, parameters);
                 link.add(new Label("title", model.<String>bind("title")));
                 link.add(new Label("price", model.<String>bind("price")));
+                link.add(new StarRatingPanel("starrating",new AbstractReadOnlyModel<Integer>() {
+                    @Override
+                    public Integer getObject() {
+                        return Long.valueOf(Math.round(model.getObject().getAvgRating())).intValue();
+                    }
+                }));
                 link.add(new ByteArrayImage("image", model.<byte[]>bind("image")));
                 item.add(link);
             }

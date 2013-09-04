@@ -2,12 +2,14 @@ package de.urlaubr.webapp.page.detail;
 
 import de.urlaubr.webapp.Client;
 import de.urlaubr.webapp.components.ByteArrayImage;
+import de.urlaubr.webapp.components.StarRatingPanel;
 import de.urlaubr.webapp.page.BasePage;
 import de.urlaubr.ws.domain.Rating;
 import de.urlaubr.ws.domain.Vacation;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.CompoundPropertyModel;
 
 import java.util.Arrays;
@@ -35,6 +37,12 @@ public class DetailPage extends BasePage {
             add(new Label("country", model.<String>bind("country")));
             add(new Label("hotelstars", model.<String>bind("hotelstars")));
             add(new Label("catering", model.<Integer>bind("catering")));
+            add(new StarRatingPanel("starrating",new AbstractReadOnlyModel<Integer>() {
+                @Override
+                public Integer getObject() {
+                    return Long.valueOf(Math.round(model.getObject().getAvgRating())).intValue();
+                }
+            }));
             add(new Label("price", model.<Double>bind("price")));
             final Label description = new Label("description", model.<String>bind("description"));
             description.setEscapeModelStrings(false);
@@ -47,6 +55,7 @@ public class DetailPage extends BasePage {
                     item.add(new Label("text", itemModel.<String>bind("comment")));
                     item.add(new Label("user", itemModel.<String>bind("author.username")));
                     item.add(new Label("date", itemModel.<Date>bind("creationdate")));
+                    item.add(new StarRatingPanel("rating", itemModel.<Integer>bind("rating")));
                 }
             };
             add(rating);
