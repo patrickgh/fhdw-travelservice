@@ -223,6 +223,7 @@ public class TravelServiceImpl implements TravelService {
     private Booking createBookingFromResultSet(ResultSet result) {
         Booking booking = new Booking();
         try {
+            booking.setId(result.getInt("id"));
             booking.setCreationdate(new Date(result.getTimestamp("creationdate").getTime()));
             booking.setStartdate(new Date(result.getTimestamp("startdate").getTime()));
             booking.setEnddate(new Date(result.getTimestamp("returndate").getTime()));
@@ -287,7 +288,7 @@ public class TravelServiceImpl implements TravelService {
         try {
             PreparedStatement stmt = dbConnection.prepareStatement("SELECT * FROM booking WHERE id = ?");
             stmt.setInt(1, bookingId);
-            ResultSet resultSet = stmt.getResultSet();
+            ResultSet resultSet = stmt.executeQuery();
             if (resultSet.next() && resultSet.isLast()) {
                 return createBookingFromResultSet(resultSet);
             }

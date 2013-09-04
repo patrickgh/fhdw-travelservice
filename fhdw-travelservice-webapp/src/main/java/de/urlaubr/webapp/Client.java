@@ -76,4 +76,8 @@ public class Client {
         return service.getUserInfo(sessionKey);
     }
 
+    public static Booking getBookingById(Integer sessionKey, Integer bookingId) {
+        return service.getBookingById(sessionKey,bookingId);
+    }
+
 }

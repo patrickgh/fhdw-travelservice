@@ -3,6 +3,7 @@ package de.urlaubr.webapp;
 import de.urlaubr.webapp.page.detail.DetailPage;
 import de.urlaubr.webapp.page.login.LoginPage;
 import de.urlaubr.webapp.page.myvacation.MyVacationPage;
+import de.urlaubr.webapp.page.myvacation.detail.BookingDetailPage;
 import de.urlaubr.webapp.page.search.SearchPage;
 import de.urlaubr.webapp.page.start.HomePage;
 import org.apache.wicket.Page;
@@ -14,6 +15,7 @@ import org.apache.wicket.request.resource.caching.FilenameWithVersionResourceCac
 import org.apache.wicket.request.resource.caching.version.LastModifiedResourceVersion;
 import org.apache.wicket.resource.NoOpTextCompressor;
 import org.apache.wicket.settings.def.JavaScriptLibrarySettings;
+import org.apache.wicket.util.file.Path;
 import org.apache.wicket.util.string.Strings;
 import webresources.ImportResourceLocator;
 
@@ -36,10 +38,10 @@ public class UrlaubrApplication extends WebApplication {
             String resourceFolder = System.getProperty("application.resource.src");
             String webResourceFolder = System.getProperty("application.webresource.src");
             if (!Strings.isEmpty(resourceFolder)) {
-                getResourceSettings().getResourceFinders().add(new WebApplicationPath(getServletContext(), resourceFolder));
+                getResourceSettings().getResourceFinders().add(0, new Path(resourceFolder));
             }
             if (!Strings.isEmpty(webResourceFolder)) {
-                getResourceSettings().getResourceFinders().add(new WebApplicationPath(getServletContext(), webResourceFolder));
+                getResourceSettings().getResourceFinders().add(0, new Path(webResourceFolder));
             }
         }
         else {
@@ -47,6 +49,7 @@ public class UrlaubrApplication extends WebApplication {
             getResourceSettings().setJavaScriptCompressor(new NoOpTextCompressor());
             getMarkupSettings().setStripComments(true);
             getMarkupSettings().setCompressWhitespace(true);
+            getMarkupSettings().setStripWicketTags(true);
         }
         getMarkupSettings().setDefaultMarkupEncoding("utf-8");
 
@@ -55,6 +58,7 @@ public class UrlaubrApplication extends WebApplication {
         mountPage("login.html", LoginPage.class);
         mountPage("reisedetails.html", DetailPage.class);
         mountPage("suche.html", SearchPage.class);
+        mountPage("buchungsdetails.html", BookingDetailPage.class);
 
         mountResource("apple-touch-icon.png", new PackageResourceReference(ImportResourceLocator.class,"images/apple-touch-icon.png"));
         mountResource("favicon.ico", new PackageResourceReference(ImportResourceLocator.class,"images/favicon.ico"));

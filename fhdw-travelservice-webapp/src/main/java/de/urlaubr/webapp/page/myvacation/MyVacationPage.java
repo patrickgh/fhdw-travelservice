@@ -3,18 +3,22 @@ package de.urlaubr.webapp.page.myvacation;
 import de.urlaubr.webapp.Client;
 import de.urlaubr.webapp.components.ByteArrayImage;
 import de.urlaubr.webapp.page.SecuredPage;
+import de.urlaubr.webapp.page.detail.DetailPage;
+import de.urlaubr.webapp.page.myvacation.detail.BookingDetailPage;
 import de.urlaubr.ws.domain.Booking;
 import de.urlaubr.ws.utils.UrlaubrWsUtils;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.image.Image;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.ResourceModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import webresources.ImportResourceLocator;
 
@@ -44,14 +48,17 @@ public class MyVacationPage extends SecuredPage {
                     return Client.getMyVacation(getSessionKey());
                 }
             };
-        add(new ListView<Booking>("topsellerList", model) {
+        add(new ListView<Booking>("myVacationList", model) {
 
             @Override
             protected void populateItem(ListItem<Booking> item) {
                 final CompoundPropertyModel<Booking> model = new CompoundPropertyModel<Booking>(item.getModel());
                 final String resourceKey = "booking.state." + UrlaubrWsUtils.getBookingStateFromInteger(model.getObject().getState()).name().toLowerCase();
-                item.add(new Label("title", model.<String>bind("vacation.title")));
-                item.add(new Label("persons", new AbstractReadOnlyModel<Integer>() {
+                PageParameters parameters = new PageParameters();
+                parameters.add("id",model.getObject().getId());
+                final BookmarkablePageLink link = new BookmarkablePageLink("vacationLink", BookingDetailPage.class, parameters);
+                link.add(new Label("title", model.<String>bind("vacation.title")));
+                link.add(new Label("persons", new AbstractReadOnlyModel<Integer>() {
                     @Override
                     public Integer getObject() {
                         if (model.getObject().getTraveler() != null) {
@@ -60,8 +67,9 @@ public class MyVacationPage extends SecuredPage {
                         return 0;
                     }
                 }));
-                item.add(new Label("state", new ResourceModel(resourceKey, resourceKey)));
-                item.add(new ByteArrayImage("image", model.<byte[]>bind("vacation.image")));
+                link.add(new Label("state", new ResourceModel(resourceKey, resourceKey)));
+                link.add(new ByteArrayImage("image", model.<byte[]>bind("vacation.image")));
+                item.add(link);
             }
         });
     }

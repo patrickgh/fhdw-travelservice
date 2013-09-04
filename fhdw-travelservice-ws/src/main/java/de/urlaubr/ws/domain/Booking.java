@@ -8,6 +8,7 @@ import java.util.Date;
  */
 public class Booking {
 
+    private Integer id;
     private Vacation vacation;
     private Customer customer;
     private Date creationdate;
@@ -17,6 +18,14 @@ public class Booking {
     private Traveler[] traveler;
 
     public Booking() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Traveler[] getTraveler() {

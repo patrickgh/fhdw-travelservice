@@ -25,7 +25,7 @@
 <div data-role="page">
 
     <wicket:extend>
-        <div data-role="header" data-id="foo1" data-position="fixed" data-tap-toggle="false" data-update-page-padding ="false">
+        <div data-role="header" data-id="foo1" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
             <div data-role="header" style="overflow:hidden;">
                 <a href="javascript:history.back()" data-ajax="false" data-role="button" data-icon="arrow-l" data-iconpos="left" data-inline="true">Zurück</a>
 
@@ -45,27 +45,28 @@
 
         <h3>Meine Reisen</h3>
 
+        <wicket:container wicket:id="myVacationList">
+            <a wicket:id="vacationLink" data-ajax="false" data-role="button" data-icon="arrow-r" data-iconpos="right" class="custom-button" href="reisedetails.html">
+                <table>
+                    <tr>
+                        <td width="20">
+                        </td>
+                        <td>
+                            <img wicket:id="image" src="../resources/webresources/images/karibik.jpg" width="90" height="90">
+                        </td>
+                        <td>
+                            <p align="left" style="font-size:16px;" wicket:id="title"> 4 Tage Karibik All Inclusive </p>
 
-        <a wicket:id="topsellerList" data-role="button" data-icon="arrow-r" data-iconpos="right" class="custom-button" href="reisedetails.html">
-            <table>
-                <tr>
-                    <td width="20">
-                    </td>
-                    <td>
-                        <img wicket:id="image" src="../resources/webresources/images/karibik.jpg" width="90" height="90">
-                    </td>
-                    <td>
-                        <p align="left" style="font-size:16px;" wicket:id="title"> 4 Tage Karibik All Inclusive </p>
+                            <p align="left" style="font-size:14px;"><i wicket:id="persons"></i><i> Personen</i></p>
 
-                        <p align="left" style="font-size:14px;"><i wicket:id="persons"></i><i> Personen</i></p>
-
-                        <p align="left" style="font-size:14px;" wicket:id="state"> Gebucht </p>
-                    </td>
-                    <td>
-                    </td>
-                </tr>
-            </table>
-        </a>
+                            <p align="left" style="font-size:14px;" wicket:id="state"> Gebucht </p>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
+            </a>
+        </wicket:container>
     </wicket:extend>
 
     <div data-role="footer" data-id="foo1" data-position="fixed">
