@@ -44,8 +44,8 @@
 
             <h3>Topseller</h3>
 
-
-            <a wicket:id="topsellerList" data-role="button" data-icon="arrow-r" data-iconpos="right" class="custom-button" href="reisedetails.html">
+            <wicket:container wicket:id="topsellerList">
+            <a wicket:id="topsellerLink" data-ajax="false" data-role="button" data-icon="arrow-r" data-iconpos="right" class="custom-button" href="reisedetails.html">
                 <table>
                     <tr>
                         <td width="20">
@@ -73,7 +73,7 @@
                     </tr>
                 </table>
             </a>
-
+            </wicket:container>
         </wicket:extend>
     </div>
 </div>

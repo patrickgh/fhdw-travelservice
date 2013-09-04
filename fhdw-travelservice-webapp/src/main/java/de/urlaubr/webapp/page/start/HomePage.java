@@ -3,16 +3,19 @@ package de.urlaubr.webapp.page.start;
 import de.urlaubr.webapp.Client;
 import de.urlaubr.webapp.components.ByteArrayImage;
 import de.urlaubr.webapp.page.BasePage;
+import de.urlaubr.webapp.page.detail.DetailPage;
 import de.urlaubr.ws.TravelServiceImpl;
 import de.urlaubr.ws.client.TravelClient;
 import de.urlaubr.ws.domain.Vacation;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.image.Image;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import webresources.ImportResourceLocator;
 
@@ -39,9 +42,13 @@ public class HomePage extends BasePage {
             @Override
             protected void populateItem(ListItem<Vacation> item) {
                 final CompoundPropertyModel<Vacation> model = new CompoundPropertyModel<Vacation>(item.getModel());
-                item.add(new Label("title", model.<String>bind("title")));
-                item.add(new Label("price", model.<String>bind("price")));
-                item.add(new ByteArrayImage("image", model.<byte[]>bind("image")));
+                PageParameters parameters = new PageParameters();
+                parameters.add("id",model.getObject().getId());
+                final BookmarkablePageLink link = new BookmarkablePageLink("topsellerLink", DetailPage.class, parameters);
+                link.add(new Label("title", model.<String>bind("title")));
+                link.add(new Label("price", model.<String>bind("price")));
+                link.add(new ByteArrayImage("image", model.<byte[]>bind("image")));
+                item.add(link);
             }
         });
     }

@@ -3,12 +3,11 @@ package de.urlaubr.webapp.page.search;
 import de.urlaubr.webapp.Client;
 import de.urlaubr.webapp.components.ByteArrayImage;
 import de.urlaubr.webapp.page.BasePage;
+import de.urlaubr.webapp.page.detail.DetailPage;
 import de.urlaubr.ws.domain.CateringType;
 import de.urlaubr.ws.domain.SearchParams;
 import de.urlaubr.ws.domain.Vacation;
 import de.urlaubr.ws.utils.UrlaubrWsUtils;
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.extensions.markup.html.form.select.Select;
 import org.apache.wicket.extensions.markup.html.form.select.SelectOption;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -17,12 +16,14 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.SubmitLink;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.image.Image;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.util.ListModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import webresources.ImportResourceLocator;
 
@@ -50,9 +51,13 @@ public class SearchPage extends BasePage {
             @Override
             protected void populateItem(ListItem<Vacation> item) {
                 final CompoundPropertyModel<Vacation> model = new CompoundPropertyModel<Vacation>(item.getModel());
-                item.add(new Label("title", model.<String>bind("title")));
-                item.add(new Label("price", model.<String>bind("price")));
-                item.add(new ByteArrayImage("image", model.<byte[]>bind("image")));
+                PageParameters parameters = new PageParameters();
+                parameters.add("id",model.getObject().getId());
+                final BookmarkablePageLink link = new BookmarkablePageLink("topsellerLink", DetailPage.class, parameters);
+                link.add(new Label("title", model.<String>bind("title")));
+                link.add(new Label("price", model.<String>bind("price")));
+                link.add(new ByteArrayImage("image", model.<byte[]>bind("image")));
+                item.add(link);
             }
         };
         resultContainer.setVisible(false);

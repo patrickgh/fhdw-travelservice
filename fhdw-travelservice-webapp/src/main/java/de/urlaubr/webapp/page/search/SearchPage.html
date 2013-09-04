@@ -35,7 +35,7 @@
             <div data-role="header" data-id="foo1" data-position="fixed">
 
                 <div data-role="header" style="overflow:hidden;">
-                    <a data-ajax="false" href="./startseite.html" data-role="button" data-icon="arrow-l" data-iconpos="left" data-inline="true">Zurück</a>
+                    <a href="javascript:history.back()" data-ajax="false" data-role="button" data-icon="arrow-l" data-iconpos="left" data-inline="true">Zurück</a>
 
                     <h1><i>urlaubr.</i></h1>
                     <a wicket:id="submit" data-ajax="false" href="./suchergebnisse.html" data-inline="true">Suche</a>
@@ -52,119 +52,121 @@
             <h3>Reisesuche</h3>
             <hr>
             <div wicket:id="formContainer">
-            <label for="title" class="select">Titel enthält</label>
-            <input type="text" wicket:id="title" id="title" data-mini="true">
+                <label for="title" class="select">Titel enthält</label>
+                <input type="text" wicket:id="title" id="title" data-mini="true">
 
-            <label for="destination" class="select">Reiseziel</label>
-            <select wicket:id="country" name="select-choice-8" id="destination" multiple="multiple" data-native-menu="false" data-icon="grid" data-iconpos="right">
-                <option wicket:id="countryNone">Alle Länder</option>
-                <optgroup label="Westeuropa">
-                    <option wicket:id="GER">Deutschland</option>
-                    <option wicket:id="ENG">England</option>
-                    <option wicket:id="NED">Niederlande</option>
-                    <option wicket:id="FRANCE">Frankreich</option>
-                </optgroup>
-                <optgroup label="Südeuropa">
-                    <option wicket:id="ESP">Spanien</option>
-                    <option wicket:id="ITA">Italien</option>
-                    <option wicket:id="POR">Portugal</option>
-                </optgroup>
-                <optgroup label="Afrika">
-                    <option wicket:id="EGY">Ägypten</option>
-                </optgroup>
-                <optgroup label="Amerika">
-                    <option wicket:id="USA">USA</option>
-                    <option wicket:id="MEX">Mexiko</option>
-                </optgroup>
-            </select>
-
-
-            <label for="airport" class="select">Abflughafen</label>
-            <select wicket:id="airport" name="select-choice-8" id="airport" multiple="multiple" data-native-menu="false" data-icon="grid" data-iconpos="right">
-                <option wicket:id="airportNone">Alle Flüghäfen</option>
-                <optgroup label="West">
-                    <option wicket:id="PAD">Paderborn</option>
-                    <option wicket:id="DUS">Düsseldorf</option>
-                    <option wicket:id="DTM">Dortmund</option>
-                    <option wicket:id="CGN">Köln/Bonn</option>
-                </optgroup>
-                <optgroup label="Süd">
-                    <option wicket:id="MUC">München</option>
-                    <option wicket:id="STR">Stuttgart</option>
-                    <option wicket:id="FRA">Frankfurt am Main</option>
-                </optgroup>
-                <optgroup label="Ost">
-                    <option wicket:id="TXL">Berlin (Tegel)</option>
-                    <option wicket:id="SXF">Berlin (Schönefeld)</option>
-                </optgroup>
-                <optgroup label="Nord">
-                    <option wicket:id="BRE">Bremen</option>
-                    <option wicket:id="HAM">Hamburg</option>
-                </optgroup>
-            </select>
-
-            <label for="stars" class="select">Hotelklasse</label>
-            <select wicket:id="stars" name="stars" id="stars">
-                <option wicket:id="starsNone">Beliebige Hotels</option>
-                <option wicket:id="one" value="1">1 Stern</option>
-                <option wicket:id="two">2 Sterne</option>
-                <option wicket:id="three">3 Sterne</option>
-                <option wicket:id="four">4 Sterne</option>
-                <option wicket:id="five">5 Sterne</option>
-            </select>
-
-            <label for="select-choice-1" class="select">Verpflegung</label>
-            <select wicket:id="catering" name="select-choice-1" id="select-choice-1">
-                <option wicket:id="cateringNone">Beliebige Verpflegungsoptionen</option>
-                <option wicket:id="overnight">Nur Übernachtung</option>
-                <option wicket:id="breakfast">Übernachtung inkl. Frühstück</option>
-                <option wicket:id="halfboard">Halbpension</option>
-                <option wicket:id="fullboard">Vollpension</option>
-                <option wicket:id="allinclusive">All Inclusive</option>
-            </select>
+                <label for="destination" class="select">Reiseziel</label>
+                <select wicket:id="country" name="select-choice-8" id="destination" multiple="multiple" data-native-menu="false" data-icon="grid" data-iconpos="right">
+                    <option wicket:id="countryNone">Alle Länder</option>
+                    <optgroup label="Westeuropa">
+                        <option wicket:id="GER">Deutschland</option>
+                        <option wicket:id="ENG">England</option>
+                        <option wicket:id="NED">Niederlande</option>
+                        <option wicket:id="FRANCE">Frankreich</option>
+                    </optgroup>
+                    <optgroup label="Südeuropa">
+                        <option wicket:id="ESP">Spanien</option>
+                        <option wicket:id="ITA">Italien</option>
+                        <option wicket:id="POR">Portugal</option>
+                    </optgroup>
+                    <optgroup label="Afrika">
+                        <option wicket:id="EGY">Ägypten</option>
+                    </optgroup>
+                    <optgroup label="Amerika">
+                        <option wicket:id="USA">USA</option>
+                        <option wicket:id="MEX">Mexiko</option>
+                    </optgroup>
+                </select>
 
 
-            <label for="select-choice-1" class="select">Reisedauer</label>
-            <select wicket:id="duration" name="select-choice-1" id="select-choice-2">
-                <option wicket:id="durationNone">Beliebige Dauer</option>
-                <option wicket:id="2days">2 Tage</option>
-                <option wicket:id="3days">3 Tage</option>
-                <option wicket:id="5days">5 Tage</option>
-                <option wicket:id="1week">1 Woche</option>
-                <option wicket:id="2week">2 Wochen</option>
-            </select>
-           </div>
+                <label for="airport" class="select">Abflughafen</label>
+                <select wicket:id="airport" name="select-choice-8" id="airport" multiple="multiple" data-native-menu="false" data-icon="grid" data-iconpos="right">
+                    <option wicket:id="airportNone">Alle Flüghäfen</option>
+                    <optgroup label="West">
+                        <option wicket:id="PAD">Paderborn</option>
+                        <option wicket:id="DUS">Düsseldorf</option>
+                        <option wicket:id="DTM">Dortmund</option>
+                        <option wicket:id="CGN">Köln/Bonn</option>
+                    </optgroup>
+                    <optgroup label="Süd">
+                        <option wicket:id="MUC">München</option>
+                        <option wicket:id="STR">Stuttgart</option>
+                        <option wicket:id="FRA">Frankfurt am Main</option>
+                    </optgroup>
+                    <optgroup label="Ost">
+                        <option wicket:id="TXL">Berlin (Tegel)</option>
+                        <option wicket:id="SXF">Berlin (Schönefeld)</option>
+                    </optgroup>
+                    <optgroup label="Nord">
+                        <option wicket:id="BRE">Bremen</option>
+                        <option wicket:id="HAM">Hamburg</option>
+                    </optgroup>
+                </select>
+
+                <label for="stars" class="select">Hotelklasse</label>
+                <select wicket:id="stars" name="stars" id="stars">
+                    <option wicket:id="starsNone">Beliebige Hotels</option>
+                    <option wicket:id="one" value="1">1 Stern</option>
+                    <option wicket:id="two">2 Sterne</option>
+                    <option wicket:id="three">3 Sterne</option>
+                    <option wicket:id="four">4 Sterne</option>
+                    <option wicket:id="five">5 Sterne</option>
+                </select>
+
+                <label for="select-choice-1" class="select">Verpflegung</label>
+                <select wicket:id="catering" name="select-choice-1" id="select-choice-1">
+                    <option wicket:id="cateringNone">Beliebige Verpflegungsoptionen</option>
+                    <option wicket:id="overnight">Nur Übernachtung</option>
+                    <option wicket:id="breakfast">Übernachtung inkl. Frühstück</option>
+                    <option wicket:id="halfboard">Halbpension</option>
+                    <option wicket:id="fullboard">Vollpension</option>
+                    <option wicket:id="allinclusive">All Inclusive</option>
+                </select>
+
+
+                <label for="select-choice-1" class="select">Reisedauer</label>
+                <select wicket:id="duration" name="select-choice-1" id="select-choice-2">
+                    <option wicket:id="durationNone">Beliebige Dauer</option>
+                    <option wicket:id="2days">2 Tage</option>
+                    <option wicket:id="3days">3 Tage</option>
+                    <option wicket:id="5days">5 Tage</option>
+                    <option wicket:id="1week">1 Woche</option>
+                    <option wicket:id="2week">2 Wochen</option>
+                </select>
+            </div>
         </form>
 
         <div wicket:id="result">
-            <a wicket:id="topsellerList" data-role="button" data-icon="arrow-r" data-iconpos="right" class="custom-button" href="reisedetails.html">
-                <table>
-                    <tr>
-                        <td width="20">
-                        </td>
-                        <td>
-                            <img wicket:id="image" width="90" height="90">
-                        </td>
-                        <td>
-                            <p align="left" style="font-size:12px;" wicket:id="title"> 4 Tage Karibik All Inclusive </p>
-                            <table>
-                                <td width="100">
-                                    <img src="../../../../../../resources/webresources/images/Star.png" width="15" height="15">
-                                    <img src="../../../../../../resources/webresources/images/Star.png" width="15" height="15">
-                                    <img src="../../../../../../resources/webresources/images/Star.png" width="15" height="15">
-                                    <img src="../../../../../../resources/webresources/images/Star.png" width="15" height="15">
-                                    <img src="../../../../../../resources/webresources/images/Star.png" width="15" height="15">
-                                </td>
-                                <td>
-                                    <p align="left" style="font-size:14px;"> <span wicket:id="price">500</span>€ p.P. </p>
-                                </td>
-                            </table>
-                        </td>
-                        <td>
-                        </td>
-                    </tr>
-                </table>
-            </a>
+            <wicket:container wicket:id="topsellerList">
+                <a wicket:id="topsellerLink" data-ajax="false" data-role="button" data-icon="arrow-r" data-iconpos="right" class="custom-button" href="reisedetails.html">
+                    <table>
+                        <tr>
+                            <td width="20">
+                            </td>
+                            <td>
+                                <img wicket:id="image" width="90" height="90">
+                            </td>
+                            <td>
+                                <p align="left" style="font-size:12px;" wicket:id="title"> 4 Tage Karibik All Inclusive </p>
+                                <table>
+                                    <td width="100">
+                                        <img src="../../../../../../resources/webresources/images/Star.png" width="15" height="15">
+                                        <img src="../../../../../../resources/webresources/images/Star.png" width="15" height="15">
+                                        <img src="../../../../../../resources/webresources/images/Star.png" width="15" height="15">
+                                        <img src="../../../../../../resources/webresources/images/Star.png" width="15" height="15">
+                                        <img src="../../../../../../resources/webresources/images/Star.png" width="15" height="15">
+                                    </td>
+                                    <td>
+                                        <p align="left" style="font-size:14px;"><span wicket:id="price">500</span>€ p.P. </p>
+                                    </td>
+                                </table>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </table>
+                </a>
+            </wicket:container>
         </div>
     </wicket:extend>
     <div data-role="footer" data-id="foo1" data-position="fixed">

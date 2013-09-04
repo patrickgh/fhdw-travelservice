@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="description" content="urlaubr.">
+    <meta name="author" content="Patrick Groß-Holtwick">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+
+    <title>urlaubr.</title>
+
+
+    <link rel="apple-touch-icon" href="../resources/webresources/images/apple-touch-icon.png"/>
+    <link rel="shortcut icon" href="../resources/webresources/js/demos/favicon.ico">
+    <script src="../resources/webresources/js/demos/js/jquery.js"></script>
+    <script src="../resources/webresources/js/jquery.mobile-1.3.1.min.js"></script>
+    <link rel="stylesheet" href="../resources/webresources/js/jquery.mobile-1.3.1.min.css">
+    <link rel="stylesheet" href="../resources/webresources/js/star-rating/jquery.rating.css"/>
+    <link rel="stylesheet" href="../resources/webresources/css/urlaubr.css"/>
+</head>
+
+<body>
+
+<div data-role="page">
+
+    <wicket:extend>
+        <div data-role="header" data-id="foo1" data-position="fixed">
+            <div data-role="header" style="overflow:hidden;">
+                <a href="javascript:history.back()" data-ajax="false" data-role="button" data-icon="arrow-l" data-iconpos="left" data-inline="true">Zurück</a>
+
+                <h1><i>urlaubr.</i></h1>
+                <a data-ajax="false" href="./buchung.html" data-role="button" data-inline="true">Buchen</a>
+            </div>
+
+
+        </div>
+        <!-- /header -->
+
+        <div class="ui-grid-a">
+            <div class="ui-block-a">
+                <div class="ui-bar ui-bar-f" style="height:100px">
+                    <img wicket:id="image" src="../resources/webresources/images/karibik.jpg" width="100" height="100">
+                </div>
+            </div>
+            <div class="ui-block-b">
+                <div class="ui-bar ui-bar-f" style="height:100px">
+                    <span wicket:id="title">4 Tage Karibik</span>
+                    <br>
+                    <i style="font-size: 12px;"><wicket:label wicket:id="city">Stadt</wicket:label> (<wicket:label wicket:id="country">GER</wicket:label>)</i>
+                    <br>
+                    <i style="font-size: 12px;" wicket:id="catering">All Inclusive</i>
+                    <br>
+                    <i style="font-size: 12px;"><wicket:label wicket:id="hotelstars">Stadt</wicket:label>-Sterne Hotel</i>
+                    <br>
+                    <img src="../resources/webresources/images/Star.png" width="15" height="15">
+                    <img src="../resources/webresources/images/Star.png" width="15" height="15">
+                    <img src="../resources/webresources/images/Star.png" width="15" height="15">
+                    <img src="../resources/webresources/images/Star.png" width="15" height="15">
+                    <img src="../resources/webresources/images/Star.png" width="15" height="15">
+                    <br>
+
+                    <p><span wicket:id="price">500</span>€ p.P. </p>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+
+        <div data-role="collapsible-set" data-type="horizontal" data-create="false">
+            <div data-role="collapsible" data-collapsed="false">
+                <h4>Beschreibung</h4>
+
+                <div wicket:id="description">
+                    <p>Diese Reise führt sie in kurzer Zeit an die sehenswertesten Orte der Karibik!
+                        <br/> Bei ihrer Reise erleben Sie das Schönste der Insel x.
+                        <br/> Sie erhalten am Morgen ein reichhaltiges Buffet, Mittags eine Auswahl an Snacks und jeden Abend à la carte.</p>
+                </div>
+            </div>
+            <div data-role="collapsible">
+                <h4>Bewertung</h4>
+
+                <div wicket:id="rating">
+                    <table>
+                        <tr>
+                            <td>
+                                <b wicket:id="user">Ganz tolle Bewertung</b>
+                            </td>
+                            <td>
+                                <img src="../resources/webresources/images/Star.png" width="15" height="15">
+                                <img src="../resources/webresources/images/Star.png" width="15" height="15">
+                                <img src="../resources/webresources/images/Star.png" width="15" height="15">
+                                <img src="../resources/webresources/images/Star.png" width="15" height="15">
+                                <img src="../resources/webresources/images/Star.png" width="15" height="15">
+                            </td>
+                        </tr>
+                    </table>
+
+
+                    <div width="100%"><p wicket:id="text">klajsdfö kjasöldkfjöao sdjföoaisjd föoiasjdfö oiajsdföoij asöodifj öasjdfölk asjdflk asjdf</p></div>
+                    <table>
+                        <tr>
+                            <td>
+                                <i wicket:id="date" style="font-size: 10px;">20.08.2013</i>
+                            </td>
+                        </tr>
+                    </table>
+                    <hr>
+                </div>
+            </div>
+
+        </div>
+
+    </wicket:extend>
+    <div data-role="footer" data-id="foo1" data-position="fixed">
+        <div data-role="navbar">
+            <ul>
+                <li><a data-ajax="false" href="startseite.html" id="home" data-icon="home">Home</a></li>
+                <li><a data-ajax="false" href="login.html" id="login" data-icon="check">Mein Bereich</a></li>
+                <li><a data-ajax="false" href="suchformular.html" id="search" data-icon="search">Suche</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- /footer -->
+
+</div>
+<!-- /page -->
+<script src="..\scripts\star-rating\jquery.rating.js"></script>
+<script src="..\scripts\star-rating\jquery.rating.pack.js"></script>
+</body>
+</html>
