@@ -4,15 +4,18 @@ import de.urlaubr.webapp.Client;
 import de.urlaubr.webapp.components.ByteArrayImage;
 import de.urlaubr.webapp.components.panel.StarRatingPanel;
 import de.urlaubr.webapp.page.BasePage;
+import de.urlaubr.webapp.page.booking.BookingPage;
 import de.urlaubr.ws.domain.Rating;
 import de.urlaubr.ws.domain.Vacation;
 import de.urlaubr.ws.utils.UrlaubrWsUtils;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.ResourceModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -62,7 +65,9 @@ public class DetailPage extends BasePage {
                 }
             };
             add(rating);
-
+            PageParameters parameters = new PageParameters();
+            parameters.add("id",model.getObject().getId());
+            add(new BookmarkablePageLink("bookingLink", BookingPage.class, parameters));
         }
         else {
             setResponsePage(getApplication().getHomePage());

@@ -1,5 +1,6 @@
 package de.urlaubr.webapp;
 
+import de.urlaubr.webapp.page.booking.BookingPage;
 import de.urlaubr.webapp.page.detail.DetailPage;
 import de.urlaubr.webapp.page.login.LoginPage;
 import de.urlaubr.webapp.page.myvacation.MyVacationPage;
@@ -59,6 +60,7 @@ public class UrlaubrApplication extends WebApplication {
         mountPage("reisedetails.html", DetailPage.class);
         mountPage("suche.html", SearchPage.class);
         mountPage("buchungsdetails.html", BookingDetailPage.class);
+        mountPage("buchen.html", BookingPage.class);
 
         mountResource("apple-touch-icon.png", new PackageResourceReference(ImportResourceLocator.class,"images/apple-touch-icon.png"));
         mountResource("favicon.ico", new PackageResourceReference(ImportResourceLocator.class,"images/favicon.ico"));
