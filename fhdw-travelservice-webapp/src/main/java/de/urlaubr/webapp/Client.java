@@ -56,8 +56,8 @@ public class Client {
         return Arrays.asList(service.findVacations(params));
     }
 
-    public static Integer createBooking(Integer sessionKey, Integer vacationId, Date startdate, Traveler[] travelers) {
-        return service.createBooking(sessionKey, vacationId, startdate, travelers);
+    public static Integer createBooking(Integer sessionKey, Integer vacationId, Date startdate, List<Traveler> travelers) {
+        return service.createBooking(sessionKey, vacationId, startdate, travelers.toArray(new Traveler[travelers.size()]));
     }
 
     public static void cancelBooking(Integer sessionKey, Integer bookingId) {
