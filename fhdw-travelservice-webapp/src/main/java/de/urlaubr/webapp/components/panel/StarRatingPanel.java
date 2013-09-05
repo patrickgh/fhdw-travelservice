@@ -1,4 +1,4 @@
-package de.urlaubr.webapp.components;
+package de.urlaubr.webapp.components.panel;
 
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.list.ListItem;

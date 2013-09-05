@@ -2,7 +2,7 @@ package de.urlaubr.webapp.page.myvacation.detail;
 
 import de.urlaubr.webapp.Client;
 import de.urlaubr.webapp.components.ByteArrayImage;
-import de.urlaubr.webapp.components.StarRatingPanel;
+import de.urlaubr.webapp.components.panel.StarRatingPanel;
 import de.urlaubr.webapp.page.SecuredPage;
 import de.urlaubr.webapp.page.myvacation.MyVacationPage;
 import de.urlaubr.ws.domain.Booking;

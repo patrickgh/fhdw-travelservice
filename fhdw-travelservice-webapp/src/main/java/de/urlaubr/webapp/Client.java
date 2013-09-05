@@ -17,8 +17,9 @@ import java.util.List;
 
 /**
  * Wrapper class for client methods.
+ * It provides static methods for calling the webservice (makes sure that there is always only one client instance)
  * Useful for converting arrays to lists which are required for wicket listviews.
- * It also enables to change the service class between webservice and direct database access, so that no axis2 is required (for development)
+ * It also enables to change the service class between webservice and direct database access, so that development without a running axis2 service is possible.
  *
  * @author Patrick Groß-Holtwick
  *         Date: 27.08.13

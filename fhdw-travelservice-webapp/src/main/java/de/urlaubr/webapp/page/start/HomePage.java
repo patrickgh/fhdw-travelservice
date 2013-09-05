@@ -2,7 +2,7 @@ package de.urlaubr.webapp.page.start;
 
 import de.urlaubr.webapp.Client;
 import de.urlaubr.webapp.components.ByteArrayImage;
-import de.urlaubr.webapp.components.StarRatingPanel;
+import de.urlaubr.webapp.components.panel.StarRatingPanel;
 import de.urlaubr.webapp.page.BasePage;
 import de.urlaubr.webapp.page.detail.DetailPage;
 import de.urlaubr.ws.TravelServiceImpl;
