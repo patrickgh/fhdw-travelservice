@@ -9,6 +9,7 @@ import de.urlaubr.ws.domain.Booking;
 import de.urlaubr.ws.domain.Rating;
 import de.urlaubr.ws.utils.UrlaubrWsUtils;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
@@ -30,7 +31,7 @@ public class BookingDetailPage extends SecuredPage {
         if (getPageParameters().get("id") != null && getPageParameters().get("id").toInt(-1) != -1) {
             final Integer id = getPageParameters().get("id").toInt();
             final CompoundPropertyModel<Booking> model = new CompoundPropertyModel<Booking>(Client.getBookingById(getSessionKey(), id));
-            final String resourceKey = "booking.state." + UrlaubrWsUtils.getCateringTypeFromInteger(model.getObject().getState()).name().toLowerCase();
+            final String resourceKey = "booking.state." + UrlaubrWsUtils.getBookingStateFromInteger(model.getObject().getState()).name().toLowerCase();
             final String cateringResourceKey = "catering." + UrlaubrWsUtils.getCateringTypeFromInteger(model.getObject().getVacation().getCatering()).name().toLowerCase();
             add(new ByteArrayImage("image", model.<byte[]>bind("vacation.image")));
             add(new Label("title", model.<String>bind("vacation.title")));

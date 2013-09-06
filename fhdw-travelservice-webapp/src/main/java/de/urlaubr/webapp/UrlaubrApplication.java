@@ -9,13 +9,11 @@ import de.urlaubr.webapp.page.search.SearchPage;
 import de.urlaubr.webapp.page.start.HomePage;
 import org.apache.wicket.Page;
 import org.apache.wicket.RuntimeConfigurationType;
-import org.apache.wicket.core.util.file.WebApplicationPath;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.caching.FilenameWithVersionResourceCachingStrategy;
 import org.apache.wicket.request.resource.caching.version.LastModifiedResourceVersion;
 import org.apache.wicket.resource.NoOpTextCompressor;
-import org.apache.wicket.settings.def.JavaScriptLibrarySettings;
 import org.apache.wicket.util.file.Path;
 import org.apache.wicket.util.string.Strings;
 import webresources.ImportResourceLocator;
@@ -31,7 +29,7 @@ public class UrlaubrApplication extends WebApplication {
     @Override
     protected void init() {
         super.init();
-        getJavaScriptLibrarySettings().setJQueryReference(new PackageResourceReference(ImportResourceLocator.class,"js/demos/js/jquery.js"));
+        getJavaScriptLibrarySettings().setJQueryReference(new PackageResourceReference(ImportResourceLocator.class, "js/demos/js/jquery.js"));
         if (RuntimeConfigurationType.DEVELOPMENT.equals(getConfigurationType())) {
             getDebugSettings().setDevelopmentUtilitiesEnabled(true);
             getDebugSettings().setAjaxDebugModeEnabled(true);
@@ -54,6 +52,22 @@ public class UrlaubrApplication extends WebApplication {
         }
         getMarkupSettings().setDefaultMarkupEncoding("utf-8");
 
+        mountResources();
+    }
+
+    /**
+     * returns the Homepage of the Application which will be displayed at the start (http://localhost:8080/)
+     * @return the class of the start page
+     */
+    @Override
+    public Class<? extends Page> getHomePage() {
+        return HomePage.class;
+    }
+
+    /**
+     * mounts pages and resources to specific paths, e.g. the homepage can be reached with http://localhost:8080/startseite.html
+     */
+    private void mountResources() {
         mountPage("meinereisen.html", MyVacationPage.class);
         mountPage("startseite.html", HomePage.class);
         mountPage("login.html", LoginPage.class);
@@ -62,12 +76,7 @@ public class UrlaubrApplication extends WebApplication {
         mountPage("buchungsdetails.html", BookingDetailPage.class);
         mountPage("buchen.html", BookingPage.class);
 
-        mountResource("apple-touch-icon.png", new PackageResourceReference(ImportResourceLocator.class,"images/apple-touch-icon.png"));
-        mountResource("favicon.ico", new PackageResourceReference(ImportResourceLocator.class,"images/favicon.ico"));
-    }
-
-    @Override
-    public Class<? extends Page> getHomePage() {
-        return HomePage.class;
+        mountResource("apple-touch-icon.png", new PackageResourceReference(ImportResourceLocator.class, "images/apple-touch-icon.png"));
+        mountResource("favicon.ico", new PackageResourceReference(ImportResourceLocator.class, "images/favicon.ico"));
     }
 }

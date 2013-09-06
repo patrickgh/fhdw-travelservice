@@ -34,7 +34,7 @@
                 <a data-ajax="false" href="./reisedetails.html" data-role="button" data-icon="arrow-l" data-iconpos="left" data-inline="true">Zurück</a>
 
                 <h1><i>urlaubr.</i></h1>
-                <a href="#popupDialog" data-rel="popup" data-ajax="false" data-position-to="window" data-role="button" data-inline="true" data-transition="pop" data-icon="check" data-theme="b">Buchen</a>
+                <a href="#popupDialog" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-transition="pop" data-icon="check" data-theme="b">Buchen</a>
             </div>
 
 
@@ -76,6 +76,8 @@
         <form wicket:id="bookingForm">
             <label for="date">Startdatum</label>
             <input wicket:id="startdate" type="date" name="date" id="date" value=""/>
+            <br>
+            <h3>Mitreisende</h3>
 
             <div wicket:id="traveler">
                 <label for="firstname">Vorname</label>
@@ -90,7 +92,7 @@
                 <label for="passportnr">Reisepassnummer</label>
                 <input wicket:id="passport" name="text-basic" id="passportnr" value="" type="text">
             </div>
-
+            <a wicket:id="travelerAdd" data-role="button" data-inline="true" data-icon="plus"></a>
             <div data-role="popup" id="popupDialog" data-overlay-theme="a" data-theme="c" data-dismissible="true" style="max-width:400px;" class="ui-corner-all">
                 <div data-role="header" data-theme="a" class="ui-corner-top">
                     <h1>Buchung bestätigen</h1>
@@ -98,10 +100,9 @@
                 <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
                     <p class="ui-title">Der Gesamtpreis beträgt: <span wicket:id="fullprice">599</span> €</p>
 
-
+                    <a wicket:id="submit" href="meinereisen.html" data-role="button" data-inline="true" data-transition="flow" data-theme="b">Buchen</a>
                 </div>
             </div>
-            <a wicket:id="submit" href="meinereisen.html" data-role="button" data-inline="true" data-transition="flow" data-theme="b">Buchen</a>
         </form>
     </wicket:extend>
     <div data-role="footer" data-id="foo1" data-position="fixed">
