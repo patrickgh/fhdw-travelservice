@@ -4,15 +4,16 @@ import de.urlaubr.webapp.Client;
 import de.urlaubr.webapp.components.ByteArrayImage;
 import de.urlaubr.webapp.components.listeditor.ListEditor;
 import de.urlaubr.webapp.components.listeditor.ListItem;
+import de.urlaubr.webapp.components.listeditor.RemoveButton;
 import de.urlaubr.webapp.components.panel.StarRatingPanel;
 import de.urlaubr.webapp.page.SecuredPage;
+import de.urlaubr.webapp.page.myvacation.MyVacationPage;
 import de.urlaubr.ws.domain.Customer;
 import de.urlaubr.ws.domain.Traveler;
 import de.urlaubr.ws.domain.Vacation;
 import de.urlaubr.ws.utils.UrlaubrWsUtils;
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.SubmitLink;
 import org.apache.wicket.markup.html.form.TextField;
@@ -89,6 +90,7 @@ public class BookingPage extends SecuredPage {
                     birthdate.setRequired(true);
                     item.add(birthdate);
                     item.add(new TextField<String>("passport", model.<String>bind("passport")));
+                    item.add(new RemoveButton("remove"));
                 }
             };
             bookingForm.add(new Link("travelerAdd") {
@@ -110,8 +112,8 @@ public class BookingPage extends SecuredPage {
                     super.onSubmit();
                     List<Traveler> traveler = travelerListEditor.getModelObject();
                     Date startDate = startDateField.getModelObject();
-                    //Client.createBooking(getSessionKey(),id,startDate,traveler);
-                    //setResponsePage(MyVacationPage.class);
+                    Client.createBooking(getSessionKey(), id, startDate, traveler);
+                    setResponsePage(MyVacationPage.class);
                 }
             });
             add(bookingForm);

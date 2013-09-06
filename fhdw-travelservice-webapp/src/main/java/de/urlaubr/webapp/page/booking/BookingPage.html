@@ -77,9 +77,11 @@
             <label for="date">Startdatum</label>
             <input wicket:id="startdate" type="date" name="date" id="date" value=""/>
             <br>
+
             <h3>Mitreisende</h3>
 
             <div wicket:id="traveler">
+                <a wicket:id="remove" data-role="button" data-inline="true" data-icon="minus"></a>
                 <label for="firstname">Vorname</label>
                 <input wicket:id="firstname" name="text-basic" id="firstname" value="" type="text">
 
@@ -91,8 +93,11 @@
 
                 <label for="passportnr">Reisepassnummer</label>
                 <input wicket:id="passport" name="text-basic" id="passportnr" value="" type="text">
+                <br>
+                <br>
             </div>
             <a wicket:id="travelerAdd" data-role="button" data-inline="true" data-icon="plus"></a>
+
             <div data-role="popup" id="popupDialog" data-overlay-theme="a" data-theme="c" data-dismissible="true" style="max-width:400px;" class="ui-corner-all">
                 <div data-role="header" data-theme="a" class="ui-corner-top">
                     <h1>Buchung bestätigen</h1>
