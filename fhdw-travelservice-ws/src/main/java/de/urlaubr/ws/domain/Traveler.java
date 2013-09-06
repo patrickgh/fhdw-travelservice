@@ -8,12 +8,21 @@ import java.util.Date;
  */
 public class Traveler {
 
+    private Integer id;
     private String firstname;
     private String lastname;
     private Date birthday;
     private String passport;
 
     public Traveler() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getFirstname() {

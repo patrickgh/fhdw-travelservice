@@ -31,7 +31,7 @@
     <wicket:extend>
         <div data-role="header" data-id="foo1" data-position="fixed">
             <div data-role="header" style="overflow:hidden;">
-                <a data-ajax="false" href="./reisedetails.html" data-role="button" data-icon="arrow-l" data-iconpos="left" data-inline="true">Zurück</a>
+                <a data-ajax="false" href="javascript:history.back();" data-role="button" data-icon="arrow-l" data-iconpos="left" data-inline="true">Zurück</a>
 
                 <h1><i>urlaubr.</i></h1>
                 <a href="#popupDialog" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-transition="pop" data-icon="check" data-theme="b">Buchen</a>
@@ -81,7 +81,6 @@
             <h3>Mitreisende</h3>
 
             <div wicket:id="traveler">
-                <a wicket:id="remove" data-role="button" data-inline="true" data-icon="minus"></a>
                 <label for="firstname">Vorname</label>
                 <input wicket:id="firstname" name="text-basic" id="firstname" value="" type="text">
 

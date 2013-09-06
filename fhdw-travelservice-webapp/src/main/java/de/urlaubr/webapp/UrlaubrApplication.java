@@ -76,7 +76,8 @@ public class UrlaubrApplication extends WebApplication {
         mountPage("buchungsdetails.html", BookingDetailPage.class);
         mountPage("buchen.html", BookingPage.class);
 
-        mountResource("apple-touch-icon.png", new PackageResourceReference(ImportResourceLocator.class, "images/apple-touch-icon.png"));
+        mountResource("apple-touch-icon57.png", new PackageResourceReference(ImportResourceLocator.class, "images/apple-touch-icon.png"));
+        mountResource("apple-startup-retina.png", new PackageResourceReference(ImportResourceLocator.class, "images/startup-image-retina.png"));
         mountResource("favicon.ico", new PackageResourceReference(ImportResourceLocator.class, "images/favicon.ico"));
     }
 }

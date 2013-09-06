@@ -90,7 +90,6 @@ public class BookingPage extends SecuredPage {
                     birthdate.setRequired(true);
                     item.add(birthdate);
                     item.add(new TextField<String>("passport", model.<String>bind("passport")));
-                    item.add(new RemoveButton("remove"));
                 }
             };
             bookingForm.add(new Link("travelerAdd") {

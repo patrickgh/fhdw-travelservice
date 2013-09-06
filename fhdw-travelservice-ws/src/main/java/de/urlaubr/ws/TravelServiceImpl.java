@@ -248,6 +248,7 @@ public class TravelServiceImpl implements TravelService {
             ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()) {
                 Traveler temp = new Traveler();
+                temp.setId(resultSet.getInt("id"));
                 temp.setBirthday(new Date(resultSet.getTimestamp("birthdate").getTime()));
                 temp.setPassport(resultSet.getString("passport"));
                 temp.setFirstname(resultSet.getString("firstname"));
@@ -438,6 +439,12 @@ public class TravelServiceImpl implements TravelService {
     public byte[] createTicket(Integer sessionKey, Integer bookingId, Integer travelerId) {
         if (isAuthenticated(sessionKey)) {
             Booking booking = getBookingById(bookingId);
+            for (Traveler traveler : booking.getTraveler()) {
+                if(traveler.getId() == travelerId) {
+                    return QRCode.from("passenger:" + traveler.getFirstname() + traveler.getLastname() + ";bookingId:" + bookingId + "origin:" + booking.getVacation().getHomeairport() + ";destination:" + booking.getVacation().getAirport() + ";flightdate:" + booking.getStartdate())
+                                 .to(ImageType.PNG).withSize(300, 300).stream().toByteArray();
+                }
+            }
             return QRCode.from("passengerId:" + travelerId + ";bookingId:" + bookingId + "origin:" + booking.getVacation().getHomeairport() + ";destination:" + booking.getVacation().getAirport() + ";flightdate:" + booking.getStartdate())
                          .to(ImageType.PNG).withSize(300, 300).stream().toByteArray();
         }

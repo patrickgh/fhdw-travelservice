@@ -5,11 +5,13 @@ import de.urlaubr.webapp.components.ByteArrayImage;
 import de.urlaubr.webapp.components.panel.StarRatingPanel;
 import de.urlaubr.webapp.page.SecuredPage;
 import de.urlaubr.webapp.page.myvacation.MyVacationPage;
+import de.urlaubr.webapp.page.start.HomePage;
 import de.urlaubr.ws.domain.Booking;
+import de.urlaubr.ws.domain.BookingState;
 import de.urlaubr.ws.domain.Rating;
 import de.urlaubr.ws.utils.UrlaubrWsUtils;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Button;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
@@ -38,6 +40,14 @@ public class BookingDetailPage extends SecuredPage {
             add(new Label("country", model.<String>bind("vacation.country")));
             add(new Label("city", model.<String>bind("vacation.city")));
             add(new Label("hotelstars", model.<Integer>bind("vacation.hotelstars")));
+            add(new Label("begin", model.<Date>bind("startdate")));
+            add(new Label("end", model.<Date>bind("enddate")));
+            add(new Label("persons", new AbstractReadOnlyModel<Integer>() {
+                @Override
+                public Integer getObject() {
+                    return model.getObject().getTraveler().length;
+                }
+            }));
             add(new Label("catering", new ResourceModel(cateringResourceKey, cateringResourceKey)));
             add(new StarRatingPanel("starrating", new AbstractReadOnlyModel<Integer>() {
                 @Override
@@ -61,9 +71,42 @@ public class BookingDetailPage extends SecuredPage {
                 }
             };
             add(rating);
-        }
-        else {
-            setResponsePage(MyVacationPage.class);
+
+            add(new Link<String>("cancel") {
+                @Override
+                public void onClick() {
+                    model.getObject().setState(BookingState.CANCELED.ordinal());
+                    Client.cancelBooking(getSessionKey(), model.getObject().getId());
+                    setResponsePage(MyVacationPage.class);
+                }
+
+                @Override
+                public boolean isVisible() {
+                    return model.getObject().getStartdate().getTime() > System.currentTimeMillis() + 1000 * 60 * 60 * 12 && model.getObject().getState() != BookingState.CANCELED.ordinal();
+                }
+            });
+            add(new Link("tickets") {
+                @Override
+                public void onClick() {
+                    setResponsePage(HomePage.class);
+                }
+
+                @Override
+                public boolean isVisible() {
+                    return model.getObject().getEnddate().getTime() < System.currentTimeMillis() && model.getObject().getState() != BookingState.CANCELED.ordinal();
+                }
+            });
+            add(new Link("rate") {
+                @Override
+                public void onClick() {
+                    setResponsePage(HomePage.class);
+                }
+
+                @Override
+                public boolean isVisible() {
+                    return model.getObject().getEnddate().getTime() < System.currentTimeMillis() && model.getObject().getState() != BookingState.CANCELED.ordinal() && model.getObject().getState() != BookingState.FINISHED.ordinal();
+                }
+            });
         }
     }
 }
