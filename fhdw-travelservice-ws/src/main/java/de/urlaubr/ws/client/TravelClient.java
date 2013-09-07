@@ -40,15 +40,11 @@ public class TravelClient implements TravelService {
         QName operation = new QName(NAMESPACE_URI, "login");
         Object[] opArgs = new Object[]{username, password};
         OMElement request = BeanUtil.getOMElement(operation, opArgs, null, false, null);
-        try {
-            OMElement response = sender.sendReceive(request);
-            Object[] result = BeanUtil.deserialize(response, new Class[]{Integer.class}, new DefaultObjectSupplier());
-            if (result.length == 1) {
-                return (Integer) result[0];
-            }
-        }
-        catch (AxisFault e) {
-            e.printStackTrace();
+
+        OMElement response = sender.sendReceive(request);
+        Object[] result = BeanUtil.deserialize(response, new Class[]{Integer.class}, new DefaultObjectSupplier());
+        if (result.length == 1) {
+            return (Integer) result[0];
         }
         return null;
     }
@@ -58,12 +54,7 @@ public class TravelClient implements TravelService {
         QName operation = new QName(NAMESPACE_URI, "logout");
         Object[] opArgs = new Object[]{sessionKey};
         OMElement request = BeanUtil.getOMElement(operation, opArgs, null, false, null);
-        try {
-            sender.sendReceive(request);
-        }
-        catch (AxisFault e) {
-            e.printStackTrace();
-        }
+        sender.sendReceive(request);
     }
 
     @Override
@@ -71,13 +62,11 @@ public class TravelClient implements TravelService {
         QName operation = new QName(NAMESPACE_URI, "getTopseller");
         Object[] opArgs = new Object[]{};
         OMElement request = BeanUtil.getOMElement(operation, opArgs, null, false, null);
-        try {
-            OMElement response = sender.sendReceive(request);
-            Object[] result = BeanUtil.deserialize(response, new Class[]{Vacation[].class}, new DefaultObjectSupplier());
+
+        OMElement response = sender.sendReceive(request);
+        Object[] result = BeanUtil.deserialize(response, new Class[]{Vacation[].class}, new DefaultObjectSupplier());
+        if (result.length == 1) {
             return (Vacation[]) result[0];
-        }
-        catch (AxisFault e) {
-            e.printStackTrace();
         }
         return null;
     }
@@ -87,13 +76,11 @@ public class TravelClient implements TravelService {
         QName operation = new QName(NAMESPACE_URI, "getMyVacations");
         Object[] opArgs = new Object[]{sessionKey};
         OMElement request = BeanUtil.getOMElement(operation, opArgs, null, false, null);
-        try {
-            OMElement response = sender.sendReceive(request);
-            Object[] result = BeanUtil.deserialize(response, new Class[]{Booking[].class}, new DefaultObjectSupplier());
+
+        OMElement response = sender.sendReceive(request);
+        Object[] result = BeanUtil.deserialize(response, new Class[]{Booking[].class}, new DefaultObjectSupplier());
+        if (result.length == 1) {
             return (Booking[]) result[0];
-        }
-        catch (AxisFault e) {
-            e.printStackTrace();
         }
         return null;
     }
@@ -103,16 +90,11 @@ public class TravelClient implements TravelService {
         QName operation = new QName(NAMESPACE_URI, "getVacationById");
         Object[] opArgs = new Object[]{id};
         OMElement request = BeanUtil.getOMElement(operation, opArgs, null, false, null);
-        try {
-            OMElement response = sender.sendReceive(request);
-            Object[] result = BeanUtil.deserialize(response, new Class[]{Vacation.class}, new DefaultObjectSupplier());
-            if (result.length == 1) {
-                return (Vacation) result[0];
-            }
 
-        }
-        catch (AxisFault e) {
-            e.printStackTrace();
+        OMElement response = sender.sendReceive(request);
+        Object[] result = BeanUtil.deserialize(response, new Class[]{Vacation.class}, new DefaultObjectSupplier());
+        if (result.length == 1) {
+            return (Vacation) result[0];
         }
         return null;
     }
@@ -122,12 +104,7 @@ public class TravelClient implements TravelService {
         QName operation = new QName(NAMESPACE_URI, "rateVacation");
         Object[] opArgs = new Object[]{sessionKey, bookingId, rating, comment};
         OMElement request = BeanUtil.getOMElement(operation, opArgs, null, false, null);
-        try {
-            sender.sendReceive(request);
-        }
-        catch (AxisFault e) {
-            e.printStackTrace();
-        }
+        sender.sendReceive(request);
     }
 
     @Override
@@ -135,12 +112,7 @@ public class TravelClient implements TravelService {
         QName operation = new QName(NAMESPACE_URI, "cancelBooking");
         Object[] opArgs = new Object[]{sessionKey, bookingId};
         OMElement request = BeanUtil.getOMElement(operation, opArgs, null, false, null);
-        try {
-            sender.sendReceive(request);
-        }
-        catch (AxisFault e) {
-            e.printStackTrace();
-        }
+        sender.sendReceive(request);
     }
 
     @Override
@@ -148,14 +120,13 @@ public class TravelClient implements TravelService {
         QName operation = new QName(NAMESPACE_URI, "findVacations");
         Object[] opArgs = new Object[]{params};
         OMElement request = BeanUtil.getOMElement(operation, opArgs, null, false, null);
-        try {
-            OMElement response = sender.sendReceive(request);
-            Object[] result = BeanUtil.deserialize(response, new Class[]{Vacation[].class}, new DefaultObjectSupplier());
+
+        OMElement response = sender.sendReceive(request);
+        Object[] result = BeanUtil.deserialize(response, new Class[]{Vacation[].class}, new DefaultObjectSupplier());
+        if (result.length == 1) {
             return (Vacation[]) result[0];
         }
-        catch (AxisFault e) {
-            e.printStackTrace();
-        }
+
         return null;
     }
 
@@ -164,15 +135,11 @@ public class TravelClient implements TravelService {
         QName operation = new QName(NAMESPACE_URI, "createBooking");
         Object[] opArgs = new Object[]{sessionKey, vacationId, startdate, travelers};
         OMElement request = BeanUtil.getOMElement(operation, opArgs, null, false, null);
-        try {
-            OMElement response = sender.sendReceive(request);
-            Object[] result = BeanUtil.deserialize(response, new Class[]{Integer.class}, new DefaultObjectSupplier());
-            if (result.length == 1) {
-                return (Integer) result[0];
-            }
-        }
-        catch (AxisFault e) {
-            e.printStackTrace();
+
+        OMElement response = sender.sendReceive(request);
+        Object[] result = BeanUtil.deserialize(response, new Class[]{Integer.class}, new DefaultObjectSupplier());
+        if (result.length == 1) {
+            return (Integer) result[0];
         }
         return null;
     }
@@ -182,15 +149,11 @@ public class TravelClient implements TravelService {
         QName operation = new QName(NAMESPACE_URI, "getUserInfo");
         Object[] opArgs = new Object[]{sessionKey};
         OMElement request = BeanUtil.getOMElement(operation, opArgs, null, false, null);
-        try {
-            OMElement response = sender.sendReceive(request);
-            Object[] result = BeanUtil.deserialize(response, new Class[]{Customer.class}, new DefaultObjectSupplier());
-            if (result.length == 1) {
-                return (Customer) result[0];
-            }
-        }
-        catch (AxisFault e) {
-            e.printStackTrace();
+
+        OMElement response = sender.sendReceive(request);
+        Object[] result = BeanUtil.deserialize(response, new Class[]{Customer.class}, new DefaultObjectSupplier());
+        if (result.length == 1) {
+            return (Customer) result[0];
         }
         return null;
     }
@@ -200,16 +163,13 @@ public class TravelClient implements TravelService {
         QName operation = new QName(NAMESPACE_URI, "createTicket");
         Object[] opArgs = new Object[]{sessionKey, bookingId, travelerId};
         OMElement request = BeanUtil.getOMElement(operation, opArgs, null, false, null);
-        try {
-            OMElement response = sender.sendReceive(request);
-            Object[] result = BeanUtil.deserialize(response, new Class[]{byte[].class}, new DefaultObjectSupplier());
-            if (result.length == 1) {
-                return (byte[]) result[0];
-            }
+
+        OMElement response = sender.sendReceive(request);
+        Object[] result = BeanUtil.deserialize(response, new Class[]{byte[].class}, new DefaultObjectSupplier());
+        if (result.length == 1) {
+            return (byte[]) result[0];
         }
-        catch (AxisFault e) {
-            e.printStackTrace();
-        }
+
         return null;
     }
 
@@ -218,15 +178,11 @@ public class TravelClient implements TravelService {
         QName operation = new QName(NAMESPACE_URI, "getBookingById");
         Object[] opArgs = new Object[]{sessionKey, bookingId};
         OMElement request = BeanUtil.getOMElement(operation, opArgs, null, false, null);
-        try {
-            OMElement response = sender.sendReceive(request);
-            Object[] result = BeanUtil.deserialize(response, new Class[]{Booking.class}, new DefaultObjectSupplier());
-            if (result.length == 1) {
-                return (Booking) result[0];
-            }
-        }
-        catch (AxisFault e) {
-            e.printStackTrace();
+
+        OMElement response = sender.sendReceive(request);
+        Object[] result = BeanUtil.deserialize(response, new Class[]{Booking.class}, new DefaultObjectSupplier());
+        if (result.length == 1) {
+            return (Booking) result[0];
         }
         return null;
     }
