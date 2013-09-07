@@ -5,8 +5,6 @@ import de.urlaubr.webapp.components.ByteArrayImage;
 import de.urlaubr.webapp.components.panel.StarRatingPanel;
 import de.urlaubr.webapp.page.BasePage;
 import de.urlaubr.webapp.page.detail.DetailPage;
-import de.urlaubr.ws.TravelServiceImpl;
-import de.urlaubr.ws.client.TravelClient;
 import de.urlaubr.ws.domain.Vacation;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.image.Image;
@@ -20,7 +18,6 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import webresources.ImportResourceLocator;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -44,11 +41,11 @@ public class HomePage extends BasePage {
             protected void populateItem(ListItem<Vacation> item) {
                 final CompoundPropertyModel<Vacation> model = new CompoundPropertyModel<Vacation>(item.getModel());
                 PageParameters parameters = new PageParameters();
-                parameters.add("id",model.getObject().getId());
+                parameters.add("id", model.getObject().getId());
                 final BookmarkablePageLink link = new BookmarkablePageLink("topsellerLink", DetailPage.class, parameters);
                 link.add(new Label("title", model.<String>bind("title")));
                 link.add(new Label("price", model.<String>bind("price")));
-                link.add(new StarRatingPanel("starrating",new AbstractReadOnlyModel<Integer>() {
+                link.add(new StarRatingPanel("starrating", new AbstractReadOnlyModel<Integer>() {
                     @Override
                     public Integer getObject() {
                         return Long.valueOf(Math.round(model.getObject().getAvgRating())).intValue();

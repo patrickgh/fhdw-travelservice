@@ -1,12 +1,9 @@
 package de.urlaubr.webapp.page;
 
-import de.urlaubr.webapp.page.myvacation.MyVacationPage;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.markup.html.link.BookmarkablePageLink;
-import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.resource.JQueryPluginResourceReference;
 import webresources.ImportResourceLocator;

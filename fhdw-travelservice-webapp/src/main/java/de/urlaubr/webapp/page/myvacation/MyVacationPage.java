@@ -3,7 +3,6 @@ package de.urlaubr.webapp.page.myvacation;
 import de.urlaubr.webapp.Client;
 import de.urlaubr.webapp.components.ByteArrayImage;
 import de.urlaubr.webapp.page.SecuredPage;
-import de.urlaubr.webapp.page.detail.DetailPage;
 import de.urlaubr.webapp.page.myvacation.detail.BookingDetailPage;
 import de.urlaubr.ws.domain.Booking;
 import de.urlaubr.ws.utils.UrlaubrWsUtils;
@@ -55,7 +54,7 @@ public class MyVacationPage extends SecuredPage {
                 final CompoundPropertyModel<Booking> model = new CompoundPropertyModel<Booking>(item.getModel());
                 final String resourceKey = "booking.state." + UrlaubrWsUtils.getBookingStateFromInteger(model.getObject().getState()).name().toLowerCase();
                 PageParameters parameters = new PageParameters();
-                parameters.add("id",model.getObject().getId());
+                parameters.add("id", model.getObject().getId());
                 final BookmarkablePageLink link = new BookmarkablePageLink("vacationLink", BookingDetailPage.class, parameters);
                 link.add(new Label("title", model.<String>bind("vacation.title")));
                 link.add(new Label("persons", new AbstractReadOnlyModel<Integer>() {

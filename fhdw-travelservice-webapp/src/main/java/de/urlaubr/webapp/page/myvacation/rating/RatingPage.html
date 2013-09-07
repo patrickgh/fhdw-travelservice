@@ -30,31 +30,31 @@
 
     <wicket:extend>
         <form wicket:id="form">
-        <div data-role="header" data-id="foo1" data-position="fixed">
-            <div data-role="header" style="overflow:hidden;">
-                <a data-ajax="false" href="javascript:history.back()" data-role="button" data-icon="arrow-l" data-iconpos="left" data-inline="true">Zurück</a>
+            <div data-role="header" data-id="foo1" data-position="fixed">
+                <div data-role="header" style="overflow:hidden;">
+                    <a data-ajax="false" href="javascript:history.back()" data-role="button" data-icon="arrow-l" data-iconpos="left" data-inline="true">Zurück</a>
 
-                <h1><i>urlaubr.</i></h1>
-                <a data-ajax="false" wicket:id="submit" data-role="button" data-icon="check" data-theme="b" data-iconpos="left" data-inline="true">Absenden</a>
+                    <h1><i>urlaubr.</i></h1>
+                    <a data-ajax="false" wicket:id="submit" data-role="button" data-icon="check" data-theme="b" data-iconpos="left" data-inline="true">Absenden</a>
+                </div>
+
+
             </div>
+            <!-- /header -->
 
+            <h3>Reise bewerten</h3>
 
-        </div>
-        <!-- /header -->
+            <label for="stars" class="select">Bewertung</label>
+            <select wicket:id="stars" name="stars" id="stars">
+                <option wicket:id="one" value="1">1 Stern</option>
+                <option wicket:id="two">2 Sterne</option>
+                <option wicket:id="three">3 Sterne</option>
+                <option wicket:id="four">4 Sterne</option>
+                <option wicket:id="five">5 Sterne</option>
+            </select>
 
-        <h3>Reise bewerten</h3>
-
-        <label for="stars" class="select">Bewertung</label>
-        <select wicket:id="stars" name="stars" id="stars">
-            <option wicket:id="one" value="1">1 Stern</option>
-            <option wicket:id="two">2 Sterne</option>
-            <option wicket:id="three">3 Sterne</option>
-            <option wicket:id="four">4 Sterne</option>
-            <option wicket:id="five">5 Sterne</option>
-        </select>
-
-        <label for="comment">Kommentar</label>
-        <textarea wicket:id="comment" name="comment" id="comment" value=""/>
+            <label for="comment">Kommentar</label>
+            <textarea wicket:id="comment" name="comment" id="comment" value=""/>
         </form>
 
     </wicket:extend>

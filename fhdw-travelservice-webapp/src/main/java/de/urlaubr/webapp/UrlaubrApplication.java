@@ -58,6 +58,7 @@ public class UrlaubrApplication extends WebApplication {
 
     /**
      * returns the Homepage of the Application which will be displayed at the start (http://localhost:8080/)
+     *
      * @return the class of the start page
      */
     @Override

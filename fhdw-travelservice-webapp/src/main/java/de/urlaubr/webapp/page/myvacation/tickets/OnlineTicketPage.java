@@ -52,7 +52,7 @@ public class OnlineTicketPage extends SecuredPage {
                             public void onClick() {
                                 selection.setVisible(false);
                                 ticket.setVisible(true);
-                                ticket.addOrReplace(new ByteArrayImage("image", new Model<byte[]>(Client.getOnlineTicket(getSessionKey(),bookingId,item.getModelObject().getId()))));
+                                ticket.addOrReplace(new ByteArrayImage("image", new Model<byte[]>(Client.getOnlineTicket(getSessionKey(), bookingId, item.getModelObject().getId()))));
                                 ticket.addOrReplace(new Label("name", nameModel));
                             }
                         };

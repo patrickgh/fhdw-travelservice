@@ -29,12 +29,12 @@
 <div data-role="page">
     <div class="page-content">
         <wicket:extend>
-        <div data-role="header" data-id="foo1" data-position="fixed" data-tap-toggle="false" data-update-page-padding ="false">
-            <div data-role="header" style="overflow:hidden;">
-                <h1><i>urlaubr.</i></h1>
+            <div data-role="header" data-id="foo1" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+                <div data-role="header" style="overflow:hidden;">
+                    <h1><i>urlaubr.</i></h1>
+                </div>
             </div>
-        </div>
-        <!-- /header -->
+            <!-- /header -->
 
 
             <a href=".\startseite.html" data-ajax="false">
@@ -45,29 +45,29 @@
             <h3>Topseller</h3>
 
             <wicket:container wicket:id="topsellerList">
-            <a wicket:id="topsellerLink" data-ajax="false" data-role="button" data-icon="arrow-r" data-iconpos="right" class="custom-button" href="reisedetails.html">
-                <table>
-                    <tr>
-                        <td width="20">
-                        </td>
-                        <td>
-                            <img wicket:id="image" width="90" height="90">
-                        </td>
-                        <td>
-                            <p align="left" style="font-size:12px;" wicket:id="title"> 4 Tage Karibik All Inclusive </p>
-                            <table>
-                                <td width="100" wicket:id="starrating">
-                                </td>
-                                <td>
-                                    <p align="left" style="font-size:14px;"> <span wicket:id="price">500</span>€ p.P. </p>
-                                </td>
-                            </table>
-                        </td>
-                        <td>
-                        </td>
-                    </tr>
-                </table>
-            </a>
+                <a wicket:id="topsellerLink" data-ajax="false" data-role="button" data-icon="arrow-r" data-iconpos="right" class="custom-button" href="reisedetails.html">
+                    <table>
+                        <tr>
+                            <td width="20">
+                            </td>
+                            <td>
+                                <img wicket:id="image" width="90" height="90">
+                            </td>
+                            <td>
+                                <p align="left" style="font-size:12px;" wicket:id="title"> 4 Tage Karibik All Inclusive </p>
+                                <table>
+                                    <td width="100" wicket:id="starrating">
+                                    </td>
+                                    <td>
+                                        <p align="left" style="font-size:14px;"><span wicket:id="price">500</span>€ p.P. </p>
+                                    </td>
+                                </table>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </table>
+                </a>
             </wicket:container>
         </wicket:extend>
     </div>

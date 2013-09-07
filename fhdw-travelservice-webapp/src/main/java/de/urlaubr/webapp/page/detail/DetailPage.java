@@ -36,14 +36,14 @@ public class DetailPage extends BasePage {
         if (getPageParameters().get("id") != null && getPageParameters().get("id").toInt(-1) != -1) {
             final Integer id = getPageParameters().get("id").toInt();
             final CompoundPropertyModel<Vacation> model = new CompoundPropertyModel<Vacation>(Client.getVactationById(id));
-            final String resourceKey = "catering."+ UrlaubrWsUtils.getCateringTypeFromInteger(model.getObject().getCatering()).name().toLowerCase();
+            final String resourceKey = "catering." + UrlaubrWsUtils.getCateringTypeFromInteger(model.getObject().getCatering()).name().toLowerCase();
             add(new ByteArrayImage("image", model.<byte[]>bind("image")));
             add(new Label("title", model.<String>bind("title")));
             add(new Label("city", model.<String>bind("city")));
             add(new Label("country", model.<String>bind("country")));
             add(new Label("hotelstars", model.<String>bind("hotelstars")));
-            add(new Label("catering", new ResourceModel(resourceKey,resourceKey)));
-            add(new StarRatingPanel("starrating",new AbstractReadOnlyModel<Integer>() {
+            add(new Label("catering", new ResourceModel(resourceKey, resourceKey)));
+            add(new StarRatingPanel("starrating", new AbstractReadOnlyModel<Integer>() {
                 @Override
                 public Integer getObject() {
                     return Long.valueOf(Math.round(model.getObject().getAvgRating())).intValue();
@@ -66,7 +66,7 @@ public class DetailPage extends BasePage {
             };
             add(rating);
             PageParameters parameters = new PageParameters();
-            parameters.add("id",model.getObject().getId());
+            parameters.add("id", model.getObject().getId());
             add(new BookmarkablePageLink("bookingLink", BookingPage.class, parameters));
         }
         else {

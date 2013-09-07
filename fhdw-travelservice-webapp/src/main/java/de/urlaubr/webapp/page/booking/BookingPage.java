@@ -4,7 +4,6 @@ import de.urlaubr.webapp.Client;
 import de.urlaubr.webapp.components.ByteArrayImage;
 import de.urlaubr.webapp.components.listeditor.ListEditor;
 import de.urlaubr.webapp.components.listeditor.ListItem;
-import de.urlaubr.webapp.components.listeditor.RemoveButton;
 import de.urlaubr.webapp.components.panel.StarRatingPanel;
 import de.urlaubr.webapp.page.SecuredPage;
 import de.urlaubr.webapp.page.myvacation.MyVacationPage;

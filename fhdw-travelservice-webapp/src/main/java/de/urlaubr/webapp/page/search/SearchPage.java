@@ -54,12 +54,12 @@ public class SearchPage extends BasePage {
             protected void populateItem(ListItem<Vacation> item) {
                 final CompoundPropertyModel<Vacation> model = new CompoundPropertyModel<Vacation>(item.getModel());
                 PageParameters parameters = new PageParameters();
-                parameters.add("id",model.getObject().getId());
+                parameters.add("id", model.getObject().getId());
                 final BookmarkablePageLink link = new BookmarkablePageLink("topsellerLink", DetailPage.class, parameters);
                 link.add(new Label("title", model.<String>bind("title")));
                 link.add(new Label("price", model.<String>bind("price")));
                 link.add(new ByteArrayImage("image", model.<byte[]>bind("image")));
-                link.add(new StarRatingPanel("starrating",new AbstractReadOnlyModel<Integer>() {
+                link.add(new StarRatingPanel("starrating", new AbstractReadOnlyModel<Integer>() {
                     @Override
                     public Integer getObject() {
                         return Long.valueOf(Math.round(model.getObject().getAvgRating())).intValue();

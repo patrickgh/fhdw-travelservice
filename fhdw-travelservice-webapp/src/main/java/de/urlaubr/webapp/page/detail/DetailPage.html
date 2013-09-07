@@ -29,7 +29,7 @@
 <div data-role="page">
 
     <wicket:extend>
-        <div data-role="header" data-id="foo1" data-position="fixed" data-tap-toggle="false" data-update-page-padding ="false">
+        <div data-role="header" data-id="foo1" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
             <div data-role="header" style="overflow:hidden;">
                 <a href="javascript:history.back()" data-ajax="false" data-role="button" data-icon="arrow-l" data-iconpos="left" data-inline="true">Zurück</a>
 
@@ -51,12 +51,19 @@
                 <div class="ui-bar ui-bar-f" style="height:100px">
                     <span wicket:id="title">4 Tage Karibik</span>
                     <br>
-                    <i style="font-size: 12px;"><wicket:label wicket:id="city">Stadt</wicket:label> (<wicket:label wicket:id="country">GER</wicket:label>)</i>
+                    <i style="font-size: 12px;">
+                        <wicket:label wicket:id="city">Stadt</wicket:label>
+                        (
+                        <wicket:label wicket:id="country">GER</wicket:label>
+                        )</i>
                     <br>
                     <i style="font-size: 12px;" wicket:id="catering">All Inclusive</i>
                     <br>
-                    <i style="font-size: 12px;"><wicket:label wicket:id="hotelstars">Stadt</wicket:label>-Sterne Hotel</i>
+                    <i style="font-size: 12px;">
+                        <wicket:label wicket:id="hotelstars">Stadt</wicket:label>
+                        -Sterne Hotel</i>
                     <br>
+
                     <div wicket:id="starrating"></div>
                     <br>
 

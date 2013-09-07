@@ -26,12 +26,13 @@ public class StarRatingPanel extends GenericPanel<Integer> {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        add(new ListView<Boolean>("imageList",getValueList()){
+        add(new ListView<Boolean>("imageList", getValueList()) {
             @Override
             protected void populateItem(ListItem<Boolean> item) {
-                if(item.getModelObject()) {
+                if (item.getModelObject()) {
                     item.add(new Image("image", new PackageResourceReference(ImportResourceLocator.class, "images/Star.png")));
-                } else {
+                }
+                else {
                     item.add(new Image("image", new PackageResourceReference(ImportResourceLocator.class, "images/Star_white.png")));
                 }
             }
