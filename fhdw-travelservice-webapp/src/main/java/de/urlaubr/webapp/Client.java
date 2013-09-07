@@ -138,4 +138,14 @@ public class Client {
         return null;
     }
 
+    public static byte[] getOnlineTicket(Integer sessionKey, Integer bookingId, Integer travelerId) {
+        try {
+            return service.createTicket(sessionKey,bookingId,travelerId);
+        }
+        catch (AxisFault e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

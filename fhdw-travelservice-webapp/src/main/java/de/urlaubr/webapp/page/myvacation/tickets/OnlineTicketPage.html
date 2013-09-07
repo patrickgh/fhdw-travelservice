@@ -39,16 +39,23 @@
 
         </div>
         <!-- /header -->
-        <a data-ajax="false" href=".\reisedetails.html">
-            <img src="..\resources\webresources\images\urlaubr3.png" width="314" height="110"/>
-        </a>
-        <hr>
 
+        <div wicket:id="selectTraveler">
+            <br>
+            <p><b>Welches Ticket möchten Sie abrufen?</b></p>
 
-        <p><b>Das Online-Ticket</b></p>
+            <div wicket:id="traveler">
+                <a wicket:id="travelerLink" data-ajax=false data-role="button" data-icon="arrow-r" data-iconpos="right" ><span wicket:id="travelerName"></span></a>
+            </div>
+        </div>
 
-        <p>für Person 1</p>
+        <div wicket:id="ticket">
+            <p><b>Das Online-Ticket</b></p>
 
+            <p>für <span wicket:id="name"></span></p>
+
+            <img wicket:id="image" width="300" height="300">
+        </div>
     </wicket:extend>
     <div data-role="footer" data-id="foo1" data-position="fixed">
         <div data-role="navbar">

@@ -4,6 +4,7 @@ import de.urlaubr.webapp.Client;
 import de.urlaubr.webapp.page.SecuredPage;
 import de.urlaubr.webapp.page.myvacation.MyVacationPage;
 import de.urlaubr.ws.domain.Booking;
+import de.urlaubr.ws.domain.BookingState;
 import org.apache.wicket.extensions.markup.html.form.select.Select;
 import org.apache.wicket.extensions.markup.html.form.select.SelectOption;
 import org.apache.wicket.markup.html.form.Form;
@@ -23,7 +24,7 @@ public class RatingPage extends SecuredPage {
         final Integer bookingId;
         if (getPageParameters().get("id") != null && (bookingId = getPageParameters().get("id").toInt(-1)) != -1) {
             Booking booking = Client.getBookingById(getSessionKey(), bookingId);
-            if (booking != null && booking.getCustomer() != null && booking.getCustomer().getId() == Client.getUserInfo(getSessionKey()).getId()) {
+            if (booking != null && booking.getCustomer() != null && booking.getCustomer().getId() == Client.getUserInfo(getSessionKey()).getId() && booking.getState() != BookingState.FINISHED.ordinal()) {
                 final Form form = new Form("form");
                 final Select<Integer> starSelect = new Select<Integer>("stars", new Model<Integer>(-1));
                 starSelect.add(new SelectOption<Integer>("one", new Model<Integer>(1)));

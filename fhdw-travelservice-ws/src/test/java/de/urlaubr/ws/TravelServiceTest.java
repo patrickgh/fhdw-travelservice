@@ -37,91 +37,117 @@ public class TravelServiceTest {
 
     @Test
     public void testLoginAndSession() {
-        final Integer sessionKey = service.login("patrickgh", "test");
+        try {
+            final Integer sessionKey = service.login("patrickgh", "test");
 
-        Assert.assertNotNull(sessionKey);
-        Assert.assertTrue(sessionKey != 0);
+            Assert.assertNotNull(sessionKey);
+            Assert.assertTrue(sessionKey != 0);
 
-        Customer me = service.getUserInfo(sessionKey);
+            Customer me = service.getUserInfo(sessionKey);
 
-        Assert.assertNotNull(me);
-        Assert.assertEquals(me.getFirstname(), "Patrick");
-        Assert.assertEquals(me.getEmail(), "patrickgh@web.de");
+            Assert.assertNotNull(me);
+            Assert.assertEquals(me.getFirstname(), "Patrick");
+            Assert.assertEquals(me.getEmail(), "patrickgh@web.de");
 
-        service.logout(sessionKey);
+            service.logout(sessionKey);
 
-        Assert.assertNull(service.getUserInfo(sessionKey));
+            Assert.assertNull(service.getUserInfo(sessionKey));
+        }
+        catch (AxisFault e) {
+            Assert.fail(e.getMessage());
+        }
     }
 
     @Test
     public void testGetVacationById() {
-        Vacation vac = service.getVacationById(1);
-        Assert.assertNotNull(vac);
-        Assert.assertEquals(vac.getTitle(), "3-Tage Mallorca");
-        Assert.assertEquals(vac.getPrice(), 199.99);
+        try {
+            Vacation vac = service.getVacationById(1);
+            Assert.assertNotNull(vac);
+            Assert.assertEquals(vac.getTitle(), "3-Tage Mallorca");
+            Assert.assertEquals(vac.getPrice(), 199.99);
+        }
+        catch (AxisFault e) {
+            Assert.fail(e.getMessage());
+        }
     }
 
     @Test
     public void testGetTopseller() {
-        Vacation[] result = service.getTopseller();
-        Assert.assertNotNull(result);
-        Assert.assertEquals(result.length, 2);
-        Assert.assertEquals(result[0].getTitle(), "3-Tage Mallorca");
+        try {
+            Vacation[] result = service.getTopseller();
+            Assert.assertNotNull(result);
+            Assert.assertEquals(result.length, 2);
+            Assert.assertEquals(result[0].getTitle(), "3-Tage Mallorca");
+        }
+        catch (AxisFault e) {
+            Assert.fail(e.getMessage());
+        }
     }
 
     @Test
     public void testGetMyVacations() {
-        final Integer sessionKey = service.login("patrickgh", "test");
         try {
+            final Integer sessionKey = service.login("patrickgh", "test");
+
             Booking[] bookings = service.getMyVacations(sessionKey);
 
             Assert.assertNotNull(bookings);
             Assert.assertEquals(bookings.length > 0, true);
+
         }
         catch (AxisFault e) {
-            Assert.fail("authentication failed");
+            Assert.fail(e.getMessage());
         }
     }
 
     @Test
     public void testFindVacations() {
-        Vacation[] vacations = service.findVacations(new SearchParams());
-        Assert.assertNotNull(vacations);
-        Assert.assertEquals(vacations.length, 4);
+        try {
+            Vacation[] vacations = service.findVacations(new SearchParams());
+            Assert.assertNotNull(vacations);
+            Assert.assertEquals(vacations.length, 4);
 
-        SearchParams params = new SearchParams();
-        params.setCountry(new String[]{"ESP"});
-        vacations = service.findVacations(params);
-        Assert.assertNotNull(vacations);
-        Assert.assertEquals(vacations.length, 2);
+            SearchParams params = new SearchParams();
+            params.setCountry(new String[]{"ESP"});
+            vacations = service.findVacations(params);
+            Assert.assertNotNull(vacations);
+            Assert.assertEquals(vacations.length, 2);
 
-        params.setTitle("Mallorca");
-        vacations = service.findVacations(params);
-        Assert.assertNotNull(vacations);
-        Assert.assertEquals(vacations.length, 1);
-        Assert.assertEquals(vacations[0].getTitle(), "3-Tage Mallorca");
-
+            params.setTitle("Mallorca");
+            vacations = service.findVacations(params);
+            Assert.assertNotNull(vacations);
+            Assert.assertEquals(vacations.length, 1);
+            Assert.assertEquals(vacations[0].getTitle(), "3-Tage Mallorca");
+        }
+        catch (AxisFault e) {
+            Assert.fail(e.getMessage());
+        }
     }
 
     @Test
     public void testCreateBooking() throws AxisFault {
-        final Integer sessionKey = service.login("patrickgh", "test");
+        try {
+            final Integer sessionKey = service.login("patrickgh", "test");
 
-        List<Traveler> travelers = new ArrayList<Traveler>();
-        travelers.add(new Traveler());
-        travelers.get(0).setFirstname("test");
-        travelers.get(0).setLastname("2test");
-        travelers.get(0).setPassport("pp");
-        travelers.get(0).setBirthday(new Date());
-        Integer bookingid = service.createBooking(sessionKey, 1, new Date(), travelers.toArray(new Traveler[travelers.size()]));
+            List<Traveler> travelers = new ArrayList<Traveler>();
+            travelers.add(new Traveler());
+            travelers.get(0).setFirstname("test");
+            travelers.get(0).setLastname("2test");
+            travelers.get(0).setPassport("pp");
+            travelers.get(0).setBirthday(new Date());
+            Integer bookingid = service.createBooking(sessionKey, 1, new Date(), travelers.toArray(new Traveler[travelers.size()]));
 
-        Booking[] bookings = service.getMyVacations(sessionKey);
+            Booking[] bookings = service.getMyVacations(sessionKey);
 
-        Assert.assertNotNull(bookings);
-        Assert.assertNotNull(bookingid);
-        Assert.assertEquals(bookings.length > 0, true);
-        Assert.assertEquals(bookings[0].getVacation().getId().intValue(), 1);
-        Assert.assertNotNull(bookings[0].getTraveler());
-        Assert.assertTrue(bookings[0].getTraveler().length > 0);
+            Assert.assertNotNull(bookings);
+            Assert.assertNotNull(bookingid);
+            Assert.assertEquals(bookings.length > 0, true);
+            Assert.assertEquals(bookings[0].getVacation().getId().intValue(), 1);
+            Assert.assertNotNull(bookings[0].getTraveler());
+            Assert.assertTrue(bookings[0].getTraveler().length > 0);
+        }
+        catch (AxisFault e) {
+            Assert.fail(e.getMessage());
+        }
     }
 }

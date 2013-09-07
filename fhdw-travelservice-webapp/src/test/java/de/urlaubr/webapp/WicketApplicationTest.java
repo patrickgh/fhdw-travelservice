@@ -15,6 +15,7 @@ import org.apache.wicket.util.tester.WicketTester;
 import org.testng.annotations.Test;
 
 /**
+ * Unit-test class for the webapp.
  * @author Patrick Groß-Holtwick
  *         Date: 31.07.13
  */
@@ -42,11 +43,15 @@ public class WicketApplicationTest {
         testPage(BookingPage.class);
     }
 
+    /**
+     * Convenience method which simplifies the webpage test
+     * @param page which should be tested
+     */
     private void testPage(Class<? extends WebPage> page) {
         tester.startPage(page);
         tester.assertNoErrorMessage();
         if(SecuredPage.class.isAssignableFrom(page)) {
-            tester.assertRenderedPage(LoginPage.class);
+            tester.assertRenderedPage(LoginPage.class); //if the page is secured, we expect to get to the login page
         } else {
             tester.assertRenderedPage(page);
         }

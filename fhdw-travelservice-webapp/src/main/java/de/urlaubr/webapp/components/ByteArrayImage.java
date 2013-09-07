@@ -7,14 +7,29 @@ import org.apache.wicket.request.resource.PackageResourceReference;
 import webresources.ImportResourceLocator;
 
 /**
+ * ByteArrayImage component for wicket.
+ * Displays an image from an byte array. If the model object is null, it displays a placeholder instead.
+ *
  * @author Patrick Groß-Holtwick
  *         Date: 25.08.13
  */
 public class ByteArrayImage extends Image {
 
+    private IModel<byte[]> model;
+
+    public ByteArrayImage(String id) {
+        this(id, null);
+    }
+
     public ByteArrayImage(String id, final IModel<byte[]> model) {
         super(id);
-        if (model.getObject() != null) {
+        this.model = model;
+    }
+
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
+        if (model != null && model.getObject() != null) {
             setImageResource(new DynamicImageResource() {
                 @Override
                 protected byte[] getImageData(Attributes attributes) {
@@ -22,7 +37,8 @@ public class ByteArrayImage extends Image {
                 }
 
             });
-        } else {
+        }
+        else {
             setImageResourceReference(new PackageResourceReference(ImportResourceLocator.class, "images/placeholder.jpg"));
         }
     }

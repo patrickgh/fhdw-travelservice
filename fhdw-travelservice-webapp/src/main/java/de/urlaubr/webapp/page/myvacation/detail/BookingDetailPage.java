@@ -18,6 +18,7 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.ResourceModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -43,6 +44,12 @@ public class BookingDetailPage extends SecuredPage {
             add(new Label("hotelstars", model.<Integer>bind("vacation.hotelstars")));
             add(new Label("begin", model.<Date>bind("startdate")));
             add(new Label("end", model.<Date>bind("enddate")));
+            add(new Label("fullprice", new AbstractReadOnlyModel<Double>() {
+                @Override
+                public Double getObject() {
+                    return model.getObject().getTraveler().length * model.getObject().getVacation().getPrice();
+                }
+            }));
             add(new Label("persons", new AbstractReadOnlyModel<Integer>() {
                 @Override
                 public Integer getObject() {
@@ -94,7 +101,7 @@ public class BookingDetailPage extends SecuredPage {
 
                 @Override
                 public boolean isVisible() {
-                    return model.getObject().getEnddate().getTime() < System.currentTimeMillis() && model.getObject().getState() != BookingState.CANCELED.ordinal();
+                    return model.getObject().getEnddate().getTime() > System.currentTimeMillis() && model.getObject().getState() != BookingState.CANCELED.ordinal();
                 }
             });
             add(new Link("rate") {
