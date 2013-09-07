@@ -67,7 +67,7 @@ public class TravelServiceImpl implements TravelService {
         //UrlaubrWsUtils.migrateDatabase(url, user, password);
     }
 
-    public Integer login(String username, String password) {
+    public Integer login(String username, String password) throws AxisFault {
         String encryptedPassword = UrlaubrWsUtils.md5(password);
         if (encryptedPassword != null) {
             try {
@@ -86,9 +86,10 @@ public class TravelServiceImpl implements TravelService {
             }
             catch (SQLException e) {
                 e.printStackTrace();
+                throw new AxisFault("an unexpected error happened. please contact webservice administrator");
             }
         }
-        return null;
+        throw new AxisFault("invalid parameter");
     }
 
     public void logout(Integer sessionKey) {
@@ -110,7 +111,7 @@ public class TravelServiceImpl implements TravelService {
         return false;
     }
 
-    public Vacation[] getTopseller() {
+    public Vacation[] getTopseller() throws AxisFault {
         try {
             List<Vacation> vacations = new ArrayList<Vacation>();
             PreparedStatement stmt = dbConnection.prepareStatement("SELECT `fk_vacation` as id FROM rating GROUP BY `fk_vacation` ORDER BY AVG(`rating`) DESC LIMIT 5;");
@@ -122,8 +123,8 @@ public class TravelServiceImpl implements TravelService {
         }
         catch (SQLException e) {
             e.printStackTrace();
+            throw new AxisFault("an unexpected error happened. please contact webservice administrator");
         }
-        return null;
     }
 
     public Booking[] getMyVacations(Integer sessionKey) throws AxisFault {
@@ -140,13 +141,13 @@ public class TravelServiceImpl implements TravelService {
             }
             catch (SQLException e) {
                 e.printStackTrace();
+                throw new AxisFault("an unexpected error happened. please contact webservice administrator");
             }
         }
         throw new AxisFault("not authenticated");
-        //return Collections.emptyList();
     }
 
-    public Vacation getVacationById(Integer id) {
+    public Vacation getVacationById(Integer id) throws AxisFault {
         try {
             PreparedStatement stmt = dbConnection.prepareStatement("SELECT * FROM vacation WHERE id = ?");
             stmt.setInt(1, id);
@@ -157,11 +158,12 @@ public class TravelServiceImpl implements TravelService {
         }
         catch (SQLException e) {
             e.printStackTrace();
+            throw new AxisFault("an unexpected error happened. please contact webservice administrator");
         }
-        return null;
+        throw new AxisFault("vacation id not found");
     }
 
-    private Vacation createVacationFromResultSet(ResultSet result) {
+    private Vacation createVacationFromResultSet(ResultSet result) throws AxisFault {
         try {
             Vacation vac = new Vacation();
             vac.setId(result.getInt("id"));
@@ -185,11 +187,11 @@ public class TravelServiceImpl implements TravelService {
         }
         catch (SQLException e) {
             e.printStackTrace();
+            throw new AxisFault("an unexpected error happened. please contact webservice administrator");
         }
-        return null;
     }
 
-    private Rating[] getRatingsByVacationId(Integer id) {
+    private Rating[] getRatingsByVacationId(Integer id) throws AxisFault {
         List<Rating> result = new ArrayList<Rating>();
         try {
             final PreparedStatement stmt = dbConnection.prepareStatement("SELECT * FROM rating WHERE `fk_vacation` = ? ORDER BY creationdate DESC");
@@ -201,11 +203,12 @@ public class TravelServiceImpl implements TravelService {
         }
         catch (SQLException e) {
             e.printStackTrace();
+            throw new AxisFault("an unexpected error happened. please contact webservice administrator");
         }
         return result.toArray(new Rating[result.size()]);
     }
 
-    private Rating createRatingFromResultSet(ResultSet result) {
+    private Rating createRatingFromResultSet(ResultSet result) throws AxisFault {
         Rating rating = new Rating();
         try {
             rating.setCreationdate(new Date(result.getTimestamp("creationdate").getTime()));
@@ -216,11 +219,11 @@ public class TravelServiceImpl implements TravelService {
         }
         catch (SQLException e) {
             e.printStackTrace();
+            throw new AxisFault("an unexpected error happened. please contact webservice administrator");
         }
-        return null;
     }
 
-    private Booking createBookingFromResultSet(ResultSet result) {
+    private Booking createBookingFromResultSet(ResultSet result) throws AxisFault {
         Booking booking = new Booking();
         try {
             booking.setId(result.getInt("id"));
@@ -235,12 +238,11 @@ public class TravelServiceImpl implements TravelService {
         }
         catch (SQLException e) {
             e.printStackTrace();
+            throw new AxisFault("an unexpected error happened. please contact webservice administrator");
         }
-
-        return null;
     }
 
-    private Traveler[] getTravelerList(Integer bookingId) {
+    private Traveler[] getTravelerList(Integer bookingId) throws AxisFault {
         List<Traveler> result = new ArrayList<Traveler>();
         try {
             PreparedStatement stmt = dbConnection.prepareStatement("SELECT * FROM traveler WHERE fk_booking = ?");
@@ -258,11 +260,12 @@ public class TravelServiceImpl implements TravelService {
         }
         catch (SQLException e) {
             e.printStackTrace();
+            throw new AxisFault("an unexpected error happened. please contact webservice administrator");
         }
         return result.toArray(new Traveler[result.size()]);
     }
 
-    private Customer getCustomerById(Integer id) {
+    private Customer getCustomerById(Integer id) throws AxisFault {
         final Customer customer = new Customer();
         try {
             final PreparedStatement stmt = dbConnection.prepareStatement("SELECT * FROM customer WHERE id = ?");
@@ -281,11 +284,12 @@ public class TravelServiceImpl implements TravelService {
         }
         catch (SQLException e) {
             e.printStackTrace();
+            throw new AxisFault("an unexpected error happened. please contact webservice administrator");
         }
-        return null;
+        throw new AxisFault("customer id not found");
     }
 
-    private Booking getBookingById(Integer bookingId) {
+    private Booking getBookingById(Integer bookingId) throws AxisFault {
         try {
             PreparedStatement stmt = dbConnection.prepareStatement("SELECT * FROM booking WHERE id = ?");
             stmt.setInt(1, bookingId);
@@ -296,11 +300,12 @@ public class TravelServiceImpl implements TravelService {
         }
         catch (SQLException e) {
             e.printStackTrace();
+            throw new AxisFault("an unexpected error happened. please contact webservice administrator");
         }
-        return null;
+        throw new AxisFault("booking id not found");
     }
 
-    private void changeBookingState(Integer bookingId, BookingState newState) {
+    private void changeBookingState(Integer bookingId, BookingState newState) throws AxisFault {
         try {
             PreparedStatement stmt = dbConnection.prepareStatement("UPDATE `booking` SET `state` = ? WHERE `id` = ?;");
             stmt.setInt(1, newState.ordinal());
@@ -309,10 +314,11 @@ public class TravelServiceImpl implements TravelService {
         }
         catch (SQLException e) {
             e.printStackTrace();
+            throw new AxisFault("an unexpected error happened. please contact webservice administrator");
         }
     }
 
-    public void rateVacation(Integer sessionKey, Integer bookingId, Integer rating, String comment) {
+    public void rateVacation(Integer sessionKey, Integer bookingId, Integer rating, String comment) throws AxisFault {
         if (isAuthenticated(sessionKey)) {
             Booking booking = getBookingById(bookingId);
             if (booking != null
@@ -331,22 +337,26 @@ public class TravelServiceImpl implements TravelService {
                 }
                 catch (SQLException e) {
                     e.printStackTrace();
+                    throw new AxisFault("an unexpected error happened. please contact webservice administrator");
                 }
                 changeBookingState(bookingId, BookingState.FINISHED);
             }
         }
     }
 
-    public void cancelBooking(Integer sessionKey, Integer bookingId) {
+    public void cancelBooking(Integer sessionKey, Integer bookingId) throws AxisFault {
         if (isAuthenticated(sessionKey)) {
             Booking booking = getBookingById(bookingId);
             if (booking != null && booking.getCustomer().getId().intValue() == sessions.get(sessionKey).getUserId()) {
                 changeBookingState(bookingId, BookingState.CANCELED);
             }
         }
+        else {
+            throw new AxisFault("not authenticated");
+        }
     }
 
-    public Vacation[] findVacations(SearchParams params) {
+    public Vacation[] findVacations(SearchParams params) throws AxisFault {
         SelectQuery select = new SelectQuery();
         Table vacation = new Table("vacation");
         select.addColumn(vacation, "*");
@@ -385,12 +395,12 @@ public class TravelServiceImpl implements TravelService {
         }
         catch (SQLException e) {
             e.printStackTrace();
+            throw new AxisFault("an unexpected error happened. please contact webservice administrator");
         }
-
-        return null;
     }
 
-    public Integer createBooking(Integer sessionKey, Integer vacationId, Date startdate, Traveler[] travelers) {
+    @Override
+    public Integer createBooking(Integer sessionKey, Integer vacationId, Date startdate, Traveler[] travelers) throws AxisFault {
         if (isAuthenticated(sessionKey)) {
             try {
                 Vacation vacation = getVacationById(vacationId);
@@ -422,13 +432,14 @@ public class TravelServiceImpl implements TravelService {
             }
             catch (SQLException e) {
                 e.printStackTrace();
+                throw new AxisFault("an unexpected error happened. please contact webservice administrator");
             }
         }
-        return null;
+        throw new AxisFault("invalid parameter");
     }
 
     @Override
-    public Customer getUserInfo(Integer sessionKey) {
+    public Customer getUserInfo(Integer sessionKey) throws AxisFault {
         if (isAuthenticated(sessionKey)) {
             return getCustomerById(sessions.get(sessionKey).getUserId());
         }
@@ -436,29 +447,29 @@ public class TravelServiceImpl implements TravelService {
     }
 
     @Override
-    public byte[] createTicket(Integer sessionKey, Integer bookingId, Integer travelerId) {
+    public byte[] createTicket(Integer sessionKey, Integer bookingId, Integer travelerId) throws AxisFault {
         if (isAuthenticated(sessionKey)) {
             Booking booking = getBookingById(bookingId);
-            for (Traveler traveler : booking.getTraveler()) {
-                if(traveler.getId() == travelerId) {
-                    return QRCode.from("passenger:" + traveler.getFirstname() + traveler.getLastname() + ";bookingId:" + bookingId + "origin:" + booking.getVacation().getHomeairport() + ";destination:" + booking.getVacation().getAirport() + ";flightdate:" + booking.getStartdate())
-                                 .to(ImageType.PNG).withSize(300, 300).stream().toByteArray();
+            if (booking.getCustomer().getId() == sessions.get(sessionKey).getUserId().intValue()) {
+                for (Traveler traveler : booking.getTraveler()) {
+                    if (traveler.getId() == travelerId) {
+                        return QRCode.from("passenger:" + traveler.getFirstname() + traveler.getLastname() + ";bookingId:" + bookingId + "origin:" + booking.getVacation().getHomeairport() + ";destination:" + booking.getVacation().getAirport() + ";flightdate:" + booking.getStartdate())
+                                     .to(ImageType.PNG).withSize(300, 300).stream().toByteArray();
+                    }
                 }
             }
-            return QRCode.from("passengerId:" + travelerId + ";bookingId:" + bookingId + "origin:" + booking.getVacation().getHomeairport() + ";destination:" + booking.getVacation().getAirport() + ";flightdate:" + booking.getStartdate())
-                         .to(ImageType.PNG).withSize(300, 300).stream().toByteArray();
         }
-        return null;
+        throw new AxisFault("invalid parameter");
     }
 
     @Override
-    public Booking getBookingById(Integer sessionKey, Integer bookingId) {
-        if(isAuthenticated(sessionKey)) {
+    public Booking getBookingById(Integer sessionKey, Integer bookingId) throws AxisFault {
+        if (isAuthenticated(sessionKey)) {
             Booking booking = getBookingById(bookingId);
-            if(booking.getCustomer().getId().intValue() == sessions.get(sessionKey).getUserId()) {
+            if (booking.getCustomer().getId().intValue() == sessions.get(sessionKey).getUserId()) {
                 return booking;
             }
         }
-        return null;
+        throw new AxisFault("invalid parameter");
     }
 }

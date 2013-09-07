@@ -2,7 +2,6 @@ package de.urlaubr.webapp;
 
 import de.urlaubr.ws.TravelService;
 import de.urlaubr.ws.TravelServiceImpl;
-import de.urlaubr.ws.client.TravelClient;
 import de.urlaubr.ws.domain.Booking;
 import de.urlaubr.ws.domain.Customer;
 import de.urlaubr.ws.domain.SearchParams;
@@ -32,15 +31,32 @@ public class Client {
     private Client() {}
 
     public static List<Vacation> getTopseller() {
-        return Arrays.<Vacation>asList(service.getTopseller());
+        try {
+            return Arrays.<Vacation>asList(service.getTopseller());
+        }
+        catch (AxisFault e) {
+            e.printStackTrace();
+        }
+        return Collections.emptyList();
     }
 
     public static Integer login(String username, String password) {
-        return service.login(username, password);
+        try {
+            return service.login(username, password);
+        }
+        catch (AxisFault e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static void logout(Integer sessionKey) {
-        service.logout(sessionKey);
+        try {
+            service.logout(sessionKey);
+        }
+        catch (AxisFault e) {
+            e.printStackTrace();
+        }
     }
 
     public static List<Booking> getMyVacation(Integer sessionKey) {
@@ -54,31 +70,72 @@ public class Client {
     }
 
     public static List<Vacation> findVacations(SearchParams params) {
-        return Arrays.asList(service.findVacations(params));
+        try {
+            return Arrays.asList(service.findVacations(params));
+        }
+        catch (AxisFault e) {
+            e.printStackTrace();
+        }
+        return Collections.emptyList();
+
     }
 
     public static Integer createBooking(Integer sessionKey, Integer vacationId, Date startdate, List<Traveler> travelers) {
-        return service.createBooking(sessionKey, vacationId, startdate, travelers.toArray(new Traveler[travelers.size()]));
+        try {
+            return service.createBooking(sessionKey, vacationId, startdate, travelers.toArray(new Traveler[travelers.size()]));
+        }
+        catch (AxisFault e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static void cancelBooking(Integer sessionKey, Integer bookingId) {
-        service.cancelBooking(sessionKey, bookingId);
+        try {
+            service.cancelBooking(sessionKey, bookingId);
+        }
+        catch (AxisFault e) {
+            e.printStackTrace();
+        }
     }
 
     public static void rateVacation(Integer sessionKey, Integer bookingId, Integer rating, String comment) {
-        service.rateVacation(sessionKey, bookingId, rating, comment);
+        try {
+            service.rateVacation(sessionKey, bookingId, rating, comment);
+        }
+        catch (AxisFault e) {
+            e.printStackTrace();
+        }
     }
 
     public static Vacation getVactationById(Integer id) {
-        return service.getVacationById(id);
+        try {
+            return service.getVacationById(id);
+        }
+        catch (AxisFault e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static Customer getUserInfo(Integer sessionKey) {
-        return service.getUserInfo(sessionKey);
+        try {
+            return service.getUserInfo(sessionKey);
+        }
+        catch (AxisFault e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static Booking getBookingById(Integer sessionKey, Integer bookingId) {
-        return service.getBookingById(sessionKey,bookingId);
+        try {
+            return service.getBookingById(sessionKey, bookingId);
+        }
+        catch (AxisFault e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

@@ -15,27 +15,27 @@ import java.util.Date;
  */
 public interface TravelService {
 
-    Integer login(String username, String password);
+    Integer login(String username, String password) throws AxisFault;
 
-    void logout(Integer sessionKey);
+    void logout(Integer sessionKey) throws AxisFault;
 
-    Customer getUserInfo(Integer sessionKey);
+    Customer getUserInfo(Integer sessionKey) throws AxisFault;
 
-    Vacation[] getTopseller();
+    Vacation[] getTopseller() throws AxisFault;
 
     Booking[] getMyVacations(Integer sessionKey) throws AxisFault;
 
-    Vacation getVacationById(Integer id);
+    Vacation getVacationById(Integer id) throws AxisFault;
 
-    void rateVacation(Integer sessionKey, Integer bookingId, Integer rating, String comment);
+    void rateVacation(Integer sessionKey, Integer bookingId, Integer rating, String comment) throws AxisFault;
 
-    void cancelBooking(Integer sessionKey, Integer bookingId);
+    void cancelBooking(Integer sessionKey, Integer bookingId) throws AxisFault;
 
-    Vacation[] findVacations(SearchParams params);
+    Vacation[] findVacations(SearchParams params) throws AxisFault;
 
-    Integer createBooking(Integer sessionKey, Integer vacationId, Date startdate, Traveler[] travelers);
+    Integer createBooking(Integer sessionKey, Integer vacationId, Date startdate, Traveler[] travelers) throws AxisFault;
 
-    byte[] createTicket(Integer sessionKey, Integer bookingId, Integer travelerId);
+    byte[] createTicket(Integer sessionKey, Integer bookingId, Integer travelerId) throws AxisFault;
 
-    Booking getBookingById(Integer sessionKey, Integer bookingId);
+    Booking getBookingById(Integer sessionKey, Integer bookingId) throws AxisFault;
 }

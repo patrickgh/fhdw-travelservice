@@ -36,7 +36,7 @@ public class TravelClient implements TravelService {
     }
 
     @Override
-    public Integer login(String username, String password) {
+    public Integer login(String username, String password) throws AxisFault {
         QName operation = new QName(NAMESPACE_URI, "login");
         Object[] opArgs = new Object[]{username, password};
         OMElement request = BeanUtil.getOMElement(operation, opArgs, null, false, null);
@@ -54,7 +54,7 @@ public class TravelClient implements TravelService {
     }
 
     @Override
-    public void logout(Integer sessionKey) {
+    public void logout(Integer sessionKey) throws AxisFault {
         QName operation = new QName(NAMESPACE_URI, "logout");
         Object[] opArgs = new Object[]{sessionKey};
         OMElement request = BeanUtil.getOMElement(operation, opArgs, null, false, null);
@@ -67,7 +67,7 @@ public class TravelClient implements TravelService {
     }
 
     @Override
-    public Vacation[] getTopseller() {
+    public Vacation[] getTopseller() throws AxisFault {
         QName operation = new QName(NAMESPACE_URI, "getTopseller");
         Object[] opArgs = new Object[]{};
         OMElement request = BeanUtil.getOMElement(operation, opArgs, null, false, null);
@@ -99,7 +99,7 @@ public class TravelClient implements TravelService {
     }
 
     @Override
-    public Vacation getVacationById(Integer id) {
+    public Vacation getVacationById(Integer id) throws AxisFault {
         QName operation = new QName(NAMESPACE_URI, "getVacationById");
         Object[] opArgs = new Object[]{id};
         OMElement request = BeanUtil.getOMElement(operation, opArgs, null, false, null);
@@ -118,7 +118,7 @@ public class TravelClient implements TravelService {
     }
 
     @Override
-    public void rateVacation(Integer sessionKey, Integer bookingId, Integer rating, String comment) {
+    public void rateVacation(Integer sessionKey, Integer bookingId, Integer rating, String comment) throws AxisFault {
         QName operation = new QName(NAMESPACE_URI, "rateVacation");
         Object[] opArgs = new Object[]{sessionKey, bookingId, rating, comment};
         OMElement request = BeanUtil.getOMElement(operation, opArgs, null, false, null);
@@ -131,7 +131,7 @@ public class TravelClient implements TravelService {
     }
 
     @Override
-    public void cancelBooking(Integer sessionKey, Integer bookingId) {
+    public void cancelBooking(Integer sessionKey, Integer bookingId) throws AxisFault {
         QName operation = new QName(NAMESPACE_URI, "cancelBooking");
         Object[] opArgs = new Object[]{sessionKey, bookingId};
         OMElement request = BeanUtil.getOMElement(operation, opArgs, null, false, null);
@@ -144,7 +144,7 @@ public class TravelClient implements TravelService {
     }
 
     @Override
-    public Vacation[] findVacations(SearchParams params) {
+    public Vacation[] findVacations(SearchParams params) throws AxisFault {
         QName operation = new QName(NAMESPACE_URI, "findVacations");
         Object[] opArgs = new Object[]{params};
         OMElement request = BeanUtil.getOMElement(operation, opArgs, null, false, null);
@@ -160,7 +160,7 @@ public class TravelClient implements TravelService {
     }
 
     @Override
-    public Integer createBooking(Integer sessionKey, Integer vacationId, Date startdate, Traveler[] travelers) {
+    public Integer createBooking(Integer sessionKey, Integer vacationId, Date startdate, Traveler[] travelers) throws AxisFault {
         QName operation = new QName(NAMESPACE_URI, "createBooking");
         Object[] opArgs = new Object[]{sessionKey, vacationId, startdate, travelers};
         OMElement request = BeanUtil.getOMElement(operation, opArgs, null, false, null);
@@ -178,7 +178,7 @@ public class TravelClient implements TravelService {
     }
 
     @Override
-    public Customer getUserInfo(Integer sessionKey) {
+    public Customer getUserInfo(Integer sessionKey) throws AxisFault {
         QName operation = new QName(NAMESPACE_URI, "getUserInfo");
         Object[] opArgs = new Object[]{sessionKey};
         OMElement request = BeanUtil.getOMElement(operation, opArgs, null, false, null);
@@ -196,7 +196,7 @@ public class TravelClient implements TravelService {
     }
 
     @Override
-    public byte[] createTicket(Integer sessionKey, Integer bookingId, Integer travelerId) {
+    public byte[] createTicket(Integer sessionKey, Integer bookingId, Integer travelerId) throws AxisFault {
         QName operation = new QName(NAMESPACE_URI, "createTicket");
         Object[] opArgs = new Object[]{sessionKey, bookingId, travelerId};
         OMElement request = BeanUtil.getOMElement(operation, opArgs, null, false, null);
@@ -214,7 +214,7 @@ public class TravelClient implements TravelService {
     }
 
     @Override
-    public Booking getBookingById(Integer sessionKey, Integer bookingId) {
+    public Booking getBookingById(Integer sessionKey, Integer bookingId) throws AxisFault {
         QName operation = new QName(NAMESPACE_URI, "getBookingById");
         Object[] opArgs = new Object[]{sessionKey, bookingId};
         OMElement request = BeanUtil.getOMElement(operation, opArgs, null, false, null);

@@ -5,7 +5,8 @@ import de.urlaubr.webapp.components.ByteArrayImage;
 import de.urlaubr.webapp.components.panel.StarRatingPanel;
 import de.urlaubr.webapp.page.SecuredPage;
 import de.urlaubr.webapp.page.myvacation.MyVacationPage;
-import de.urlaubr.webapp.page.start.HomePage;
+import de.urlaubr.webapp.page.myvacation.rating.RatingPage;
+import de.urlaubr.webapp.page.myvacation.tickets.OnlineTicketPage;
 import de.urlaubr.ws.domain.Booking;
 import de.urlaubr.ws.domain.BookingState;
 import de.urlaubr.ws.domain.Rating;
@@ -88,7 +89,7 @@ public class BookingDetailPage extends SecuredPage {
             add(new Link("tickets") {
                 @Override
                 public void onClick() {
-                    setResponsePage(HomePage.class);
+                    setResponsePage(OnlineTicketPage.class, getPageParameters());
                 }
 
                 @Override
@@ -99,7 +100,7 @@ public class BookingDetailPage extends SecuredPage {
             add(new Link("rate") {
                 @Override
                 public void onClick() {
-                    setResponsePage(HomePage.class);
+                    setResponsePage(RatingPage.class, getPageParameters());
                 }
 
                 @Override
