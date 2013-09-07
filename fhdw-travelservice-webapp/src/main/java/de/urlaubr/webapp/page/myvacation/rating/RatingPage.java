@@ -47,6 +47,7 @@ public class RatingPage extends SecuredPage {
                         setResponsePage(MyVacationPage.class);
                     }
                 });
+                add(form);
             }
             else {
                 setResponsePage(MyVacationPage.class);
