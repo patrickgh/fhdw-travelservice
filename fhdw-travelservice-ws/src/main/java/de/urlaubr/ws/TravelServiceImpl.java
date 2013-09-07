@@ -452,7 +452,7 @@ public class TravelServiceImpl implements TravelService {
             Booking booking = getBookingById(bookingId);
             if (booking.getCustomer().getId() == sessions.get(sessionKey).getUserId().intValue()) {
                 for (Traveler traveler : booking.getTraveler()) {
-                    if (traveler.getId() == travelerId) {
+                    if (travelerId.equals(traveler.getId())) {
                         return QRCode.from("passenger:" + traveler.getFirstname() + traveler.getLastname() + ";bookingId:" + bookingId + "origin:" + booking.getVacation().getHomeairport() + ";destination:" + booking.getVacation().getAirport() + ";flightdate:" + booking.getStartdate())
                                      .to(ImageType.PNG).withSize(300, 300).stream().toByteArray();
                     }

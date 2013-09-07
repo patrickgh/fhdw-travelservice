@@ -31,7 +31,7 @@ public class HomePage extends BasePage {
 
     public HomePage() {
         super();
-        add(new Image("logo", new PackageResourceReference(ImportResourceLocator.class, "images/urlaubr3.png")));
+        add(new Image("logo", new PackageResourceReference(ImportResourceLocator.class, "images/urlaubr.png")));
         IModel<List<Vacation>> model = new AbstractReadOnlyModel<List<Vacation>>() {
             @Override
             public List<Vacation> getObject() {

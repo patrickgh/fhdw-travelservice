@@ -32,7 +32,7 @@ public class MyVacationPage extends SecuredPage {
 
     public MyVacationPage() {
         super();
-        add(new Image("logo", new PackageResourceReference(ImportResourceLocator.class, "images/urlaubr3.png")));
+        add(new Image("logo", new PackageResourceReference(ImportResourceLocator.class, "images/urlaubr.png")));
         add(new AjaxLink("logout") {
             @Override
             public void onClick(AjaxRequestTarget target) {

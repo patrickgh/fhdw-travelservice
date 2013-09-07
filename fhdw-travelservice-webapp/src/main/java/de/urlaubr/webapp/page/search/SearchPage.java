@@ -73,7 +73,7 @@ public class SearchPage extends BasePage {
         add(resultContainer);
 
         Form form = new Form<SearchParams>("form");
-        form.add(new Image("logo", new PackageResourceReference(ImportResourceLocator.class, "images/urlaubr3.png")));
+        form.add(new Image("logo", new PackageResourceReference(ImportResourceLocator.class, "images/urlaubr.png")));
 
         formContainer = new WebMarkupContainer("formContainer");
         formContainer.setOutputMarkupId(true);

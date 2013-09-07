@@ -28,7 +28,7 @@ public class LoginPage extends BasePage {
         passwordField.setRequired(false);
 
         final Form loginForm = new Form("form");
-        loginForm.add(new Image("logo", new PackageResourceReference(ImportResourceLocator.class, "images/urlaubr3.png")));
+        loginForm.add(new Image("logo", new PackageResourceReference(ImportResourceLocator.class, "images/urlaubr.png")));
         loginForm.add(userField);
         loginForm.add(passwordField);
         loginForm.add(new AjaxSubmitLink("submit") {
