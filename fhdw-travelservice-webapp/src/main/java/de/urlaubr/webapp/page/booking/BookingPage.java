@@ -99,7 +99,7 @@ public class BookingPage extends SecuredPage {
                     bookingForm.addOrReplace(new Label("fullprice", new AbstractReadOnlyModel<String>() {
                         @Override
                         public String getObject() {
-                            return travelerListEditor.getModelObject().size() * model.getObject().getPrice() + "";
+                            return (travelerListEditor.getModelObject().size()+1) * model.getObject().getPrice() + "";
                         }
                     }));
                 }
