@@ -44,12 +44,12 @@
 
         <div class="ui-grid-a">
             <div class="ui-block-a">
-                <div class="ui-bar ui-bar-f" style="height:100px">
+                <div class="ui-bar ui-bar-f">
                     <img wicket:id="image" src="../resources/webresources/images/karibik.jpg" width="100" height="100">
                 </div>
             </div>
             <div class="ui-block-b">
-                <div class="ui-bar ui-bar-f" style="height:100px">
+                <div class="ui-bar ui-bar-f">
                     <span wicket:id="title">4 Tage Karibik</span>
                     <br>
                     <i style="font-size: 12px;">
@@ -78,14 +78,14 @@
             <div data-role="collapsible" data-collapsed="false">
                 <h4>Reisedetails</h4>
 
-                <p>
+
                 <ul>
                     <li>Beginn: <span wicket:id="begin"></span></li>
                     <li>Ende: <span wicket:id="end"></span></li>
                     <li>Personen: <span wicket:id="persons"></span></li>
                     <li>Gesamtpreis: <span wicket:id="fullprice"></span>€</li>
                 </ul>
-                </p>
+
             </div>
             <div data-role="collapsible">
                 <h4>Beschreibung</h4>
@@ -100,15 +100,14 @@
                         <tr>
                             <td>
                                 <b wicket:id="user">Ganz tolle Bewertung</b>
-                            </td>
-                            <td wicket:id="rating">
+                                <div wicket:id="rating"/>
                             </td>
                         </tr>
-                    </table>
-
-
-                    <div width="100%"><p wicket:id="text">klajsdfö kjasöldkfjöao sdjföoaisjd föoiasjdfö oiajsdföoij asöodifj öasjdfölk asjdflk asjdf</p></div>
-                    <table>
+                        <tr>
+                            <td>
+                                <p wicket:id="text">klajsdfö kjasöldkfjöao sdjföoaisjd föoiasjdfö oiajsdföoij asöodifj öasjdfölk asjdflk asjdf</p>
+                            </td>
+                        </tr>
                         <tr>
                             <td>
                                 <i wicket:id="date" style="font-size: 10px;">20.08.2013</i>

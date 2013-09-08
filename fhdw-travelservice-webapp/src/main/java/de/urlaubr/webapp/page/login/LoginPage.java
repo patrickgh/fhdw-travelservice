@@ -7,6 +7,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
+import org.apache.wicket.markup.html.form.SubmitLink;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.model.Model;
@@ -23,18 +24,18 @@ public class LoginPage extends BasePage {
         super();
 
         final TextField<String> userField = new TextField<String>("username", new Model<String>());
-        userField.setRequired(false);
+        userField.setRequired(true);
         final PasswordTextField passwordField = new PasswordTextField("password", new Model<String>());
-        passwordField.setRequired(false);
+        passwordField.setRequired(true);
 
         final Form loginForm = new Form("form");
         loginForm.add(new Image("logo", new PackageResourceReference(ImportResourceLocator.class, "images/urlaubr.png")));
         loginForm.add(userField);
         loginForm.add(passwordField);
-        loginForm.add(new AjaxSubmitLink("submit") {
+        loginForm.add(new SubmitLink("submit") {
             @Override
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                super.onSubmit(target, form);
+            public void onSubmit() {
+                super.onSubmit();
                 String user = userField.getModelObject();
                 String password = passwordField.getModelObject();
                 Integer sessionKey = Client.login(user, password);
@@ -43,9 +44,6 @@ public class LoginPage extends BasePage {
                     if (getSession().isTemporary()) { getSession().bind(); }
                     continueToOriginalDestination();
                     setResponsePage(MyVacationPage.class);
-                }
-                else {
-                    target.appendJavaScript("shake();");
                 }
             }
         });

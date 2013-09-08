@@ -95,6 +95,12 @@ public class BookingPage extends SecuredPage {
                 @Override
                 public void onClick() {
                     travelerListEditor.addItem(new Traveler());
+                    bookingForm.addOrReplace(new Label("fullprice", new AbstractReadOnlyModel<String>() {
+                        @Override
+                        public String getObject() {
+                            return travelerListEditor.getModelObject().size() * model.getObject().getPrice() + "";
+                        }
+                    }));
                 }
             });
             bookingForm.add(travelerListEditor);

@@ -46,24 +46,19 @@
 
             <wicket:container wicket:id="topsellerList">
                 <a wicket:id="topsellerLink" data-ajax="false" data-role="button" data-icon="arrow-r" data-iconpos="right" class="custom-button" href="reisedetails.html">
-                    <table>
+                    <table class="vacation-button-table">
                         <tr>
-                            <td width="20">
-                            </td>
-                            <td>
+                            <td class="col-image">
                                 <img wicket:id="image" width="90" height="90">
                             </td>
-                            <td>
-                                <p align="left" style="font-size:12px;" wicket:id="title"> 4 Tage Karibik All Inclusive </p>
-                                <table>
-                                    <td width="100" wicket:id="starrating">
-                                    </td>
-                                    <td>
-                                        <p align="left" style="font-size:14px;"><span wicket:id="price">500</span>€ p.P. </p>
-                                    </td>
-                                </table>
-                            </td>
-                            <td>
+                            <td class="col-desc">
+                                <p style="font-size:12px;" wicket:id="title"> 4 Tage Karibik All Inclusive </p>
+
+                                <div wicket:id="starrating">
+                                </div>
+
+                                <p style="font-size:14px;"><span wicket:id="price">500</span>€ p.P. </p>
+
                             </td>
                         </tr>
                     </table>

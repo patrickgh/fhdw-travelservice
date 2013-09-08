@@ -9,18 +9,18 @@
 }
 
 .custom-button {
-    height: 100px !important;
+    height: 105px !important;
 }
 
 .custom-button .ui-btn-inner {
     padding: 0 !important;
 }
 
-.custom-button .ui-btn-inner .ui-btn-text {
-    /*display: block !important;*/
-    /*height: 100px !important;*/
-    /*width: 25% !important;*/
-    /*background-image: url(../scripts/karibik.jpg) !important;*/
-    /*background-repeat: no-repeat  !important;*/
-    /*background-position: left  !important;*/
+.vacation-button-table {
+    text-align: left;
+}
+
+.vacation-button-table .col-image {
+    padding-left: 10px;
+    padding-right: 10px;
 }

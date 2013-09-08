@@ -29,28 +29,8 @@
 
                 <div data-role="header" style="overflow:hidden;">
                     <a href="javascript:history.back()" data-ajax="false" data-icon="arrow-l" class="ui-btn-left">Zurück</a>
-
-
-                    <!-- <img src="..\scripts\urlaubr3.png" width="120" height="50"></img> -->
                     <h1><i>urlaubr.</i></h1>
-                    <!--<a href="meinereisen.html">Login</a>
-                    data-rel="back"
-                    -->
-
                     <a wicket:id="submit" href="#popupDialog" data-rel="popup" data-ajax="false" data-position-to="window" data-role="button" data-inline="true" data-transition="pop" data-icon="check" data-theme="b">Login</a>
-
-                    <div data-role="popup" id="popupDialog" data-overlay-theme="a" data-theme="c" data-dismissible="false" style="max-width:400px;" class="ui-corner-all">
-                        <div data-role="header" data-theme="a" class="ui-corner-top">
-                            <h1>Login Erfolgreich</h1>
-                        </div>
-                        <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
-                            <p class="ui-title">Der Login war erfolgreich!</p>
-
-                            <a href="meinereisen.html" data-role="button" data-inline="true" data-transition="flow" data-theme="b">Weiter</a>
-                        </div>
-                    </div>
-
-
                 </div>
 
             </div>
@@ -64,14 +44,8 @@
             <h3>Login</h3>
 
             <p>Benutzername:</p>
-
-
             <input wicket:id="username" type="text" data-clear-btn="true" name="username" id="username" value="">
-
-
             <p>Passwort:</p>
-
-
             <input wicket:id="password" type="password" data-clear-btn="true" name="password" id="password" value="">
 
         </form>
