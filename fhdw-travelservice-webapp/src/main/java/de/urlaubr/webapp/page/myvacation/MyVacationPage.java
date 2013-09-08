@@ -11,6 +11,7 @@ import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
@@ -32,9 +33,9 @@ public class MyVacationPage extends SecuredPage {
     public MyVacationPage() {
         super();
         add(new Image("logo", new PackageResourceReference(ImportResourceLocator.class, "images/urlaubr.png")));
-        add(new AjaxLink("logout") {
+        add(new Link("logout") {
             @Override
-            public void onClick(AjaxRequestTarget target) {
+            public void onClick() {
                 Client.logout(getSessionKey());
                 getSession().removeAttribute("sessionKey");
                 setResponsePage(getApplication().getHomePage());

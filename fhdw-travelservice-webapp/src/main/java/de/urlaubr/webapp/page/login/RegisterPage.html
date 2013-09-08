@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <title>Login</title>
+    <link rel="stylesheet" href="../../../../../../resources/webresources/js/demos/css/themes/default/jquery.mobile-1.3.1.min.css">
+    <link rel="stylesheet" href="../../../../../../resources/webresources/js/demos/_assets/css/jqm-demos.css">
+    <link rel="shortcut icon" href="../../../../../../resources/webresources/js/demos/favicon.ico">
+    <script src="../../../../../../resources/webresources/js/demos/js/jquery.js"></script>
+    <script src="../../../../../../resources/webresources/js/demos/_assets/js/index.js"></script>
+    <script src="../../../../../../resources/webresources/js/demos/js/jquery.mobile-1.3.1.min.js"></script>
+    <link rel="stylesheet" href="jquery.ui.datepicker.mobile.css"/>
+    <script src="jQuery.ui.datepicker.js"></script>
+    <script src="jquery.ui.datepicker.mobile.js"></script>
+    <link rel="stylesheet" href="../../../../../../resources/webresources/js/star-rating/jquery.rating.css"/>
+    <link rel=”apple-touch-icon-precomposed” href=”apple-touch-icon.png”/>
+</head>
+
+<body>
+
+<div data-role="page">
+    <wicket:extend>
+        <form wicket:id="form">
+
+            <div data-role="header" data-id="foo1" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+
+                <div data-role="header" style="overflow:hidden;">
+                    <a href="javascript:history.back()" data-ajax="false" data-icon="arrow-l" class="ui-btn-left">Zurück</a>
+                    <h1><i>urlaubr.</i></h1>
+                    <a wicket:id="submit" data-ajax="false" data-role="button" data-inline="true" data-icon="check" data-theme="b">Registrieren</a>
+                </div>
+
+            </div>
+            <!-- /header -->
+
+            <a href=".\startseite.html" data-ajax="false">
+                <img class="logo" wicket:id="logo" />
+            </a>
+            <hr>
+
+            <h3>Registrierung:</h3>
+
+            <p>Vorname:</p>
+            <input wicket:id="firstname" type="text" data-clear-btn="true" name="username" id="firstname" value="">
+            <p>Nachname:</p>
+            <input wicket:id="lastname" type="text" data-clear-btn="true" name="username" id="lastname" value="">
+            <p>E-Mail Adresse:</p>
+            <input wicket:id="email" type="email" data-clear-btn="true" name="username" id="email" value="">
+            <p>Benutzername:</p>
+            <input wicket:id="username" type="text" data-clear-btn="true" name="username" id="username" value="">
+            <p>Passwort:</p>
+            <input wicket:id="password" type="password" data-clear-btn="true" name="password" id="password" value="">
+
+        </form>
+        <!-- /content -->
+    </wicket:extend>
+    <div data-role="footer" data-id="foo1" data-position="fixed">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="startseite.html" id="home" data-icon="home">Home</a></li>
+                <li><a href="login.html" id="login" data-icon="check">Mein Bereich</a></li>
+                <li><a href="suchformular.html" id="search" data-icon="search">Suche</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- /footer -->
+
+</div>
+<!-- /page -->
+
+</body>
+</html>

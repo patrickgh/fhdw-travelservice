@@ -491,6 +491,8 @@ public class TravelServiceImpl implements TravelService {
                     insertStmt.setString(6, encryptedPassword);
                     insertStmt.execute();
                     return;
+                } else {
+                    throw new AxisFault("username already taken");
                 }
             }
             catch (SQLException e) {

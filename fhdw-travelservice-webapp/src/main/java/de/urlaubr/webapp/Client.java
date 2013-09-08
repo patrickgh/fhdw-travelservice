@@ -148,4 +148,12 @@ public class Client {
         return null;
     }
 
+    public static void registerUser(String firstname, String lastname, String username, String email, String password) {
+        try {
+            service.registerCustomer(firstname,lastname,username,email,password);
+        }
+        catch (AxisFault e) {
+            e.printStackTrace();
+        }
+    }
 }
