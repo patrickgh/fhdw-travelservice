@@ -29,7 +29,10 @@ public class Booking {
     }
 
     public Traveler[] getTraveler() {
-        return traveler;
+        if (traveler != null) {
+            return traveler;
+        }
+        return new Traveler[0];
     }
 
     public void setTraveler(Traveler[] traveler) {
