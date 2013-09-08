@@ -472,4 +472,33 @@ public class TravelServiceImpl implements TravelService {
         }
         throw new AxisFault("invalid parameter");
     }
+
+    @Override
+    public void registerCustomer(String firstname, String lastname, String username, String email, String password) throws AxisFault {
+        if (firstname != null && lastname != null && username != null && email != null && password != null) {
+            String encryptedPassword = UrlaubrWsUtils.md5(password);
+            try {
+                PreparedStatement stmt = dbConnection.prepareStatement("SELECT * FROM customer WHERE username = ?");
+                stmt.setString(1, username);
+                ResultSet result = stmt.executeQuery();
+                if (!result.next()) {
+                    PreparedStatement insertStmt = dbConnection.prepareStatement("INSERT INTO customer VALUES(null,?,?,?,?,?,?)");
+                    insertStmt.setString(1, firstname);
+                    insertStmt.setString(2, lastname);
+                    insertStmt.setString(3, username);
+                    insertStmt.setString(4, email);
+                    insertStmt.setTimestamp(5, new Timestamp(System.currentTimeMillis()));
+                    insertStmt.setString(6, encryptedPassword);
+                    insertStmt.execute();
+                    return;
+                }
+            }
+            catch (SQLException e) {
+                e.printStackTrace();
+                throw new AxisFault("an unexpected error happened. please contact webservice administrator");
+            }
+        }
+        throw new AxisFault("invalid parameters");
+    }
+
 }

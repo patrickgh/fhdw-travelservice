@@ -38,4 +38,6 @@ public interface TravelService {
     byte[] createTicket(Integer sessionKey, Integer bookingId, Integer travelerId) throws AxisFault;
 
     Booking getBookingById(Integer sessionKey, Integer bookingId) throws AxisFault;
+
+    void registerCustomer(String firstname, String lastname, String username, String email, String password) throws AxisFault;
 }

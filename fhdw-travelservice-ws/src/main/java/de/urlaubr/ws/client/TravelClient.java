@@ -186,4 +186,12 @@ public class TravelClient implements TravelService {
         }
         return null;
     }
+
+    @Override
+    public void registerCustomer(String firstname, String lastname, String username, String email, String password) throws AxisFault {
+        QName operation = new QName(NAMESPACE_URI, "registerCustomer");
+        Object[] opArgs = new Object[]{firstname,lastname,username,email,password};
+        OMElement request = BeanUtil.getOMElement(operation, opArgs, null, false, null);
+        sender.sendReceive(request);
+    }
 }
