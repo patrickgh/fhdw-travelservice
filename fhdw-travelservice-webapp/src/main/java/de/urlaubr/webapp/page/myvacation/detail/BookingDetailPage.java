@@ -11,6 +11,7 @@ import de.urlaubr.ws.domain.Booking;
 import de.urlaubr.ws.domain.BookingState;
 import de.urlaubr.ws.domain.Rating;
 import de.urlaubr.ws.utils.UrlaubrWsUtils;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -27,6 +28,8 @@ import java.util.Date;
  *         Date: 04.09.13
  */
 public class BookingDetailPage extends SecuredPage {
+
+    public static final int MAX_CANCEL_TIME = 1000 * 60 * 60 * 12;
 
     @Override
     protected void onInitialize() {
@@ -79,17 +82,18 @@ public class BookingDetailPage extends SecuredPage {
             };
             add(rating);
 
-            add(new Link<String>("cancel") {
+            add(new WebMarkupContainer("cancel") {
+                @Override
+                public boolean isVisible() {
+                    return model.getObject().getStartdate().getTime() > System.currentTimeMillis() + MAX_CANCEL_TIME && model.getObject().getState() != BookingState.CANCELED.ordinal();
+                }
+            });
+            add(new Link<String>("confirmCancel") {
                 @Override
                 public void onClick() {
                     model.getObject().setState(BookingState.CANCELED.ordinal());
                     Client.cancelBooking(getSessionKey(), model.getObject().getId());
                     setResponsePage(MyVacationPage.class);
-                }
-
-                @Override
-                public boolean isVisible() {
-                    return model.getObject().getStartdate().getTime() > System.currentTimeMillis() + 1000 * 60 * 60 * 12 && model.getObject().getState() != BookingState.CANCELED.ordinal();
                 }
             });
             add(new Link("tickets") {
@@ -100,7 +104,9 @@ public class BookingDetailPage extends SecuredPage {
 
                 @Override
                 public boolean isVisible() {
-                    return model.getObject().getEnddate().getTime() > System.currentTimeMillis() && model.getObject().getState() != BookingState.CANCELED.ordinal();
+                    return model.getObject().getStartdate().getTime() < System.currentTimeMillis() + MAX_CANCEL_TIME &&
+                           model.getObject().getEnddate().getTime() > System.currentTimeMillis() &&
+                           model.getObject().getState() != BookingState.CANCELED.ordinal();
                 }
             });
             add(new Link("rate") {

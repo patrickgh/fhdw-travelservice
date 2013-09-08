@@ -91,9 +91,10 @@ public class BookingPage extends SecuredPage {
                     item.add(new TextField<String>("passport", model.<String>bind("passport")));
                 }
             };
-            bookingForm.add(new Link("travelerAdd") {
+            bookingForm.add(new SubmitLink("travelerAdd") {
                 @Override
-                public void onClick() {
+                public void onSubmit() {
+                    super.onSubmit();
                     travelerListEditor.addItem(new Traveler());
                     bookingForm.addOrReplace(new Label("fullprice", new AbstractReadOnlyModel<String>() {
                         @Override

@@ -34,7 +34,20 @@
                 <a data-ajax="false" href="./meinereisen.html" data-role="button" data-icon="arrow-l" data-iconpos="left" data-inline="true">Zurück</a>
 
                 <h1><i>urlaubr.</i></h1>
-                <a wicket:id="cancel" data-ajax="false" href="#" data-role="button" data-inline="true">Stornieren</a>
+                <a wicket:id="cancel" href="#popupDialog" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-transition="pop">Stornieren</a>
+                <div data-role="popup" id="popupDialog" data-overlay-theme="a" data-theme="c" data-dismissible="true" style="max-width:400px;" class="ui-corner-all">
+                    <div data-role="header" data-theme="a" class="ui-corner-top">
+                        <h1>Buchung stornieren</h1>
+                    </div>
+                    <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+                        <p class="ui-title">Möchten Sie die Buchung wirklich stornieren?</p>
+
+                        <center>
+                            <a wicket:id="confirmCancel" href="meinereisen.html" data-role="button" data-inline="true" data-transition="flow" data-theme="b">Stornieren</a>
+                            <a data-role="button" data-inline="true" data-transition="flow" data-rel="back">Abbrechen</a>
+                        </center>
+                    </div>
+                </div>
                 <a wicket:id="tickets" data-ajax="false" href="#" data-role="button" data-inline="true">Tickets</a>
                 <a wicket:id="rate" data-ajax="false" href="#" data-role="button" data-inline="true">Bewerten</a>
             </div>
