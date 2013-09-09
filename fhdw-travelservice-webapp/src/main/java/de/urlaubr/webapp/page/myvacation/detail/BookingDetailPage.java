@@ -13,6 +13,7 @@ import de.urlaubr.ws.domain.Rating;
 import de.urlaubr.ws.utils.UrlaubrWsUtils;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -96,12 +97,7 @@ public class BookingDetailPage extends SecuredPage {
                     setResponsePage(MyVacationPage.class);
                 }
             });
-            add(new Link("tickets") {
-                @Override
-                public void onClick() {
-                    setResponsePage(OnlineTicketPage.class, getPageParameters());
-                }
-
+            add(new BookmarkablePageLink("tickets", OnlineTicketPage.class, getPageParameters()) {
                 @Override
                 public boolean isVisible() {
                     return model.getObject().getStartdate().getTime() < System.currentTimeMillis() + MAX_CANCEL_TIME &&
@@ -109,15 +105,12 @@ public class BookingDetailPage extends SecuredPage {
                            model.getObject().getState() != BookingState.CANCELED.ordinal();
                 }
             });
-            add(new Link("rate") {
-                @Override
-                public void onClick() {
-                    setResponsePage(RatingPage.class, getPageParameters());
-                }
-
+            add(new BookmarkablePageLink("rate", RatingPage.class, getPageParameters()) {
                 @Override
                 public boolean isVisible() {
-                    return model.getObject().getEnddate().getTime() < System.currentTimeMillis() && model.getObject().getState() != BookingState.CANCELED.ordinal() && model.getObject().getState() != BookingState.FINISHED.ordinal();
+                    return model.getObject().getEnddate().getTime() < System.currentTimeMillis() &&
+                           model.getObject().getState() != BookingState.CANCELED.ordinal() &&
+                           model.getObject().getState() != BookingState.FINISHED.ordinal();
                 }
             });
         }

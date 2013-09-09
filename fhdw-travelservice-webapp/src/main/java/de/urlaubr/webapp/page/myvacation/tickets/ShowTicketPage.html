@@ -40,14 +40,12 @@
         </div>
         <!-- /header -->
 
-        <div wicket:id="selectTraveler">
-            <br>
+        <div>
+            <p><b>Das Online-Ticket</b></p>
 
-            <p><b>Welches Ticket möchten Sie abrufen?</b></p>
+            <p>für <span wicket:id="name"></span></p>
 
-            <div wicket:id="traveler">
-                <a wicket:id="travelerLink" data-ajax=false data-role="button" data-icon="arrow-r" data-iconpos="right"><span wicket:id="travelerName"></span></a>
-            </div>
+            <img wicket:id="image" width="300" height="300">
         </div>
     </wicket:extend>
     <div data-role="footer" data-id="foo1" data-position="fixed">
