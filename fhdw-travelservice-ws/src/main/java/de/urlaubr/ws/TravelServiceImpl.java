@@ -404,7 +404,7 @@ public class TravelServiceImpl implements TravelService {
         if (isAuthenticated(sessionKey)) {
             try {
                 Vacation vacation = getVacationById(vacationId);
-                if (vacation != null && startdate != null && travelers != null && travelers.length > 0) {
+                if (vacation != null && startdate != null && startdate.getTime() > System.currentTimeMillis() && travelers != null && travelers.length > 0) {
                     if (UrlaubrWsUtils.checkDateRange(startdate, vacation.getAvailablefrom(), vacation.getAvailableto())) {
                         PreparedStatement stmt = dbConnection.prepareStatement("INSERT INTO booking VALUES (null,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
                         stmt.setInt(1, vacationId);

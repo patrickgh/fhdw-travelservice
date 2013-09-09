@@ -17,7 +17,6 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.SubmitLink;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
@@ -105,11 +104,11 @@ public class BookingPage extends SecuredPage {
                     bookingForm.addOrReplace(new Label("fullprice", new AbstractReadOnlyModel<String>() {
                         @Override
                         public String getObject() {
-                            return (travelerListEditor.getModelObject().size()+1) * model.getObject().getPrice() + "";
+                            return (travelerListEditor.getModelObject().size() + 1) * model.getObject().getPrice() + "";
                         }
                     }));
                 }
-            });
+            }.setDefaultFormProcessing(false));
             bookingForm.add(travelerListEditor);
             bookingForm.add(new Label("fullprice", new AbstractReadOnlyModel<String>() {
                 @Override
@@ -123,8 +122,10 @@ public class BookingPage extends SecuredPage {
                     super.onSubmit();
                     List<Traveler> traveler = travelerListEditor.getModelObject();
                     Date startDate = startDateField.getModelObject();
-                    Client.createBooking(getSessionKey(), id, startDate, traveler);
-                    setResponsePage(MyVacationPage.class);
+                    if (startDate.getTime() > System.currentTimeMillis()) {
+                        Client.createBooking(getSessionKey(), id, startDate, traveler);
+                        setResponsePage(MyVacationPage.class);
+                    }
                 }
             });
             add(bookingForm);

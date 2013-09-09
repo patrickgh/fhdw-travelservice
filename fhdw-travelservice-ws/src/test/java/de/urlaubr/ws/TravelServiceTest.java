@@ -136,7 +136,7 @@ public class TravelServiceTest {
             travelers.get(0).setLastname("2test");
             travelers.get(0).setPassport("pp");
             travelers.get(0).setBirthday(new Date());
-            Integer bookingid = service.createBooking(sessionKey, 1, new DateTime(2013,06,02,0,0).toDate(), travelers.toArray(new Traveler[travelers.size()]));
+            Integer bookingid = service.createBooking(sessionKey, 1, new DateTime(2017,06,02,0,0).toDate(), travelers.toArray(new Traveler[travelers.size()]));
 
             Booking[] bookings = service.getMyVacations(sessionKey);
 
