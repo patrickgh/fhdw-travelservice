@@ -8,6 +8,7 @@ import de.urlaubr.ws.domain.Vacation;
 import de.urlaubr.ws.utils.UrlaubrWsUtils;
 import junit.framework.Assert;
 import org.apache.axis2.AxisFault;
+import org.joda.time.DateTime;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -63,7 +64,7 @@ public class TravelServiceTest {
         try {
             Vacation vac = service.getVacationById(1);
             Assert.assertNotNull(vac);
-            Assert.assertEquals(vac.getTitle(), "3-Tage Mallorca");
+            Assert.assertEquals(vac.getTitle(), "3 Tage Mallorca");
             Assert.assertEquals(vac.getPrice(), 199.99);
         }
         catch (AxisFault e) {
@@ -76,8 +77,8 @@ public class TravelServiceTest {
         try {
             Vacation[] result = service.getTopseller();
             Assert.assertNotNull(result);
-            Assert.assertEquals(result.length, 2);
-            Assert.assertEquals(result[0].getTitle(), "3-Tage Mallorca");
+            Assert.assertEquals(result.length, 5);
+            Assert.assertEquals(result[0].getTitle(), "Wandern in Norwegen");
         }
         catch (AxisFault e) {
             Assert.fail(e.getMessage());
@@ -105,19 +106,19 @@ public class TravelServiceTest {
         try {
             Vacation[] vacations = service.findVacations(new SearchParams());
             Assert.assertNotNull(vacations);
-            Assert.assertEquals(vacations.length, 4);
+            Assert.assertEquals(vacations.length, 11);
 
             SearchParams params = new SearchParams();
             params.setCountry(new String[]{"ESP"});
             vacations = service.findVacations(params);
             Assert.assertNotNull(vacations);
-            Assert.assertEquals(vacations.length, 2);
+            Assert.assertEquals(vacations.length, 4);
 
             params.setTitle("Mallorca");
             vacations = service.findVacations(params);
             Assert.assertNotNull(vacations);
             Assert.assertEquals(vacations.length, 1);
-            Assert.assertEquals(vacations[0].getTitle(), "3-Tage Mallorca");
+            Assert.assertEquals(vacations[0].getTitle(), "3 Tage Mallorca");
         }
         catch (AxisFault e) {
             Assert.fail(e.getMessage());
@@ -135,7 +136,7 @@ public class TravelServiceTest {
             travelers.get(0).setLastname("2test");
             travelers.get(0).setPassport("pp");
             travelers.get(0).setBirthday(new Date());
-            Integer bookingid = service.createBooking(sessionKey, 1, new Date(), travelers.toArray(new Traveler[travelers.size()]));
+            Integer bookingid = service.createBooking(sessionKey, 1, new DateTime(2013,06,02,0,0).toDate(), travelers.toArray(new Traveler[travelers.size()]));
 
             Booking[] bookings = service.getMyVacations(sessionKey);
 

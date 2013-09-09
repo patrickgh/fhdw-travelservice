@@ -81,7 +81,8 @@ public class UrlaubrApplication extends WebApplication {
         mountPage("e-ticket.html", OnlineTicketPage.class);
         mountPage("registrierung.html", RegisterPage.class);
 
-        mountResource("apple-touch-icon57.png", new PackageResourceReference(ImportResourceLocator.class, "images/apple-touch-icon.png"));
+        mountResource("apple-touch-icon57.png", new PackageResourceReference(ImportResourceLocator.class, "images/apple-touch-icon57.png"));
+        mountResource("apple-touch-icon114.png", new PackageResourceReference(ImportResourceLocator.class, "images/apple-touch-icon114.png"));
         mountResource("apple-startup-retina.png", new PackageResourceReference(ImportResourceLocator.class, "images/startup-image-retina.png"));
         mountResource("favicon.ico", new PackageResourceReference(ImportResourceLocator.class, "images/favicon.ico"));
     }

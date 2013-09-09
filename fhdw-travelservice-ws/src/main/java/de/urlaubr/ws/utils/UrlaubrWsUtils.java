@@ -4,8 +4,10 @@ import com.googlecode.flyway.core.Flyway;
 import com.googlecode.flyway.core.api.MigrationInfo;
 import de.urlaubr.ws.domain.BookingState;
 import de.urlaubr.ws.domain.CateringType;
+import org.joda.time.DateTime;
 
 import java.nio.charset.Charset;
+import java.util.Date;
 
 /**
  * This class provides static help-methods for the webservice
@@ -121,6 +123,24 @@ public final class UrlaubrWsUtils {
             }
         }
         return null;
+    }
+
+    /**
+     * checks if the given date is in the range, but does only compare months and days
+     * @param date the reference date
+     * @param start the start date
+     * @param end the end date
+     * @return true if it is in the range, false if not
+     */
+    public static boolean checkDateRange(Date date, Date start, Date end) {
+        DateTime referenceDate = new DateTime(date);
+        DateTime startDate = new DateTime(start).withYear(referenceDate.getYear());
+        DateTime endDate = new DateTime(end).withYear(referenceDate.getYear());
+        if(startDate.isAfter(endDate)) {
+            return referenceDate.isAfter(endDate) && referenceDate.isBefore(startDate.plusYears(1));
+        } else {
+            return referenceDate.isAfter(startDate) && referenceDate.isBefore(endDate);
+        }
     }
 }
 

@@ -59,6 +59,7 @@
           <element id="library" level="project" name="Maven: org.testng:testng:6.8.5" />
           <element id="library" level="project" name="Maven: org.yaml:snakeyaml:1.6" />
           <element id="library" level="project" name="Maven: wsdl4j:wsdl4j:1.6.2" />
+          <element id="library" level="project" name="Maven: joda-time:joda-time:2.1" />
         </element>
       </element>
     </root>

@@ -98,7 +98,7 @@ public class TravelServiceImpl implements TravelService {
         }
     }
 
-    public boolean isAuthenticated(Integer sessionKey) {
+    private boolean isAuthenticated(Integer sessionKey) {
         if (sessions.containsKey(sessionKey)) {
             UserSession session = sessions.get(sessionKey);
             if (session.getTimestamp().getTime() > System.currentTimeMillis() - SESSION_TIMEOUT) {
@@ -405,28 +405,33 @@ public class TravelServiceImpl implements TravelService {
             try {
                 Vacation vacation = getVacationById(vacationId);
                 if (vacation != null && startdate != null && travelers != null && travelers.length > 0) {
-                    PreparedStatement stmt = dbConnection.prepareStatement("INSERT INTO booking VALUES (null,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-                    stmt.setInt(1, vacationId);
-                    stmt.setInt(2, sessions.get(sessionKey).getUserId());
-                    stmt.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
-                    stmt.setTimestamp(4, new Timestamp(startdate.getTime()));
-                    stmt.setTimestamp(5, new Timestamp(startdate.getTime() + vacation.getDuration() * 24 * 60 * 60 * 1000));
-                    stmt.setInt(6, travelers.length);
-                    stmt.setInt(7, BookingState.CREATED.ordinal());
-                    stmt.executeUpdate();
-                    ResultSet result = stmt.getGeneratedKeys();
-                    if (result.next() && result.isLast()) {
-                        int bookingId = result.getInt(1);
-                        for (Traveler traveler : travelers) {
-                            stmt = dbConnection.prepareStatement("INSERT INTO traveler VALUES (null,?,?,?,?,?)");
-                            stmt.setString(1, traveler.getFirstname());
-                            stmt.setString(2, traveler.getLastname());
-                            stmt.setDate(3, new java.sql.Date(traveler.getBirthday().getTime()));
-                            stmt.setInt(4, bookingId);
-                            stmt.setString(5, traveler.getPassport());
-                            stmt.executeUpdate();
+                    if (UrlaubrWsUtils.checkDateRange(startdate, vacation.getAvailablefrom(), vacation.getAvailableto())) {
+                        PreparedStatement stmt = dbConnection.prepareStatement("INSERT INTO booking VALUES (null,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+                        stmt.setInt(1, vacationId);
+                        stmt.setInt(2, sessions.get(sessionKey).getUserId());
+                        stmt.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+                        stmt.setTimestamp(4, new Timestamp(startdate.getTime()));
+                        stmt.setTimestamp(5, new Timestamp(startdate.getTime() + vacation.getDuration() * 24 * 60 * 60 * 1000));
+                        stmt.setInt(6, travelers.length);
+                        stmt.setInt(7, BookingState.CREATED.ordinal());
+                        stmt.executeUpdate();
+                        ResultSet result = stmt.getGeneratedKeys();
+                        if (result.next() && result.isLast()) {
+                            int bookingId = result.getInt(1);
+                            for (Traveler traveler : travelers) {
+                                stmt = dbConnection.prepareStatement("INSERT INTO traveler VALUES (null,?,?,?,?,?)");
+                                stmt.setString(1, traveler.getFirstname());
+                                stmt.setString(2, traveler.getLastname());
+                                stmt.setDate(3, new java.sql.Date(traveler.getBirthday().getTime()));
+                                stmt.setInt(4, bookingId);
+                                stmt.setString(5, traveler.getPassport());
+                                stmt.executeUpdate();
+                            }
+                            return bookingId;
                         }
-                        return bookingId;
+                    }
+                    else {
+                        throw new AxisFault("vacation ist not available for given start date");
                     }
                 }
             }
@@ -491,7 +496,8 @@ public class TravelServiceImpl implements TravelService {
                     insertStmt.setString(6, encryptedPassword);
                     insertStmt.execute();
                     return;
-                } else {
+                }
+                else {
                     throw new AxisFault("username already taken");
                 }
             }

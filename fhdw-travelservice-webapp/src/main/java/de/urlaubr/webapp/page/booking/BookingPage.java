@@ -11,6 +11,7 @@ import de.urlaubr.ws.domain.Customer;
 import de.urlaubr.ws.domain.Traveler;
 import de.urlaubr.ws.domain.Vacation;
 import de.urlaubr.ws.utils.UrlaubrWsUtils;
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -23,6 +24,7 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.model.util.ListModel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,6 +34,8 @@ import java.util.List;
  *         Date: 05.09.13
  */
 public class BookingPage extends SecuredPage {
+
+    public static final String DATE_FORMAT = "yyyy-MM-dd";
 
     @Override
     protected void onInitialize() {
@@ -55,12 +59,13 @@ public class BookingPage extends SecuredPage {
             add(new Label("price", model.<Double>bind("price")));
 
             final Form bookingForm = new Form("bookingForm");
-            final DateTextField startDateField = new DateTextField("startdate", new Model<Date>(), "yyyy-MM-dd") {
+            final DateTextField startDateField = new DateTextField("startdate", new Model<Date>(), DATE_FORMAT) {
                 @Override
                 protected String getInputType() {
                     return "date";
                 }
             };
+            startDateField.add(new AttributeModifier("min", new SimpleDateFormat(DATE_FORMAT).format(new Date())));
             startDateField.setRequired(true);
             bookingForm.add(startDateField);
 
@@ -80,12 +85,13 @@ public class BookingPage extends SecuredPage {
                     TextField<String> lastname = new TextField<String>("lastname", model.<String>bind("lastname"));
                     lastname.setRequired(true);
                     item.add(lastname);
-                    TextField<Date> birthdate = new DateTextField("birthdate", model.<Date>bind("birthday"), "yyyy-MM-dd") {
+                    TextField<Date> birthdate = new DateTextField("birthdate", model.<Date>bind("birthday"), DATE_FORMAT) {
                         @Override
                         protected String getInputType() {
                             return "date";
                         }
                     };
+                    birthdate.add(new AttributeModifier("max", new SimpleDateFormat(DATE_FORMAT).format(new Date())));
                     birthdate.setRequired(true);
                     item.add(birthdate);
                     item.add(new TextField<String>("passport", model.<String>bind("passport")));

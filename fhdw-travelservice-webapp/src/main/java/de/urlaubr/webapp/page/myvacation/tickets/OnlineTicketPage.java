@@ -31,7 +31,7 @@ public class OnlineTicketPage extends SecuredPage {
         final Integer bookingId;
         if (getPageParameters().get("id") != null && (bookingId = getPageParameters().get("id").toInt(-1)) != -1) {
             Booking booking = Client.getBookingById(getSessionKey(), bookingId);
-            if (booking != null && booking.getCustomer() != null && booking.getCustomer().getId() == Client.getUserInfo(getSessionKey()).getId() && booking.getState() != BookingState.FINISHED.ordinal()) {
+            if (booking != null && booking.getCustomer() != null && booking.getCustomer().getId().equals(Client.getUserInfo(getSessionKey()).getId()) && booking.getState() != BookingState.FINISHED.ordinal()) {
                 final WebMarkupContainer ticket = new WebMarkupContainer("ticket");
                 ticket.setVisible(false);
                 ticket.add(new ByteArrayImage("image"));
