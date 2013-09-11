@@ -35,12 +35,12 @@ public class RegisterPage extends BasePage {
         final EmailTextField email = new EmailTextField("email", new Model<String>());
         form.add(email);
 
-        form.add(new SubmitLink("submit"){
+        form.add(new SubmitLink("submit") {
             @Override
             public void onSubmit() {
                 super.onSubmit();
-                Client.registerUser(firstname.getModelObject(), lastname.getModelObject(), username.getModelObject(),email.getModelObject(), password.getModelObject());
-                Integer sessionKey = Client.login(username.getModelObject(),password.getModelObject());
+                Client.registerUser(firstname.getModelObject(), lastname.getModelObject(), username.getModelObject(), email.getModelObject(), password.getModelObject());
+                Integer sessionKey = Client.login(username.getModelObject(), password.getModelObject());
                 if (sessionKey != null) {
                     getSession().setAttribute("sessionKey", sessionKey);
                     if (getSession().isTemporary()) { getSession().bind(); }

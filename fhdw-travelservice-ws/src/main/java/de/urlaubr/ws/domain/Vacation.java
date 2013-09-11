@@ -147,7 +147,7 @@ public class Vacation {
 
     public Rating[] getRatings() {
         if (ratings != null) {
-        return ratings;
+            return ratings;
         }
         return new Rating[0];
     }

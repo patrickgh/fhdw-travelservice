@@ -127,18 +127,20 @@ public final class UrlaubrWsUtils {
 
     /**
      * checks if the given date is in the range, but does only compare months and days
-     * @param date the reference date
+     *
+     * @param date  the reference date
      * @param start the start date
-     * @param end the end date
+     * @param end   the end date
      * @return true if it is in the range, false if not
      */
     public static boolean checkDateRange(Date date, Date start, Date end) {
         DateTime referenceDate = new DateTime(date);
         DateTime startDate = new DateTime(start).withYear(referenceDate.getYear());
         DateTime endDate = new DateTime(end).withYear(referenceDate.getYear());
-        if(startDate.isAfter(endDate)) {
+        if (startDate.isAfter(endDate)) {
             return referenceDate.isAfter(endDate) && referenceDate.isBefore(startDate.plusYears(1));
-        } else {
+        }
+        else {
             return referenceDate.isAfter(startDate) && referenceDate.isBefore(endDate);
         }
     }

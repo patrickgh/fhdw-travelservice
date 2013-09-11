@@ -21,7 +21,7 @@ import org.apache.wicket.util.string.Strings;
 import webresources.ImportResourceLocator;
 
 /**
- * Application class for the webapp. It manages some configuration for the wicket framework. It also defines the home page of the application.
+ * Application class for the webapp. It manages some configuration for the wicket framework. It also defines the home page of the application and mounts some resources to static paths.
  *
  * @author Patrick Groß-Holtwick
  *         Date: 31.07.13
@@ -31,7 +31,7 @@ public class UrlaubrApplication extends WebApplication {
     @Override
     protected void init() {
         super.init();
-        getJavaScriptLibrarySettings().setJQueryReference(new PackageResourceReference(ImportResourceLocator.class, "js/demos/js/jquery.js"));
+        getJavaScriptLibrarySettings().setJQueryReference(new PackageResourceReference(ImportResourceLocator.class, "js/jquery.js"));
         if (RuntimeConfigurationType.DEVELOPMENT.equals(getConfigurationType())) {
             getDebugSettings().setDevelopmentUtilitiesEnabled(true);
             getDebugSettings().setAjaxDebugModeEnabled(true);

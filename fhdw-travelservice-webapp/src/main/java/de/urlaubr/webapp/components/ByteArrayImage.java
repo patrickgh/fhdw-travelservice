@@ -1,6 +1,5 @@
 package de.urlaubr.webapp.components;
 
-import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.image.NonCachingImage;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.resource.DynamicImageResource;
@@ -9,7 +8,8 @@ import webresources.ImportResourceLocator;
 
 /**
  * ByteArrayImage component for wicket.
- * Displays an image from an byte array. If the model object is null, it displays a placeholder instead.
+ * Displays an image from an byte array.
+ * If the model object is null, it displays a placeholder instead.
  *
  * @author Patrick Groß-Holtwick
  *         Date: 25.08.13

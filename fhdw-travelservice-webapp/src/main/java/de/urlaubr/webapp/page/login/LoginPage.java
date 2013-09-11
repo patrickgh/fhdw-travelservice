@@ -3,8 +3,6 @@ package de.urlaubr.webapp.page.login;
 import de.urlaubr.webapp.Client;
 import de.urlaubr.webapp.page.BasePage;
 import de.urlaubr.webapp.page.myvacation.MyVacationPage;
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.SubmitLink;
@@ -15,6 +13,8 @@ import org.apache.wicket.request.resource.PackageResourceReference;
 import webresources.ImportResourceLocator;
 
 /**
+ * Login Page.
+ * It displays the login form and a button to the register page.
  * @author Patrick Groß-Holtwick
  *         Date: 28.08.13
  */
@@ -43,7 +43,9 @@ public class LoginPage extends BasePage {
                     getSession().setAttribute("sessionKey", sessionKey);
                     if (getSession().isTemporary()) { getSession().bind(); }
                     continueToOriginalDestination();
+                    //continueToOriginalDestionation: the user gets redirected to his original destination
                     setResponsePage(MyVacationPage.class);
+                    //if no original destionation available (for example when the login page gets called directly) he gets redirected to the my vacation page.
                 }
             }
         });

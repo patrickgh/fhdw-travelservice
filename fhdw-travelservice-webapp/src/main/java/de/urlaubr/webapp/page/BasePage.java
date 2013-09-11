@@ -9,7 +9,7 @@ import org.apache.wicket.resource.JQueryPluginResourceReference;
 import webresources.ImportResourceLocator;
 
 /**
- * Abstract Base page. Every page in this application extend this class.
+ * Abstract Base page. Every page in this application extends this class.
  * Contains markup & components which are on every page (for example the header bar).
  * Also integrates the resource paths (css, images & javascript)
  *
@@ -26,7 +26,7 @@ public abstract class BasePage extends WebPage {
     @Override
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
-        response.render(CssHeaderItem.forReference(new PackageResourceReference(ImportResourceLocator.class, "js/jquery.mobile-1.3.1.min.css")));
+        response.render(CssHeaderItem.forReference(new PackageResourceReference(ImportResourceLocator.class, "js/jquery.mobile-1.3.1.css")));
         response.render(CssHeaderItem.forReference(new PackageResourceReference(ImportResourceLocator.class, "js/star-rating/jquery.rating.css")));
         response.render(CssHeaderItem.forReference(new PackageResourceReference(ImportResourceLocator.class, "css/urlaubr.css")));
 

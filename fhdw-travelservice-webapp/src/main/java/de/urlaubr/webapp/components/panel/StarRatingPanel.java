@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Panel which visualizes the star rating.
+ * It expects an integer model between 0 and 5 and shows the stars according to it.
+ * Remaining stars are shown as black/white stars.
  * @author Patrick Groß-Holtwick
  *         Date: 04.09.13
  */

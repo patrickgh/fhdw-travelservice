@@ -6,8 +6,6 @@ import de.urlaubr.webapp.page.SecuredPage;
 import de.urlaubr.webapp.page.myvacation.detail.BookingDetailPage;
 import de.urlaubr.ws.domain.Booking;
 import de.urlaubr.ws.utils.UrlaubrWsUtils;
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;

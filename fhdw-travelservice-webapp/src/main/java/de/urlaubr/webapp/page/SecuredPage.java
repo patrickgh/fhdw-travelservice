@@ -23,6 +23,10 @@ public abstract class SecuredPage extends BasePage {
         }
     }
 
+    /**
+     * convenience method for retrieving the session key.
+     * @return the sessionKey which authenticates the user on the webservice
+     */
     protected Integer getSessionKey() {
         return (Integer) getSession().getAttribute("sessionKey");
     }
