@@ -19,6 +19,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import java.util.Arrays;
 
 /**
+ * This page shows all traveler for a booking. The user can select one and gets directed to the e-ticket (qr-code).
  * @author Patrick Groß-Holtwick
  *         Date: 07.09.13
  */

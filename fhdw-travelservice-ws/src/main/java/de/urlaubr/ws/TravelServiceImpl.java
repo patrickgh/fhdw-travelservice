@@ -30,6 +30,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The webservice implementation.
+ * This class contains implementations for the methods from the TravelService interface.
+ * It handles the database connection, validates the parameters and returns the results.
+ * @author Patrick Groß-Holtwick
+ */
 public class TravelServiceImpl implements TravelService {
 
     //default configuration paramter
@@ -41,6 +47,10 @@ public class TravelServiceImpl implements TravelService {
     private static Map<Integer, UserSession> sessions = new HashMap<Integer, UserSession>();
     private Connection dbConnection;
 
+    /**
+     * Constructor.
+     * It establishes the database connection object, which is used in the methods.
+     */
     public TravelServiceImpl() {
         //use credentials from properties, if available, otherwise use defaults
         String url = System.getProperty("db.url") != null ? System.getProperty("db.url") : DEFAULT_URL;
@@ -67,6 +77,13 @@ public class TravelServiceImpl implements TravelService {
         //UrlaubrWsUtils.migrateDatabase(url, user, password);
     }
 
+    /**
+     * authenticates a user and returns a sessionKey which can be used for further requests
+     * @param username
+     * @param password
+     * @return sessionKey which is valid for 30 minutes
+     * @throws AxisFault
+     */
     public Integer login(String username, String password) throws AxisFault {
         String encryptedPassword = UrlaubrWsUtils.md5(password);
         if (encryptedPassword != null) {
@@ -92,12 +109,21 @@ public class TravelServiceImpl implements TravelService {
         throw new AxisFault("invalid parameter");
     }
 
+    /**
+     * removes a session (logout)
+     * @param sessionKey
+     */
     public void logout(Integer sessionKey) {
         if (sessions.containsKey(sessionKey)) {
             sessions.remove(sessionKey);
         }
     }
 
+    /**
+     * convenience method which checks if a given sessionKey is valid.
+     * @param sessionKey
+     * @return true if the user is logged in, false if not (or sessionKey expired)
+     */
     private boolean isAuthenticated(Integer sessionKey) {
         if (sessions.containsKey(sessionKey)) {
             UserSession session = sessions.get(sessionKey);
@@ -111,6 +137,10 @@ public class TravelServiceImpl implements TravelService {
         return false;
     }
 
+    /**
+     * returns the 5 best rated vacations.
+     * @return a list with vacation objects.
+     */
     public Vacation[] getTopseller() throws AxisFault {
         try {
             List<Vacation> vacations = new ArrayList<Vacation>();
@@ -127,6 +157,11 @@ public class TravelServiceImpl implements TravelService {
         }
     }
 
+    /**
+     * returns the 5 last bookings a user has made.
+     * @param sessionKey
+     * @return a list with booking objects.
+     */
     public Booking[] getMyVacations(Integer sessionKey) throws AxisFault {
         if (isAuthenticated(sessionKey)) {
             try {
@@ -147,6 +182,11 @@ public class TravelServiceImpl implements TravelService {
         throw new AxisFault("not authenticated");
     }
 
+    /**
+     * returns a vacation with a specific id.
+     * @param id the vacation id
+     * @return the vacation object
+     */
     public Vacation getVacationById(Integer id) throws AxisFault {
         try {
             PreparedStatement stmt = dbConnection.prepareStatement("SELECT * FROM vacation WHERE id = ?");
@@ -163,34 +203,11 @@ public class TravelServiceImpl implements TravelService {
         throw new AxisFault("vacation id not found");
     }
 
-    private Vacation createVacationFromResultSet(ResultSet result) throws AxisFault {
-        try {
-            Vacation vac = new Vacation();
-            vac.setId(result.getInt("id"));
-            vac.setTitle(result.getString("title"));
-            vac.setDescription(result.getString("description"));
-            vac.setCreationdate(new Date(result.getTimestamp("creationdate").getTime()));
-            vac.setAirport(result.getString("airport"));
-            vac.setAvailablefrom(result.getDate("availablefrom"));
-            vac.setAvailableto(result.getDate("availableto"));
-            vac.setImage(result.getBytes("image"));
-            vac.setHotelstars(result.getInt("hotelstars"));
-            vac.setDuration(result.getInt("duration"));
-            vac.setPrice(result.getDouble("price"));
-            vac.setCountry(result.getString("country"));
-            vac.setCity(result.getString("city"));
-            vac.setHomeairport(result.getString("homeairport"));
-            //vac.setCatering(UrlaubrWsUtils.getCateringTypeFromInteger(result.getInt("catering")));
-            vac.setCatering(result.getInt("catering"));
-            vac.setRatings(getRatingsByVacationId(vac.getId()));
-            return vac;
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-            throw new AxisFault("an unexpected error happened. please contact webservice administrator");
-        }
-    }
-
+    /**
+     * Returns the all ratings for a given vacation id.
+     * @param id the vacation id.
+     * @return a list with rating objects.
+     */
     private Rating[] getRatingsByVacationId(Integer id) throws AxisFault {
         List<Rating> result = new ArrayList<Rating>();
         try {
@@ -208,40 +225,11 @@ public class TravelServiceImpl implements TravelService {
         return result.toArray(new Rating[result.size()]);
     }
 
-    private Rating createRatingFromResultSet(ResultSet result) throws AxisFault {
-        Rating rating = new Rating();
-        try {
-            rating.setCreationdate(new Date(result.getTimestamp("creationdate").getTime()));
-            rating.setAuthor(getCustomerById(result.getInt("fk_customer")));
-            rating.setComment(result.getString("comment"));
-            rating.setRating(result.getInt("rating"));
-            return rating;
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-            throw new AxisFault("an unexpected error happened. please contact webservice administrator");
-        }
-    }
-
-    private Booking createBookingFromResultSet(ResultSet result) throws AxisFault {
-        Booking booking = new Booking();
-        try {
-            booking.setId(result.getInt("id"));
-            booking.setCreationdate(new Date(result.getTimestamp("creationdate").getTime()));
-            booking.setStartdate(new Date(result.getTimestamp("startdate").getTime()));
-            booking.setEnddate(new Date(result.getTimestamp("returndate").getTime()));
-            booking.setState(result.getInt("state"));
-            booking.setVacation(getVacationById(result.getInt("fk_vacation")));
-            booking.setCustomer(getCustomerById(result.getInt("fk_customer")));
-            booking.setTraveler(getTravelerList(result.getInt("id")));
-            return booking;
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-            throw new AxisFault("an unexpected error happened. please contact webservice administrator");
-        }
-    }
-
+    /**
+     * returns all traveler for a specific booking
+     * @param bookingId the booking id
+     * @return a list with Traveler objects.
+     */
     private Traveler[] getTravelerList(Integer bookingId) throws AxisFault {
         List<Traveler> result = new ArrayList<Traveler>();
         try {
@@ -265,59 +253,13 @@ public class TravelServiceImpl implements TravelService {
         return result.toArray(new Traveler[result.size()]);
     }
 
-    private Customer getCustomerById(Integer id) throws AxisFault {
-        final Customer customer = new Customer();
-        try {
-            final PreparedStatement stmt = dbConnection.prepareStatement("SELECT * FROM customer WHERE id = ?");
-            stmt.setInt(1, id);
-            final ResultSet result = stmt.executeQuery();
-            if (result.next() && result.isLast()) {
-                customer.setCreationdate(new Date(result.getTimestamp("creationdate").getTime()));
-                customer.setEmail(result.getString("email"));
-                customer.setFirstname(result.getString("firstname"));
-                customer.setLastname(result.getString("lastname"));
-                customer.setUsername(result.getString("username"));
-                customer.setId(id.longValue());
-                customer.setPassword(result.getString("password"));
-                return customer;
-            }
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-            throw new AxisFault("an unexpected error happened. please contact webservice administrator");
-        }
-        throw new AxisFault("customer id not found");
-    }
-
-    private Booking getBookingById(Integer bookingId) throws AxisFault {
-        try {
-            PreparedStatement stmt = dbConnection.prepareStatement("SELECT * FROM booking WHERE id = ?");
-            stmt.setInt(1, bookingId);
-            ResultSet resultSet = stmt.executeQuery();
-            if (resultSet.next() && resultSet.isLast()) {
-                return createBookingFromResultSet(resultSet);
-            }
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-            throw new AxisFault("an unexpected error happened. please contact webservice administrator");
-        }
-        throw new AxisFault("booking id not found");
-    }
-
-    private void changeBookingState(Integer bookingId, BookingState newState) throws AxisFault {
-        try {
-            PreparedStatement stmt = dbConnection.prepareStatement("UPDATE `booking` SET `state` = ? WHERE `id` = ?;");
-            stmt.setInt(1, newState.ordinal());
-            stmt.setInt(2, bookingId);
-            stmt.execute();
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-            throw new AxisFault("an unexpected error happened. please contact webservice administrator");
-        }
-    }
-
+    /**
+     * this method creates a new rating for a vacation.
+     * @param sessionKey a valid session key
+     * @param bookingId a booking id (which must be booked by the same user as the one in the active session)
+     * @param rating the rating (1-5 stars)
+     * @param comment the comment
+     */
     public void rateVacation(Integer sessionKey, Integer bookingId, Integer rating, String comment) throws AxisFault {
         if (isAuthenticated(sessionKey)) {
             Booking booking = getBookingById(bookingId);
@@ -344,6 +286,11 @@ public class TravelServiceImpl implements TravelService {
         }
     }
 
+    /**
+     * this method cancels a booking
+     * @param sessionKey a valid session key
+     * @param bookingId a booking id (which must be booked by the same user as the one in the active session)
+     */
     public void cancelBooking(Integer sessionKey, Integer bookingId) throws AxisFault {
         if (isAuthenticated(sessionKey)) {
             Booking booking = getBookingById(bookingId);
@@ -356,6 +303,12 @@ public class TravelServiceImpl implements TravelService {
         }
     }
 
+    /**
+     * this methods searches for vacations in the database
+     * @param params a SearchParams object
+     * @return
+     * @throws AxisFault
+     */
     public Vacation[] findVacations(SearchParams params) throws AxisFault {
         SelectQuery select = new SelectQuery();
         Table vacation = new Table("vacation");
@@ -399,7 +352,14 @@ public class TravelServiceImpl implements TravelService {
         }
     }
 
-    @Override
+    /**
+     * this method creates a new booking in the database.
+     * @param sessionKey a valid sessionKey
+     * @param vacationId a valid vacation id
+     * @param startdate the desired start date
+     * @param travelers an array with the travelers
+     * @return the generated booking id
+     */
     public Integer createBooking(Integer sessionKey, Integer vacationId, Date startdate, Traveler[] travelers) throws AxisFault {
         if (isAuthenticated(sessionKey)) {
             try {
@@ -443,7 +403,11 @@ public class TravelServiceImpl implements TravelService {
         throw new AxisFault("invalid parameter");
     }
 
-    @Override
+    /**
+     * this method returns the user info of the user which is logged in
+     * @param sessionKey a valid session key
+     * @return the Customer object which belongs to the session
+     */
     public Customer getUserInfo(Integer sessionKey) throws AxisFault {
         if (isAuthenticated(sessionKey)) {
             return getCustomerById(sessions.get(sessionKey).getUserId());
@@ -451,7 +415,13 @@ public class TravelServiceImpl implements TravelService {
         return null;
     }
 
-    @Override
+    /**
+     * this method generates an e-ticket as a qr-code.
+     * @param sessionKey a valid session key
+     * @param bookingId a booking id  (which must be booked by the same user as the one in the active session)
+     * @param travelerId a traveler id (which must belong to the booking)
+     * @return the qr-code image as a byte-array
+     */
     public byte[] createTicket(Integer sessionKey, Integer bookingId, Integer travelerId) throws AxisFault {
         if (isAuthenticated(sessionKey)) {
             Booking booking = getBookingById(bookingId);
@@ -467,7 +437,12 @@ public class TravelServiceImpl implements TravelService {
         throw new AxisFault("invalid parameter");
     }
 
-    @Override
+    /**
+     * this method returns a booking with a specific id
+     * @param sessionKey a valid session key
+     * @param bookingId a booking id  (which must be booked by the same user as the one in the active session)
+     * @return a booking object with the booking informations
+     */
     public Booking getBookingById(Integer sessionKey, Integer bookingId) throws AxisFault {
         if (isAuthenticated(sessionKey)) {
             Booking booking = getBookingById(bookingId);
@@ -478,7 +453,14 @@ public class TravelServiceImpl implements TravelService {
         throw new AxisFault("invalid parameter");
     }
 
-    @Override
+    /**
+     * this methods registers a new user with the given parameters.
+     * @param firstname
+     * @param lastname
+     * @param username
+     * @param email
+     * @param password
+     */
     public void registerCustomer(String firstname, String lastname, String username, String email, String password) throws AxisFault {
         if (firstname != null && lastname != null && username != null && email != null && password != null) {
             String encryptedPassword = UrlaubrWsUtils.md5(password);
@@ -507,6 +489,150 @@ public class TravelServiceImpl implements TravelService {
             }
         }
         throw new AxisFault("invalid parameters");
+    }
+
+    /**
+     * returns a customer with a specific id (only intended to use in other methodes, therefore private)
+     * @param id the customer id.
+     * @return a customer object.
+     */
+    private Customer getCustomerById(Integer id) throws AxisFault {
+        final Customer customer = new Customer();
+        try {
+            final PreparedStatement stmt = dbConnection.prepareStatement("SELECT * FROM customer WHERE id = ?");
+            stmt.setInt(1, id);
+            final ResultSet result = stmt.executeQuery();
+            if (result.next() && result.isLast()) {
+                customer.setCreationdate(new Date(result.getTimestamp("creationdate").getTime()));
+                customer.setEmail(result.getString("email"));
+                customer.setFirstname(result.getString("firstname"));
+                customer.setLastname(result.getString("lastname"));
+                customer.setUsername(result.getString("username"));
+                customer.setId(id.longValue());
+                customer.setPassword(result.getString("password"));
+                return customer;
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            throw new AxisFault("an unexpected error happened. please contact webservice administrator");
+        }
+        throw new AxisFault("customer id not found");
+    }
+
+    /**
+     * returns a booking with a specific id (only intended to use in other methodes, therefore private)
+     * @param bookingId the customer id.
+     * @return a booking object.
+     */
+    private Booking getBookingById(Integer bookingId) throws AxisFault {
+        try {
+            PreparedStatement stmt = dbConnection.prepareStatement("SELECT * FROM booking WHERE id = ?");
+            stmt.setInt(1, bookingId);
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next() && resultSet.isLast()) {
+                return createBookingFromResultSet(resultSet);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            throw new AxisFault("an unexpected error happened. please contact webservice administrator");
+        }
+        throw new AxisFault("booking id not found");
+    }
+
+    /**
+     * this method changes the state of a booking (only intended to use in other methodes, therefore private)
+     * @param bookingId the booking id.
+     * @param newState the new booking-state.
+     */
+    private void changeBookingState(Integer bookingId, BookingState newState) throws AxisFault {
+        try {
+            PreparedStatement stmt = dbConnection.prepareStatement("UPDATE `booking` SET `state` = ? WHERE `id` = ?;");
+            stmt.setInt(1, newState.ordinal());
+            stmt.setInt(2, bookingId);
+            stmt.execute();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            throw new AxisFault("an unexpected error happened. please contact webservice administrator");
+        }
+    }
+
+    /**
+     * this method creates a vacation object from a mysql result row (only intended to use in other methodes, therefore private)
+     * @param result the result row.
+     * @return a vacation object.
+     */
+    private Vacation createVacationFromResultSet(ResultSet result) throws AxisFault {
+        try {
+            Vacation vac = new Vacation();
+            vac.setId(result.getInt("id"));
+            vac.setTitle(result.getString("title"));
+            vac.setDescription(result.getString("description"));
+            vac.setCreationdate(new Date(result.getTimestamp("creationdate").getTime()));
+            vac.setAirport(result.getString("airport"));
+            vac.setAvailablefrom(result.getDate("availablefrom"));
+            vac.setAvailableto(result.getDate("availableto"));
+            vac.setImage(result.getBytes("image"));
+            vac.setHotelstars(result.getInt("hotelstars"));
+            vac.setDuration(result.getInt("duration"));
+            vac.setPrice(result.getDouble("price"));
+            vac.setCountry(result.getString("country"));
+            vac.setCity(result.getString("city"));
+            vac.setHomeairport(result.getString("homeairport"));
+            vac.setCatering(result.getInt("catering"));
+            vac.setRatings(getRatingsByVacationId(vac.getId()));
+            return vac;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            throw new AxisFault("an unexpected error happened. please contact webservice administrator");
+        }
+    }
+
+    /**
+     * this method creates a rating object from a mysql result row (only intended to use in other methodes, therefore private)
+     * @param result the result row.
+     * @return a rating object.
+     */
+    private Rating createRatingFromResultSet(ResultSet result) throws AxisFault {
+        Rating rating = new Rating();
+        try {
+            rating.setCreationdate(new Date(result.getTimestamp("creationdate").getTime()));
+            rating.setAuthor(getCustomerById(result.getInt("fk_customer")));
+            rating.setComment(result.getString("comment"));
+            rating.setRating(result.getInt("rating"));
+            return rating;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            throw new AxisFault("an unexpected error happened. please contact webservice administrator");
+        }
+    }
+
+    /**
+     * this method creates a Booking object from a mysql result row (only intended to use in other methodes, therefore private)
+     * @param result the result row.
+     * @return a booking object.
+     */
+    private Booking createBookingFromResultSet(ResultSet result) throws AxisFault {
+        Booking booking = new Booking();
+        try {
+            booking.setId(result.getInt("id"));
+            booking.setCreationdate(new Date(result.getTimestamp("creationdate").getTime()));
+            booking.setStartdate(new Date(result.getTimestamp("startdate").getTime()));
+            booking.setEnddate(new Date(result.getTimestamp("returndate").getTime()));
+            booking.setState(result.getInt("state"));
+            booking.setVacation(getVacationById(result.getInt("fk_vacation")));
+            booking.setCustomer(getCustomerById(result.getInt("fk_customer")));
+            booking.setTraveler(getTravelerList(result.getInt("id")));
+            return booking;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            throw new AxisFault("an unexpected error happened. please contact webservice administrator");
+        }
     }
 
 }

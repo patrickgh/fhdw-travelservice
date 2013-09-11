@@ -11,6 +11,7 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.Model;
 
 /**
+ * this page shows the e-ticket. It expects an id (booking-id) and a tid (traveler-id) parameter.
  * @author Patrick Groß-Holtwick
  *         Date: 09.09.13
  */

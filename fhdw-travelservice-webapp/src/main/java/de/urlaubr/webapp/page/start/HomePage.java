@@ -21,6 +21,8 @@ import webresources.ImportResourceLocator;
 import java.util.List;
 
 /**
+ * Home page of the application.
+ * It displays the logo and a list of vacations, ordered by their average rating ("topseller")
  * @author Patrick Groß-Holtwick
  *         Date: 31.07.13
  */

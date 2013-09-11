@@ -13,6 +13,8 @@ import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.model.Model;
 
 /**
+ * this page shows the form which can be used to rate a vacation.
+ * It expects an id parameter (booking-id).
  * @author Patrick Groß-Holtwick
  *         Date: 07.09.13
  */

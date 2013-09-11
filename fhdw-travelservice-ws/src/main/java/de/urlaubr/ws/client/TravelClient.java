@@ -17,12 +17,20 @@ import org.apache.axis2.engine.DefaultObjectSupplier;
 import javax.xml.namespace.QName;
 import java.util.Date;
 
+/**
+ * This class contains methods which call their corresponding webservice method and cast the result back to the desired type.
+ *
+ */
 public class TravelClient implements TravelService {
 
     public static final String WS_ADDRESS = "http://localhost:8080/axis2/services/fhdw-travelservice-ws-1.0";
     public static final String NAMESPACE_URI = "http://ws.urlaubr.de";
     private ServiceClient sender;
 
+    /**
+     * Constructor.
+     * It creates the ServiceClient object with the default parameter.
+     */
     public TravelClient() {
         try {
             sender = new ServiceClient();

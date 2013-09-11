@@ -21,14 +21,13 @@ import java.util.Arrays;
 import java.util.Date;
 
 /**
+ * Detail page for a given vacation.
+ * It displays some attributes (description, title, image, ...) and a link to the booking page.
+ * This page expects an id paramater which must be a valid vacation id.
  * @author Patrick Groß-Holtwick
  *         Date: 04.09.13
  */
 public class DetailPage extends BasePage {
-
-    public DetailPage() {
-        super();
-    }
 
     @Override
     protected void onInitialize() {

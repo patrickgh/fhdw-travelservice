@@ -10,8 +10,8 @@ import webresources.ImportResourceLocator;
 
 /**
  * Abstract Base page. Every page in this application extends this class.
- * Contains markup & components which are on every page (for example the header bar).
- * Also integrates the resource paths (css, images & javascript)
+ * Contains markup & components which are on every page (for example general elements like the header bar).
+ * Also integrates the resources (css, images & javascript)
  *
  * @author Patrick Groß-Holtwick
  *         Date: 21.08.13

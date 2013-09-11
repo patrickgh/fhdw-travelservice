@@ -10,6 +10,9 @@ import org.apache.axis2.AxisFault;
 import java.util.Date;
 
 /**
+ * TravelService Interface.
+ * It defines the methods which the webservice should offer.
+ * It is implemented in the service and the client, so that each new webservice method always gets an corresponding client method.
  * @author Patrick Groß-Holtwick
  *         Date: 31.07.13
  */

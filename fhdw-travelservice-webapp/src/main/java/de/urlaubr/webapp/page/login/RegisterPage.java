@@ -14,6 +14,8 @@ import org.apache.wicket.request.resource.PackageResourceReference;
 import webresources.ImportResourceLocator;
 
 /**
+ * Register page.
+ * it displays a form which asks for the user information. if submitted the user gets automatically logged in and redirected to his my-vacation page.
  * @author Patrick Groß-Holtwick
  *         Date: 08.09.13
  */
