@@ -3,6 +3,10 @@ package de.urlaubr.ws.domain;
 import java.util.Date;
 
 /**
+ * This class represents the <code>vacation</code> object.
+ * This class is a model class. Instances of this class represent <code>vacation</code> objects.
+ * The instance of the object stores the data of an <code>vacation</code> during the runtime.
+ *
  * @author Patrick Groß-Holtwick
  *         Date: 31.07.13
  */

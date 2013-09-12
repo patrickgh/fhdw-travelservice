@@ -1,6 +1,7 @@
 package de.urlaubr.ws.domain;
 
 /**
+ * This enum shows the different states a booking can have.
  * @author Patrick Groß-Holtwick
  *         Date: 07.08.13
  */

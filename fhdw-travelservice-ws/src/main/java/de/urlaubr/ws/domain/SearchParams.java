@@ -3,18 +3,11 @@ package de.urlaubr.ws.domain;
 import java.io.Serializable;
 
 /**
+ * This class holds informations for a vacation search. It is used as a parameter of the "findVacations" webservice method.
  * @author Patrick Groß-Holtwick
  *         Date: 14.08.13
  */
 public class SearchParams implements Serializable {
-    /*
-    * titel (enthält)
-    * land
-    * sterne
-    * verpflegung
-    * datum
-    * reisedauer
-    * */
 
     private String title;
     private String[] country = new String[0];
