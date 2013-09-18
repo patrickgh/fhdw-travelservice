@@ -34,7 +34,7 @@ import java.util.Map;
  * The webservice implementation.
  * This class contains implementations for the methods from the TravelService interface.
  * It handles the database connection, validates the parameters and returns the results.
- * @author Patrick Groß-Holtwick
+ * @author Patrick Gross-Holtwick
  */
 public class TravelServiceImpl implements TravelService {
 
@@ -65,11 +65,11 @@ public class TravelServiceImpl implements TravelService {
             dbConnection = DriverManager.getConnection(url, user, password);
         }
         catch (ClassNotFoundException err) {
-            System.out.println("DB-Driver nicht gefunden!");
+            System.out.println("DB-Driver not found");
             err.printStackTrace();
         }
         catch (SQLException err) {
-            System.out.println("Connect nicht möglich");
+            System.out.println("Connect not possible");
             err.printStackTrace();
         }
 
@@ -306,7 +306,7 @@ public class TravelServiceImpl implements TravelService {
     /**
      * this methods searches for vacations in the database
      * @param params a SearchParams object
-     * @return
+     * @return an Array with vacation objects
      * @throws AxisFault
      */
     public Vacation[] findVacations(SearchParams params) throws AxisFault {

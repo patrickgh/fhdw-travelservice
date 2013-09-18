@@ -55,7 +55,7 @@ public abstract class ListEditor<T> extends RepeatingView implements IFormModelU
      *
      * @param items
      * @param item
-     * @return
+     * @return true if it can be removed, false if not
      */
     public boolean canRemove(List<T> items, T item) {
         return true;

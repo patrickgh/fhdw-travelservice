@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * This page shows a summary of the selected vacation and a form for booking informations.
  * It expects an id-parameter which must be a valid vacation id.
- * @author Patrick Groß-Holtwick
+ * @author Patrick Gross-Holtwick
  *         Date: 05.09.13
  */
 public class BookingPage extends SecuredPage {

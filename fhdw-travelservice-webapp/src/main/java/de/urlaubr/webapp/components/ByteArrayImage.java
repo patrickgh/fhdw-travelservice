@@ -11,7 +11,7 @@ import webresources.ImportResourceLocator;
  * Displays an image from an byte array.
  * If the model object is null, it displays a placeholder instead.
  *
- * @author Patrick Groß-Holtwick
+ * @author Patrick Gross-Holtwick
  *         Date: 25.08.13
  */
 public class ByteArrayImage extends NonCachingImage {

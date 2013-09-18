@@ -12,7 +12,7 @@ import java.util.Date;
 /**
  * This class provides static help-methods for the webservice
  *
- * @author Patrick Groß-Holtwick
+ * @author Patrick Gross-Holtwick
  *         Date: 30.07.13
  */
 public final class UrlaubrWsUtils {

@@ -20,7 +20,7 @@ import java.util.Arrays;
 
 /**
  * This page shows all traveler for a booking. The user can select one and gets directed to the e-ticket (qr-code).
- * @author Patrick Groß-Holtwick
+ * @author Patrick Gross-Holtwick
  *         Date: 07.09.13
  */
 public class OnlineTicketPage extends SecuredPage {

@@ -8,7 +8,7 @@ import org.testng.annotations.BeforeTest;
  * It uses the same tests as the other class but calls the methods via webservice.
  * It requires a deployed axis2 webservice (and is therefore not included in the maven build process).
  *
- * @author Patrick Groß-Holtwick
+ * @author Patrick Gross-Holtwick
  *         Date: 21.08.13
  */
 

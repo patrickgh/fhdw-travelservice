@@ -15,7 +15,7 @@ import webresources.ImportResourceLocator;
 /**
  * Login Page.
  * It displays the login form and a button to the register page.
- * @author Patrick Groß-Holtwick
+ * @author Patrick Gross-Holtwick
  *         Date: 28.08.13
  */
 public class LoginPage extends BasePage {

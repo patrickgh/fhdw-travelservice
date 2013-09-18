@@ -16,7 +16,7 @@ import org.testng.annotations.Test;
 
 /**
  * Unit-test class for the webapp.
- * @author Patrick Groß-Holtwick
+ * @author Patrick Gross-Holtwick
  *         Date: 31.07.13
  */
 public class WicketApplicationTest {

@@ -13,7 +13,7 @@ import webresources.ImportResourceLocator;
  * Contains markup & components which are on every page (for example general elements like the header bar).
  * Also integrates the resources (css, images & javascript)
  *
- * @author Patrick Groß-Holtwick
+ * @author Patrick Gross-Holtwick
  *         Date: 21.08.13
  */
 public abstract class BasePage extends WebPage {

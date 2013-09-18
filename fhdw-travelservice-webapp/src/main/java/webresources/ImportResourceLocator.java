@@ -5,7 +5,7 @@ package webresources;
  * Wicket looks for the resource paths (css, js, images,..) relative to this class via a PackageResourceReference.
  * Contains only default constructor with no operations.
  *
- * @author Patrick Groß-Holtwick
+ * @author Patrick Gross-Holtwick
  */
 public class ImportResourceLocator {
 

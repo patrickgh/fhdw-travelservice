@@ -7,7 +7,7 @@ import java.util.Date;
  * This class is a model class. Instances of this class represent <code>vacation</code> objects.
  * The instance of the object stores the data of an <code>vacation</code> during the runtime.
  *
- * @author Patrick Groß-Holtwick
+ * @author Patrick Gross-Holtwick
  *         Date: 31.07.13
  */
 public class Vacation {

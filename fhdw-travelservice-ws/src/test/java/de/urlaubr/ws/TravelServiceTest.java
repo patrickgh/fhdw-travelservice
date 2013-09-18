@@ -21,7 +21,7 @@ import java.util.List;
  * It calls the methods directly, therefore no axis2 server is required.
  * It checks the general database handling.
  *
- * @author Patrick Groß-Holtwick
+ * @author Patrick Gross-Holtwick
  *         Date: 30.07.13
  */
 public class TravelServiceTest {

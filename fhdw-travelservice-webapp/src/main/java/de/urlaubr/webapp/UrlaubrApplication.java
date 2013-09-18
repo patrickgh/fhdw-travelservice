@@ -23,7 +23,7 @@ import webresources.ImportResourceLocator;
 /**
  * Application class for the webapp. It manages some configuration for the wicket framework. It also defines the home page of the application and mounts some resources to static paths.
  *
- * @author Patrick Groß-Holtwick
+ * @author Patrick Gross-Holtwick
  *         Date: 31.07.13
  */
 public class UrlaubrApplication extends WebApplication {

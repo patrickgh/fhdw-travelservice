@@ -35,7 +35,7 @@ import java.util.List;
 /**
  * the search page.
  * it contains the form which provides the ability to search for specific vacations.
- * @author Patrick Groß-Holtwick
+ * @author Patrick Gross-Holtwick
  *         Date: 31.08.13
  */
 public class SearchPage extends BasePage {

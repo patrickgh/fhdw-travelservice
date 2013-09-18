@@ -16,7 +16,7 @@ import webresources.ImportResourceLocator;
 /**
  * Register page.
  * it displays a form which asks for the user information. if submitted the user gets automatically logged in and redirected to his my-vacation page.
- * @author Patrick Groß-Holtwick
+ * @author Patrick Gross-Holtwick
  *         Date: 08.09.13
  */
 public class RegisterPage extends BasePage {

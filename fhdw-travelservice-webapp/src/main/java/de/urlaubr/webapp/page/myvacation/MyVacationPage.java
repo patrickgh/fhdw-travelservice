@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * the user area which shows all booked vacations for the user which is logged in.
- * @author Patrick Groß-Holtwick
+ * @author Patrick Gross-Holtwick
  *         Date: 28.08.13
  */
 public class MyVacationPage extends SecuredPage {

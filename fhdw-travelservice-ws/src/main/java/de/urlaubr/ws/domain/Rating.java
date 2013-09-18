@@ -7,7 +7,7 @@ import java.util.Date;
  * This class is a model class. Instances of this class represent <code>rating</code> objects.
  * The instance of the object stores the data of an <code>rating</code> during the runtime.
  *
- * @author Patrick Groß-Holtwick
+ * @author Patrick Gross-Holtwick
  *         Date: 07.08.13
  */
 public class Rating {

@@ -26,7 +26,7 @@ import java.util.Date;
 
 /**
  * this page shows booking details for a given booking-id (supplied by the id page parameter). It displays some attributes and may contain a link to a specific action (e.g. cancel or rate the vacation)
- * @author Patrick Groß-Holtwick
+ * @author Patrick Gross-Holtwick
  *         Date: 04.09.13
  */
 public class BookingDetailPage extends SecuredPage {

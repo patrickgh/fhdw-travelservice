@@ -21,7 +21,7 @@ import java.util.List;
  * Useful for converting arrays to lists which are required for wicket listviews.
  * It also enables to change the service class between webservice and direct database access, so that development without a running axis2 service is possible.
  *
- * @author Patrick Groß-Holtwick
+ * @author Patrick Gross-Holtwick
  *         Date: 27.08.13
  */
 public class Client {

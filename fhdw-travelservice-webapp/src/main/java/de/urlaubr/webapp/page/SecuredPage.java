@@ -9,7 +9,7 @@ import org.apache.wicket.RestartResponseAtInterceptPageException;
  * Every page which extends this page is only accessible when the user is logged in.
  * If the user is not logged in he gets redirected to the login page.
  *
- * @author Patrick Groß-Holtwick
+ * @author Patrick Gross-Holtwick
  *         Date: 21.08.13
  */
 public abstract class SecuredPage extends BasePage {

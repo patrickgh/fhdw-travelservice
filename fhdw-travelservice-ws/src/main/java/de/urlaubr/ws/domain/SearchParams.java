@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * This class holds informations for a vacation search. It is used as a parameter of the "findVacations" webservice method.
- * @author Patrick Groß-Holtwick
+ * @author Patrick Gross-Holtwick
  *         Date: 14.08.13
  */
 public class SearchParams implements Serializable {
